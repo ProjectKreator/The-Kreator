@@ -87,21 +87,18 @@ Meteor.methods({
 
 /*
 
-Router.route('/', function () {
-  this.render('Main');
-});
+La fonction router.map qui fait office de table de root pour tout le site 
+commande pour un root individuel :
 
 Router.route('/Formulaire', function () {
   this.render('Formulaire');
 });
 
-Router.route('/index', function () {
-  this.render('index');
-});
-
-
 */
 
+
+// La fonction router.map qui fait office de table de root pour tout le site 
+// commande pour un root individuel Router.route(xxx)
 
 Router.map(function() {
   this.route('Main', {path: '/'});
