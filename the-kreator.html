@@ -1,0 +1,151 @@
+<head>
+	<title>The-Kreator</title>
+</head>
+
+
+<!-- Le Body est vide : tout passe par des templates (proprieté de iron:router) --> 
+
+<body>
+	{{> Navigation}}
+
+
+</body>
+
+
+ 
+<!-- Template Main pour page 1 --> 
+   
+<template name="Main">
+
+
+	<p class="logo"><img src="images/logo.png" /></p>
+	
+	<h1><strong>WELCOME TO THE KREATOR !</strong></h1>
+		
+	
+	<div id="login-screen">
+			{{> loginButtons}} <!-- here -->
+	</div>
+	
+
+</template>
+
+
+ 
+<!-- Template index pour page 2 --> 
+
+<template name="index">
+
+
+
+	<p class="logo"><img src="images/logo.png" /></p>
+	
+	<h1><strong>A vous de jouer !</strong></h1>
+	<div class="vide"> </div>
+	
+	
+	{{#if currentUser}}
+		<p class="txt"><a href="/Formulaire"><button class="btn btn-lg" onclick="document.location.href='/Formulaire';"> Créer un nouveau Theodoer </button></a></p>
+		<div class="vide"> </div>
+		
+		
+		<h2><strong>Liste des Theodoers crées</strong></h2>
+		
+		<div class="txt2">
+			<ul class="list-group">
+			{{#each theodoers}}
+				<li class="list-group-item list-group-item-info">{{> theodoer}}</li>
+			{{/each}}
+			</ul>
+		</div>
+	{{/if}}
+
+
+</template>
+
+<!-- Template Formulaire pour page 3 --> 
+   
+<template name="Formulaire">
+
+
+	
+	<h1><strong>Formulaire de création du nouveau Theodoer</strong></h1>
+	
+	{{#if currentUser}}
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					{{> createForm }}
+				</div>
+			</div>
+		</div>  
+	
+	{{/if}}	 
+</template>
+
+
+<!-- Templates Objets Formulaire (Form) --> 
+
+<template name="createForm">
+
+	<form> 
+		<div class="form-group">
+			<label>Prénom</label>
+			<input type="text" name="prenom" class="form-control" placeholder="Prénom">
+		</div>
+
+		<div class="form-group">
+			<label>Nom</label>
+			<input type="text" name="nom" class="form-control" placeholder="Nom">
+		</div>
+		
+		<div class="form-group">
+			<label>E-mail</label>
+			<input type="text" name="email" class="form-control" placeholder="E-mail">
+		</div>
+		
+		<button type="submit" class="btn btn-lg" onclick="document.location.href='/index';">Créer le Theodoer</button>
+		<button class="btn btn-lg"  onclick="document.location.href='/index';">Annuler</button>
+		
+	</form>
+</template>
+
+
+<!-- Templates Objets Theodoers --> 
+
+<template name="theodoer">
+	<li>
+	  <strong>{{prenom}}</strong> {{nom}} - {{email}}
+	</li>
+</template>
+
+
+<!-- Templates Barre de Navigation --> 
+
+
+<template name="Navigation">
+
+<div class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">The Kreator</a>
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a onclick="window.open('http://www.theodo.fr/en/', '_system');">Theodo</a></li>
+			</ul>
+			
+			{{#if currentUser}}
+				<ul class="nav navbar-nav navbar-right">
+					{{> loginButtons}} <!-- here -->
+				</ul>
+			{{/if}}
+		</div>
+	</div>
+
+</template>
