@@ -52,7 +52,12 @@ if (Meteor.isServer) {
 		return Meteor.methods({
 
 			removeAllTheodoer: function() {
-
+					//Erreur si un utilisateur non identifié veut vider la base
+					
+					if (! Meteor.userId()) {
+						throw new Meteor.Error("not-authorized");
+					}
+					
 				return Theodoer.remove({});
 			}
 
@@ -66,7 +71,6 @@ if (Meteor.isServer) {
 	 
 	
 }
-
 
 
 Meteor.methods({
@@ -96,9 +100,6 @@ Router.route('/Formulaire', function () {
 
 */
 
-
-// La fonction router.map qui fait office de table de root pour tout le site 
-// commande pour un root individuel Router.route(xxx)
 
 Router.map(function() {
   this.route('Main', {path: '/'});
