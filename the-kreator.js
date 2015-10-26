@@ -2,8 +2,7 @@ Theodoer = new Mongo.Collection("theodoer");
 
 if (Meteor.isClient) {
 	
-	
-	
+
 		
 	// Code modifier accounts.ui.config
 
@@ -41,6 +40,9 @@ if (Meteor.isClient) {
 			if(firstname != "" && name != "" && email != ""){
 				Meteor.call("createTheodoer", firstname, name, email);
 			}
+			
+			// permet de rerouter vers la page index sans utiliser la fonction href de HTML5
+			Router.go('/index');
 		}
 	}); 
  
