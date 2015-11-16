@@ -36,9 +36,10 @@ if (Meteor.isClient) {
 			var firstname = event.target.prenom.value;
 			var name = event.target.nom.value;
 			var email = event.target.email.value;
+			var githubaccount = event.target.comptegithub.value;
 			// create the new Theodoer
 			if(firstname != "" && name != "" && email != ""){
-				Meteor.call("createTheodoer", firstname, name, email);
+				Meteor.call("createTheodoer", firstname, name, email, githubaccount);
 			}
 			
 			// permet de rerouter vers la page index sans utiliser la fonction href de HTML5
@@ -53,6 +54,7 @@ if (Meteor.isServer) {
 		// code to run on server at startup
 		return Meteor.methods({
 
+			// To be removed when in production!!!
 			removeAllTheodoer: function() {
 					//Erreur si un utilisateur non identifié veut vider la base
 					
@@ -70,13 +72,12 @@ if (Meteor.isServer) {
     Accounts.validateNewUser(function() {
 		return false;
 	});
-	 
 	
 }
 
 
 Meteor.methods({
-	createTheodoer: function (firstname, name, email) {
+	createTheodoer: function (firstname, name, email, githubaccount) {
 		// Make sure the user is logged in before creating a theodoer
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
@@ -85,21 +86,19 @@ Meteor.methods({
 		Theodoer.insert({
 			prenom: firstname,
 			nom: name,
-			email: email,	
+			email: email,
+			comptegithub: githubaccount,
 			createdAt: new Date()
 		});
 	},
 });
 
 /*
-
 La fonction router.map qui fait office de table de root pour tout le site 
 commande pour un root individuel :
-
 Router.route('/Formulaire', function () {
   this.render('Formulaire');
 });
-
 */
 
 
@@ -127,3 +126,14 @@ var goToDashboard = function(pause) {
 
 Router.onBeforeAction(mustBeSignedIn, {except: ['Main']});
 Router.onBeforeAction(goToDashboard, {only: ['Main']});
+
+// http://meteortips.com/second-meteor-tutorial/iron-router-part-2/ to understand the dynamic route
+Router.route('/Theodoer/:_id', {
+	template: 'theodoerPage',
+	data: function() {
+		// grabs the unique ID of the Theodoer in the page's URL
+		var currentTheodoer = this.params._id;
+		// finds data linked to this Theodoer in the collection
+		return Theodoer.findOne({ _id: currentTheodoer });
+	}
+});
