@@ -42,8 +42,7 @@ if (Meteor.isClient) {
 				Meteor.call("createTheodoer", firstname, name, email, githubaccount);
 			}
 			
-			// permet de rerouter vers la page index sans utiliser la fonction href de HTML5
-			Router.go('/index');
+			
 		}
 	}); 
 	
@@ -71,7 +70,14 @@ if (Meteor.isClient) {
 			Router.go('/index');
 		}
 	}); 
- 
+	
+/*	
+	Template.theodoerPage.events({
+	
+	});
+	
+*/	
+
 }   
 
 if (Meteor.isServer) {
