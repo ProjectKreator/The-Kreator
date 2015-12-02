@@ -48,7 +48,7 @@
 		<div class="txt2">
 			<ul class="list-group">
 			{{#each theodoers}}
-				<!-- le a permet de mettre un lien dans le texte theodoer  -->
+				<!-- la balise <a> permet de mettre un lien dans le texte theodoer  -->
 				<li class="list-group-item list-group-item-info"> <a href="/Theodoer/{{ _id}}" > {{> theodoer}}</a></li>
 			{{/each}}
 			</ul>
@@ -210,7 +210,7 @@
 			 </div>
 		</div>
 		
-		<button type="submit" class="btn btn-lg" >Créer le Theodoer</button>
+		<button type="submit" class="btn btn-lg" >Enregistrer les Modifications</button>
 		<button class="btn btn-lg"  onclick="document.location.href='/index';">Annuler</button>
 		
 	</form>

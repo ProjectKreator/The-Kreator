@@ -40,9 +40,9 @@ if (Meteor.isClient) {
 			// create the new Theodoer
 			if(firstname != "" && name != "" && email != ""){
 				Meteor.call("createTheodoer", firstname, name, email, githubaccount);
-			}
-			
-			
+			}			
+			// permet de rerouter vers la page index sans utiliser la fonction href de HTML5
+			Router.go('/index');
 		}
 	}); 
 	
@@ -55,16 +55,36 @@ if (Meteor.isClient) {
 
 			// stop the form from submitting
 			event.preventDefault();
-
-			// get the data we need from the form
-			var firstname = event.target.prenom.value;
-			var name = event.target.nom.value;
-			var email = event.target.email.value;
-			var githubaccount = event.target.comptegithub.value;
-			// create the new Theodoer
-			if(firstname != "" && name != "" && email != ""){
-				Meteor.call("createTheodoer", firstname, name, email, githubaccount);
+			
+			var theodoerId = this._id;
+			
+			// get the data we need from the form and if a field is empty, we keep the old value
+			if(event.target.prenom.value == "") {
+				var firstname = this.prenom;
+			} else { 
+				var firstname = event.target.prenom.value;
 			}
+			
+			if(event.target.nom.value == "") {
+				var name = this.nom;
+			} else { 
+				var name = event.target.nom.value;
+			}
+
+			if(event.target.email.value == "") {
+				var email = this.email;
+			} else { 
+				var email = event.target.email.value;
+			}
+
+			if(event.target.comptegithub.value == "") {
+				var githubaccount = this.comptegithub;
+			} else { 
+				var githubaccount = event.target.comptegithub.value;
+			}			
+			
+			// Update the selected Theodoer
+			Meteor.call("updateTheodoer", theodoerId, firstname, name, email, githubaccount);
 			
 			// permet de rerouter vers la page index sans utiliser la fonction href de HTML5
 			Router.go('/index');
@@ -103,7 +123,6 @@ if (Meteor.isServer) {
     Accounts.validateNewUser(function() {
 		return false;
 	});
-	
 }
 
 
@@ -122,6 +141,21 @@ Meteor.methods({
 			createdAt: new Date()
 		});
 	},
+
+	updateTheodoer: function (theodoerId, firstname, name, email, githubaccount) {
+		// Make sure the user is logged in before creating a theodoer
+		if (! Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		
+		Theodoer.update({ _id: theodoerId }, {
+			$set: {prenom: firstname,
+			nom: name,
+			email: email,
+			comptegithub: githubaccount}
+		});
+	},	
+	
 });
 
 /*
