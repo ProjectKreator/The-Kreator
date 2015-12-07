@@ -181,7 +181,7 @@
 
 	<form> 
 	
-	<label>Template Creation</label>
+	<label>Template UpdateForm</label>
 	
 		<div class="form-group">
 			<label>Prénom</label>
@@ -203,15 +203,46 @@
 			 <div class="col-lg-6">
 					<div class="input-group">
 							<input type="text" name="comptegithub" class="form-control" placeholder={{comptegithub}}>
+							
+							
 							<span class="input-group-btn">
-									<button class="btn btn-default" type="button" onClick="myFunction()">Relier à l'organisation Theodo</button>
+									<button class="btn btn-default" type="button" onClick="window.open('/GithubForm','_blank','newwindow', 'width=200', 'height=100');">Relier à l'organisation Theodo</button>
 							</span>
+							
 					</div>
 			 </div>
 		</div>
-		
-		<button type="submit" class="btn btn-lg" >Enregistrer les Modifications</button>
+
+		<button type="submit" class="btn btn-lg" onclick="document.location.href='/index';">Enregistrer les Modifications</button>
 		<button class="btn btn-lg"  onclick="document.location.href='/index';">Annuler</button>
+		
+		
+		
+	</form>
+</template>
+
+
+
+
+<template name="GithubForm">
+
+	<form> 
+	
+	<label>Template GithubForm</label>
+	
+		<div class="form-group">
+			<label>Login GitHub</label>
+			<input type="text" name="LoginGH" class="form-control" >
+		</div>
+		
+		<div class="form-group">
+			<label> GtHub</label>
+			<input type="text" name="PasswordGH" class="form-control" >
+		</div>
+		
+		<button type="submit" class="btn btn-lg" onclick="self.close()">Enregistrer</button>
+
+	
 		
 	</form>
 </template>

@@ -87,18 +87,27 @@ if (Meteor.isClient) {
 			Meteor.call("updateTheodoer", theodoerId, firstname, name, email, githubaccount);
 			
 			// permet de rerouter vers la page index sans utiliser la fonction href de HTML5
-			Router.go('/index');
-		}
+			//Router.go('/index');
+		},
+		
+		
 	}); 
 	
-/*	
-	Template.theodoerPage.events({
-	
-	});
-	
-*/	
+	Template.GithubForm.events({
+		
+		// handle the form submission 
+		'submit form': function(event) {
 
-}   
+			// stop the form from submitting
+			event.preventDefault();
+
+			// get the data we need from the form
+			var LoginGH = event.target.prenom.value;
+			var PasswordGH = event.target.nom.value;
+	} 	
+	
+	}); 
+ }   
 
 if (Meteor.isServer) {
 	Meteor.startup(function () {
@@ -125,7 +134,7 @@ if (Meteor.isServer) {
 	});
 }
 
-
+ 
 Meteor.methods({
 	createTheodoer: function (firstname, name, email, githubaccount) {
 		// Make sure the user is logged in before creating a theodoer
@@ -154,23 +163,27 @@ Meteor.methods({
 			email: email,
 			comptegithub: githubaccount}
 		});
-	},	
+			
+	},
 	
+	GitHub: function(LoginGH, PasswordGH) {
+		 var LoginGH = prompt("Entrez la valeur en Euros :");
+		 var PasswordGH = prompt("Entrez la valeur en Euros :");
+         alert(Login + " E\n" + Password + " Frs");
+		
+	},
+	
+	
+	 
 });
-
-/*
-La fonction router.map qui fait office de table de root pour tout le site 
-commande pour un root individuel :
-Router.route('/Formulaire', function () {
-  this.render('Formulaire');
-});
-*/
+   
 
 
 Router.map(function() {
   this.route('Main', {path: '/'});
   this.route('index');
   this.route('Formulaire');
+  this.route('GithubForm');
 });
 
 var mustBeSignedIn = function(pause) {
