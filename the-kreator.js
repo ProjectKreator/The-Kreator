@@ -165,19 +165,11 @@ Meteor.methods({
 		});
 			
 	},
-	
-	GitHub: function(LoginGH, PasswordGH) {
-		 var LoginGH = prompt("Entrez la valeur en Euros :");
-		 var PasswordGH = prompt("Entrez la valeur en Euros :");
-         alert(Login + " E\n" + Password + " Frs");
-		
-	},
-	
+
 	
 	 
 });
    
-
 
 Router.map(function() {
   this.route('Main', {path: '/'});
