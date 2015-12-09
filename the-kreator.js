@@ -11,7 +11,7 @@ if (Meteor.isClient) {
 		passwordSignupFields: "USERNAME_ONLY"
 		
 	}); 
-
+	
 	
 	
 	// Code pour la liste de Theodoer
@@ -107,6 +107,45 @@ if (Meteor.isClient) {
 	} 	
 	
 	}); 
+	
+	
+	
+	// counter starts at 0
+  //Session.setDefault('counter', 0);
+  /*
+  Template.BoutonX.helpers({
+    counter: function () {
+      return Session.get('counter');
+    }
+  });
+*/
+  Template.BoutonX.events({
+    'click button': function () {
+    HTTP.get('http://www.lemonde.fr',function(err,resp){
+		console.log(resp);
+		alert(resp.content);
+	});	  
+    }
+  });
+  
+  Template.ButtonX2.events({
+    'click button': function () {
+    HTTP.get('https://github.com/login/oauth/authorize',{
+			headers: {'User-Agent': 'Meteor'},
+			params: {
+				client_id: '5093e55c974e07f7d5f9'
+				//redirect_uri: 'http://localhost:3000'		 
+			}
+		},
+		function(err,resp){
+			console.log(resp);
+			alert(resp.content);
+	});	  
+    }
+  });
+	
+	
+	
  }   
 
 if (Meteor.isServer) {
@@ -132,6 +171,9 @@ if (Meteor.isServer) {
     Accounts.validateNewUser(function() {
 		return false;
 	});
+	 
+	
+	
 }
 
  

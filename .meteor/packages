@@ -22,3 +22,6 @@ ian:accounts-ui-bootstrap-3
 accounts-password
 iron:router
 twbs:bootstrap
+http
+github
+service-configuration

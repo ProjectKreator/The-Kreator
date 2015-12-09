@@ -7,6 +7,9 @@
 
 <body>
 	{{> Navigation}}
+	{{> BoutonX}}
+	{{> ButtonX2}}
+	
 </body>
 
 
@@ -21,8 +24,11 @@
 		
 	
 	<div id="login-screen">
-			{{> loginButtons}} <!-- here -->
+			{{> loginButtons}} 
 	</div>
+	
+	
+	
 
 </template>
 
@@ -213,12 +219,12 @@
 			 </div>
 		</div>
 
+		
 		<button type="submit" class="btn btn-lg" onclick="document.location.href='/index';">Enregistrer les Modifications</button>
 		<button class="btn btn-lg"  onclick="document.location.href='/index';">Annuler</button>
 		
-		
-		
 	</form>
+		  
 </template>
 
 
@@ -246,3 +252,13 @@
 		
 	</form>
 </template>
+
+
+<template name="BoutonX">
+	<button> Le Monde </button>
+</template>
+
+<template name="ButtonX2">
+	<button> API GITHUB </button>
+</template>
+
