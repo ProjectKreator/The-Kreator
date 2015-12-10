@@ -130,17 +130,9 @@ if (Meteor.isClient) {
   
   Template.ButtonX2.events({
     'click button': function () {
-    HTTP.get('https://github.com/login/oauth/authorize',{
-			headers: {'User-Agent': 'Meteor'},
-			params: {
-				client_id: '5093e55c974e07f7d5f9'
-				//redirect_uri: 'http://localhost:3000'		 
-			}
-		},
-		function(err,resp){
-			console.log(resp);
-			alert(resp.content);
-	});	  
+
+		window.location = 'https://github.com/login/oauth/authorize?client_id=5093e55c974e07f7d5f9';
+		alert(document.location.toString());
     }
   });
 	
@@ -149,6 +141,21 @@ if (Meteor.isClient) {
  }   
 
 if (Meteor.isServer) {
+	
+	
+		ServiceConfiguration.configurations.upsert({service: 'github'}, {
+		$set: {
+		  clientId: '5093e55c974e07f7d5f9',
+		  secret: '0be95f4fec096825b9b92c6b28a3fff72649adf8',
+		  loginStyle: 'popup'
+		}
+	  });
+	
+	
+	
+	
+	
+	
 	Meteor.startup(function () {
 		// code to run on server at startup
 		return Meteor.methods({
