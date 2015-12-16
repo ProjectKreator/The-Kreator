@@ -19,8 +19,15 @@
   Template.ButtonX2.events({
     'click button': function () {
 
-		window.location = 'https://github.com/login/oauth/authorize?client_id=5093e55c974e07f7d5f9';
-		alert(document.location.toString());
+		window.location = 'https://github.com/login/oauth/authorize?client_id=5093e55c974e07f7d5f9&scope=admin:org';
+    }
+  });
+
+  Template.GitHub.events({
+    'click button': function(){
+      event.preventDefault();
+      var adresse = document.location.toString().split("=")[1];
+    Meteor.call("GitHubHTTP", adresse);
     }
   });
 	
