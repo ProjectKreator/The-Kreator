@@ -1,0 +1,26 @@
+<template name="Navigation">
+
+<div class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">The Kreator</a>
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a onclick="window.open('http://www.theodo.fr/en/', '_system');">Theodo</a></li>
+			</ul>
+			
+			{{#if currentUser}}
+				<ul class="nav navbar-nav navbar-right">
+					{{> loginButtons}} <!-- here -->
+				</ul>
+			{{/if}}
+		</div>
+	</div>
+
+</template>

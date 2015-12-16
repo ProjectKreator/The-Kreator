@@ -1,0 +1,15 @@
+<template name="Formulaire">
+	
+	<h1><strong>Formulaire de création du nouveau Theodoer</strong></h1>
+	
+	{{#if currentUser}}
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					{{> createForm }}
+				</div>
+			</div>
+		</div>  
+	
+	{{/if}}	 
+</template>

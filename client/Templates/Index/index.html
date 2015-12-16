@@ -1,0 +1,27 @@
+<template name="index">
+
+	<p class="logo"><img src="images/logo.png" /></p>
+	
+	<h1><strong>A vous de jouer !</strong></h1>
+	<div class="vide"> </div>
+	
+	
+	{{#if currentUser}}
+		<p class="txt"><a href="/Formulaire"><button class="btn btn-lg" onclick="document.location.href='/Formulaire';"> Créer un nouveau Theodoer </button></a></p>
+		<div class="vide"> </div>
+		
+		
+		<h2><strong>Liste des Theodoers crées</strong></h2>
+		
+		<div class="txt2">
+			<ul class="list-group">
+			{{#each theodoers}}
+				<!-- la balise <a> permet de mettre un lien dans le texte theodoer  -->
+				<li class="list-group-item list-group-item-info"> <a href="/Theodoer/{{ _id}}" > {{> theodoer}}</a></li>
+			{{/each}}
+			</ul>
+		</div>
+	{{/if}}
+
+
+</template>
