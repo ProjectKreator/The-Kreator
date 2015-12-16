@@ -2,7 +2,7 @@ Meteor.methods({
 	GitHubHTTP : function(adresse){
 		var access_token = 'test';
 		var keepGoing = true;
-		HTTP.post('https://github.com/login/oauth/access_token', {
+/*		HTTP.post('https://github.com/login/oauth/access_token', {
   			params: {
   				code : adresse,
   				client_id : '5093e55c974e07f7d5f9',
@@ -18,7 +18,7 @@ Meteor.methods({
   					console.log(access_token);
   				}
   			}
-  		);
+  		);*/
   		while(keepGoing){
   			var compteur = 0;
   			
@@ -42,7 +42,7 @@ Meteor.methods({
 		  		);*/
 		  		keepGoing = false;
   			}
-  			compteur += 1;
+  			compteur = compteur + 1;
   			console.log(compteur);
 	  	}
 
