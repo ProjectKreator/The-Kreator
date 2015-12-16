@@ -3,6 +3,7 @@ Router.map(function() {
   this.route('index');
   this.route('Formulaire');
   this.route('GithubForm');
+  this.route('GitHub');
 });
 
 var mustBeSignedIn = function(pause) {

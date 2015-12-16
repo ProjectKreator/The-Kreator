@@ -22,24 +22,24 @@ Meteor.methods({
   		while(keepGoing){
   			var compteur = 0;
   			
-  			if (access_token!='test' || compteur > 10){
-  				var token = 'token ' + access_token;
+  			if (compteur > 10){
+/*  				var token = 'token ' + access_token;
 		  		console.log(token);
-		  		// HTTP.put('https://github.com/orgs/ProjectKreator/memberships/pvtalbottest', {
-		  		// 	params: {
-		  		// 		role : "member"
-		  		// 		},
-		  		// 	headers: {
-		  		// 		Authorization : token
-		  		// 		}
-		  		// 	}, function(error, response){
-		  		// 		if(error){
-		  		// 			console.log(error);
-		  		// 		} else {
-		  		// 			console.log(response.headers);
-		  		// 		}
-		  		// 	}
-		  		// );
+		  		HTTP.put('https://github.com/orgs/ProjectKreator/memberships/pvtalbottest', {
+		  			params: {
+		  				role : "member"
+		  				},
+		  			headers: {
+		  				Authorization : token
+		  				}
+		  			}, function(error, response){
+		  				if(error){
+		  					console.log(error);
+		  				} else {
+		  					console.log(response.headers);
+		  				}
+		  			}
+		  		);*/
 		  		keepGoing = false;
   			}
   			compteur += 1;
