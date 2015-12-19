@@ -29,7 +29,10 @@ Meteor.methods({
           var res = response.headers.status;
           res = res.toString();
           Theodoer.update({current:true},
-           {$set:{requestGitHubSent : res}});
+          {$set:{
+            requestGitHubSent : res
+          }
+          });
         }
       });
     };
