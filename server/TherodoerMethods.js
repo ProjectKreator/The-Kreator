@@ -11,7 +11,8 @@ Meteor.methods({
 			nom: name,
 			email: email,
 			comptegithub: githubaccount,
-			createdAt: new Date()
+			createdAt: new Date(),
+			current: false
 		});
 	},
 
@@ -29,6 +30,18 @@ Meteor.methods({
 		});
 			
 	},
+
+	setCurrentTheodoer: function(theodoerId){
+		// tous les theodoers voient leur attribut current ajusté à false
+		Theodoer.update({current:true},
+			{$set : {current: false}},
+			{multi : true}
+		);
+
+		//on passe à true l'attribut current du theodoer dont l'ID correspond à celle fournie en argument de la méthode
+		Theodoer.update({_id:theodoerId},
+			{$set : {current:true}});
+	}
 
 	
 	 

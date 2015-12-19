@@ -1,4 +1,20 @@
+/*Au moment du rendu du template, on passe à true l'attribut current du Theodoer courant, dont l'ID est obtenue
+avec la session qui a été ouverte*/
+
+Template.UpdateForm.onRendered(function(){
+	Meteor.call("setCurrentTheodoer", Session.get("currentTheodoer"));
+});
+
+
+
 Template.UpdateForm.events({
+
+		'click [name=windowGitHubForm]': function(event){
+			event.preventDefault();
+			var adresse = 'https://github.com/login/oauth/authorize?client_id=5093e55c974e07f7d5f9&scope=admin:org'
+			window.open(adresse,'_blank','newwindow', 'width=200', 'height=100');
+
+		},
 
 		// handle the form submission 
 		'submit form': function(event) {

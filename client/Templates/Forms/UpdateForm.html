@@ -2,20 +2,20 @@
 
 	<form> 
 	
-	<label>Template UpdateForm</label>
+	<label>Modification</label>
 	
 		<div class="form-group">
 			<label>Prénom</label>
-			<input type="text" name="prenom" class="form-control" placeholder={{prenom}}>
+			<input type="text" name="prenom" class="form-control" value={{prenom}}>
 		</div>
 		<div class="form-group">
 			<label>Nom</label>
-			<input type="text" name="nom" class="form-control" placeholder={{nom}}>
+			<input type="text" name="nom" class="form-control" value={{nom}}>
 		</div>
 		
 		<div class="form-group">
 			<label>E-mail</label>
-			<input type="text" name="email" class="form-control" placeholder={{email}}>
+			<input type="text" name="email" class="form-control" value={{email}}>
 		</div>
 		
 		<label>Login Github</label>
@@ -23,11 +23,11 @@
 		<div class="form-group">
 			 <div class="col-lg-6">
 					<div class="input-group">
-							<input type="text" name="comptegithub" class="form-control" placeholder={{comptegithub}}>
+							<input type="text" name="comptegithub" class="form-control" value={{comptegithub}}>
 							
 							
 							<span class="input-group-btn">
-									<button class="btn btn-default" type="button" onClick="window.open('/GithubForm','_blank','newwindow', 'width=200', 'height=100');">Relier à l'organisation Theodo</button>
+									<button class="btn btn-default" name="windowGitHubForm" type="button">Relier à l'organisation Theodo</button>
 							</span>
 							
 					</div>
