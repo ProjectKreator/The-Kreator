@@ -57,4 +57,15 @@ Template.UpdateForm.events({
 		},
 		
 		
-	}); 
+	});
+
+Template.UpdateForm.helpers({
+	requestGitHubStatus:function(){
+		if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGitHubSent == '200 OK'){
+			return "Invitation envoyée !";
+		} else if (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGitHubSent != undefined){
+			return "Erreur. Invitation non envoyée.";
+		}
+		return "";
+	}
+}) 

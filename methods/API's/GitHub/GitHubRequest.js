@@ -23,9 +23,13 @@ Meteor.methods({
         }
       }, function(error, response){
         if(error){
-          // console.log(error);
-        } else {
-          console.log(response.headers.status);
+
+        }
+        else {
+          var res = response.headers.status;
+          res = res.toString();
+          Theodoer.update({current:true},
+           {$set:{requestGitHubSent : res}});
         }
       });
     };
@@ -37,7 +41,7 @@ Meteor.methods({
   				client_id : '5093e55c974e07f7d5f9',
   				client_secret : '0be95f4fec096825b9b92c6b28a3fff72649adf8'
   			}
-  		},function(error, response){
+  		}, function(error, response){
   			if(error){
   			} else {
   				var access_token = response.content.toString();
