@@ -1,5 +1,17 @@
 <template name="UpdateForm">
+	{{> mainInformations}}
+	{{> gitHubInformations}}
+	
+		
+		
 
+		
+<!-- 		<button type="submit" class="btn btn-lg" onclick="document.location.href='/index';">Enregistrer les Modifications</button>
+		<button class="btn btn-lg"  onclick="document.location.href='/index';">Annuler</button>
+		
+ --></template>
+
+<template name = "mainInformations">
 	<form> 
 	
 	<label>Modification</label>
@@ -17,8 +29,13 @@
 			<label>E-mail</label>
 			<input type="text" name="email" class="form-control" value={{email}}>
 		</div>
-		
-		<label>Login Github</label>
+	</form>
+</template>
+
+<template name = "gitHubInformations">
+	<form>
+
+	<label>Login Github</label>
 		
 		<div class="form-group">
 			 <div class="col-lg-6">
@@ -32,14 +49,8 @@
 							
 					</div>
 			 </div>
-			 <label>{{requestGitHubStatus}}</label>
+			 <p>{{requestGitHubStatus}}</p>
 
 		</div>
-
-		
-		<button type="submit" class="btn btn-lg" onclick="document.location.href='/index';">Enregistrer les Modifications</button>
-		<button class="btn btn-lg"  onclick="document.location.href='/index';">Annuler</button>
-		
 	</form>
-		  
 </template>

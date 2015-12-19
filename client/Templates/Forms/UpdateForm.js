@@ -7,14 +7,9 @@ Template.UpdateForm.onRendered(function(){
 
 
 
-Template.UpdateForm.events({
+/*Template.UpdateForm.events({
 
-		'click [name=windowGitHubForm]': function(event){
-			event.preventDefault();
-			var adresse = 'https://github.com/login/oauth/authorize?client_id=5093e55c974e07f7d5f9&scope=admin:org'
-			window.open(adresse,'_blank','newwindow', 'width=200', 'height=100');
 
-		},
 
 		// handle the form submission 
 		'submit form': function(event) {
@@ -57,9 +52,9 @@ Template.UpdateForm.events({
 		},
 		
 		
-	});
+	});*/
 
-Template.UpdateForm.helpers({
+Template.gitHubInformations.helpers({
 	requestGitHubStatus:function(){
 		if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGitHubSent == '200 OK'){
 			return "Invitation envoyée !";
@@ -68,4 +63,22 @@ Template.UpdateForm.helpers({
 		}
 		return "";
 	}
-}) 
+});
+
+Template.gitHubInformations.events({
+	'click [name=windowGitHubForm]': function(event){
+		event.preventDefault();
+		var adresse = 'https://github.com/login/oauth/authorize?client_id=5093e55c974e07f7d5f9&scope=admin:org'
+		window.open(adresse,'_blank','newwindow', 'width=200', 'height=100');
+	},
+});
+
+Template.UpdateForm.events({
+	'keyup .form-group' : function(event){
+		var target = event.target.name;
+		var value = $(event.target).val();
+		var setModifier = { $set: {} };
+		setModifier.$set[target] = value;
+		Theodoer.update(Session.get('currentTheodoer'), setModifier);
+	}
+});

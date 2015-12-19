@@ -16,7 +16,7 @@ Meteor.methods({
 		});
 	},
 
-	updateTheodoer: function (theodoerId, firstname, name, email, githubaccount) {
+/*	updateTheodoer: function (theodoerId, firstname, name, email, githubaccount) {
 		// Make sure the user is logged in before creating a theodoer
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
@@ -29,7 +29,7 @@ Meteor.methods({
 			comptegithub: githubaccount}
 		});
 			
-	},
+	},*/
 
 	setCurrentTheodoer: function(theodoerId){
 		// tous les theodoers voient leur attribut current ajusté à false
