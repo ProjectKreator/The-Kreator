@@ -30,7 +30,10 @@ Meteor.methods({
           res = res.toString();
           Theodoer.update({current:true},
           {$set:{
-            requestGitHubSent : res
+            requestGitHub : {
+              sent:res,
+              recipient:loginGitHub
+            }
           }
           });
         }

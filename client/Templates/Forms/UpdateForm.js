@@ -54,14 +54,24 @@ Template.UpdateForm.onRendered(function(){
 		
 	});*/
 
+/*Affiche si l'invitation a bien été envoyée ou non. Lors des requêtes HTTP, on enregistre dans l'objet requestGitHub :
+- La réponse du serveur dans sent
+- Le login auquel l'invitation a été envoyée.
+Ainsi, si le login est faux et qu'il faut le modifier, l'indication de réussite n'apparaît pas une fois que le login a été modifié.*/
 Template.gitHubInformations.helpers({
 	requestGitHubStatus:function(){
-		if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGitHubSent == '200 OK'){
-			return "Invitation envoyée !";
-		} else if (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGitHubSent != undefined){
-			return "Erreur. Invitation non envoyée.";
+		try{
+			if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGitHub.recipient == $('[name=comptegithub]').val()){
+				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGitHub.sent == '200 OK'){
+					return "Invitation envoyée !";
+				} else if (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGitHub.sent != undefined){
+					return "Erreur. Invitation non envoyée.";
+				}
+			}
+			return "";
+		} catch (error) {
+			return "";
 		}
-		return "";
 	}
 });
 
@@ -73,12 +83,18 @@ Template.gitHubInformations.events({
 	},
 });
 
+
 Template.UpdateForm.events({
+	//Permet de modifier automatiquement les données du Theodoer courant. Le nom du champ modifié est passé dynamiquement à la fonction d'actualisation.
 	'keyup .form-group' : function(event){
-		var target = event.target.name;
-		var value = $(event.target).val();
-		var setModifier = { $set: {} };
-		setModifier.$set[target] = value;
-		Theodoer.update(Session.get('currentTheodoer'), setModifier);
+		if(event.which == 13 || event.which==27){
+			event.target.blur();
+		} else {
+			var target = event.target.name;
+			var value = $(event.target).val();
+			var setModifier = { $set: {} };
+			setModifier.$set[target] = value;
+			Theodoer.update(Session.get('currentTheodoer'), setModifier);
+		}
 	}
 });
