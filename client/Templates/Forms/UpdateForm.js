@@ -1,5 +1,5 @@
 /*Au moment du rendu du template, on passe à true l'attribut current du Theodoer courant, dont l'ID est obtenue
-avec la session qui a été ouverte*/
+avec la session qui a été ouverte lors du routage*/
 
 Template.UpdateForm.onRendered(function(){
 	Meteor.call("setCurrentTheodoer", Session.get("currentTheodoer"));
