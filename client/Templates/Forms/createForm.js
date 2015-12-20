@@ -1,7 +1,7 @@
 Template.createForm.events({
 
 		// handle the form submission 
-		'click [name=createTheodoer]': function(event) {
+		'submit form': function(event) {
 
 			// stop the form from submitting
 			event.preventDefault();
@@ -19,8 +19,7 @@ Template.createForm.events({
 			Router.go('/index');
 		},
 
-		'click [name=cancel]' : function(event) {
-			event.preventDefault();
+		'click [name=cancel]' : function() {
 
 			Router.go('/index');
 
