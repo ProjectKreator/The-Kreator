@@ -1,7 +1,7 @@
 Template.createForm.events({
 
 		// handle the form submission 
-		'submit form': function(event) {
+		'click [name=createTheodoer]': function(event) {
 
 			// stop the form from submitting
 			event.preventDefault();
@@ -17,5 +17,12 @@ Template.createForm.events({
 			}			
 			// permet de rerouter vers la page index sans utiliser la fonction href de HTML5
 			Router.go('/index');
+		},
+
+		'click [name=cancel]' : function(event) {
+			event.preventDefault();
+
+			Router.go('/index');
+
 		}
 	}); 
