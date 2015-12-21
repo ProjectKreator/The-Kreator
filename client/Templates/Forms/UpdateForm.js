@@ -75,6 +75,23 @@ Template.gitHubInformations.helpers({
 	}
 });
 
+Template.trelloInformations.helpers({
+	requestTrelloStatus:function(){
+		try{
+			if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient == $('[name=email]').val()){
+				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.sent){
+					return "Invitation envoyée !";
+				} else {
+					return "Erreur. Invitation non envoyée.";
+				}
+			}
+			return "";
+		} catch (error) {
+			return "";
+		}
+	}
+});
+
 Template.gitHubInformations.events({
 	'click [name=windowGitHubForm]': function(event){
 		event.preventDefault();
@@ -82,6 +99,17 @@ Template.gitHubInformations.events({
 		window.open(adresse,'_blank','newwindow', 'width=200', 'height=100');
 	},
 });
+
+Template.trelloInformations.events({
+	'click [name=trelloRequest]' : function(event){
+		event.preventDefault();
+		var token = Trello.token();
+		var email = Theodoer.findOne({current:true}).email;
+		var prenom = Theodoer.findOne({current:true}).prenom;
+		var nom = Theodoer.findOne({current:true}).nom;
+		Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom);
+	}
+})
 
 
 Template.UpdateForm.events({
