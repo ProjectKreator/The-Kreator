@@ -34,7 +34,7 @@ Meteor.methods({
 	setCurrentTheodoer: function(theodoerId){
 		// tous les theodoers voient leur attribut current ajusté à false
 		Theodoer.update({current:true},
-			{$set : {current: false}},
+			{$set : {current: false, "requestTrello.token" : false}},
 			{multi : true}
 		);
 

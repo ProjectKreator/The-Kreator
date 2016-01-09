@@ -1,14 +1,14 @@
 /*Méthode permettant de relier un utilisateur à une organisation*/
 
 Meteor.methods({
-	GitHubRequest : function(adresse, organisation){
+	GitHubRequest : function(adresse){
 
     //le login GitHub est obtenu dans la base de données en cherchant le Theodoer courant
     var loginGitHub = Theodoer.findOne({current : true}).comptegithub;
 
-
-    var clientId = Meteor.settings.gitHubClientId;
-    var clientSecret = Meteor.settings.gitHubClientSecret;
+    var organisation = Meteor.settings.gitHub.organization;
+    var clientId = Meteor.settings.gitHub.clientId;
+    var clientSecret = Meteor.settings.gitHub.clientSecret;
 
 
 
