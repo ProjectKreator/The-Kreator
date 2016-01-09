@@ -7,6 +7,10 @@ Meteor.methods({
     var loginGitHub = Theodoer.findOne({current : true}).comptegithub;
 
 
+    var clientId = Meteor.settings.gitHubClientId;
+    var clientSecret = Meteor.settings.gitHubClientSecret;
+
+
 
     //URL de la dernière requête (PUT)
     var URLPut = "https://api.github.com/orgs/" + organisation + "/memberships/" + loginGitHub ;
@@ -44,8 +48,8 @@ Meteor.methods({
 		HTTP.post('https://github.com/login/oauth/access_token', {
   			data: {
   				code : adresse,
-  				client_id : '5093e55c974e07f7d5f9',
-  				client_secret : '0be95f4fec096825b9b92c6b28a3fff72649adf8'
+  				client_id : clientId,
+  				client_secret : clientSecret
   			}
   		}, function(error, response){
   			if(error){

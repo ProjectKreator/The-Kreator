@@ -10,7 +10,7 @@ Template.trello.events({
 		  scope: {
 		    read: true,
 		    write: true },
-		  expiration: "never",
+		  expiration: "1day",
 		  authenticationSuccess,
 		  authenticationFailure
 		});
