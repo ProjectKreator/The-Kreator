@@ -75,12 +75,22 @@ Template.gitHubInformations.helpers({
 	}
 });
 
+Template.gitHubInformations.events({
+	'click [name=windowGitHubForm]': function(event){
+		event.preventDefault();
+		var adresse = 'https://github.com/login/oauth/authorize?client_id=5093e55c974e07f7d5f9&scope=admin:org'
+		window.open(adresse,'_blank','newwindow', 'width=200', 'height=100');
+	},
+});
+
 Template.trelloInformations.helpers({
 	requestTrelloStatus:function(){
 		try{
-			if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient == $('[name=email]').val()){
+			var requestRecipient = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient;
+			if(requestRecipient == $('[name=email]').val()){
 				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.sent){
-					return "Invitation envoyée !";
+					var res = "Invitation envoyée à " + requestRecipient;
+					return res;
 				} else {
 					return "Erreur. Invitation non envoyée.";
 				}
@@ -92,13 +102,31 @@ Template.trelloInformations.helpers({
 	}
 });
 
-Template.gitHubInformations.events({
-	'click [name=windowGitHubForm]': function(event){
+Template.trelloAuthentication.events({
+	'click [name=buttonTrelloAuthentication]' : function(event){
 		event.preventDefault();
-		var adresse = 'https://github.com/login/oauth/authorize?client_id=5093e55c974e07f7d5f9&scope=admin:org'
-		window.open(adresse,'_blank','newwindow', 'width=200', 'height=100');
-	},
+		var authenticationSuccess = function() { console.log("Successful authentication"); };
+		var authenticationFailure = function() { console.log("Failed authentication"); };
+	
+		Trello.authorize({
+		  type: "popup",
+		  name: "Getting Started Application",
+		  scope: {
+		    read: true,
+		    write: true },
+		  expiration: "1hour",
+		  authenticationSuccess,
+		  authenticationFailure
+		});
+
+		if(Trello.token() != undefined){
+			Theodoer.update({_id : Session.get("currentTheodoer")}, {$set:{"requestTrello.token" : true}});
+		}
+	}
+
 });
+
+
 
 Template.trelloInformations.events({
 	'click [name=trelloRequest]' : function(event){
@@ -107,13 +135,24 @@ Template.trelloInformations.events({
 		var email = Theodoer.findOne({current:true}).email;
 		var prenom = Theodoer.findOne({current:true}).prenom;
 		var nom = Theodoer.findOne({current:true}).nom;
-		Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom);
+		var organisation = Meteor.settings.trello.organization;
+		Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom, organisation);
 	}
-})
+});
 
+Template.trello.helpers({
+	'authenticated' : function(){
+		try{
+			return (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.token);
+		} catch(e){
+			return false;
+		}
+	}
+});
 
 Template.UpdateForm.events({
-	//Permet de modifier automatiquement les données du Theodoer courant. Le nom du champ modifié est passé dynamiquement à la fonction d'actualisation.
+	//Permet de modifier automatiquement les données du Theodoer courant. Le nom du champ modifié est passé dynamiquement à 
+	//la fonction d'actualisation.
 	'keyup .form-group' : function(event){
 		if(event.which == 13 || event.which==27){
 			event.target.blur();

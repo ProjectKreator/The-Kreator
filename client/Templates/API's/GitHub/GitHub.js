@@ -11,9 +11,8 @@
 */
 
 Template.GitHub.onCreated(function(){
-	var organization = Meteor.settings.gitHubOrganization;
 	var code = document.location.toString().split("=")[1];
-	Meteor.call("GitHubRequest", code, organization);
+	Meteor.call("GitHubRequest", code);
 	window.close();
 
 
