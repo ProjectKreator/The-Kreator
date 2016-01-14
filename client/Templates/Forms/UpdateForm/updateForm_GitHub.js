@@ -18,7 +18,8 @@ Template.gitHubInformations.helpers({
 Template.gitHubInformations.events({
 	'click [name=windowGitHubForm]': function(event){
 		event.preventDefault();
-		var adresse = 'https://github.com/login/oauth/authorize?client_id=' +Meteor.settings.gitHub.clientId +'&scope=admin:org'
+		//var adresse = 'https://github.com/login/oauth/authorize?client_id=' +Meteor.settings.gitHub.clientId +'&scope=admin:org'
+		var adresse = 'https://github.com/login/oauth/authorize?client_id=5093e55c974e07f7d5f9&scope=admin:org'
 		window.open(adresse,'_blank','newwindow', 'width=200', 'height=100');
 	},
 });

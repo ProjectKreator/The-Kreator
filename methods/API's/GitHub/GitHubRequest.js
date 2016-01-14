@@ -52,6 +52,7 @@ Meteor.methods({
   		}, function(error, response){
   			if(error){
   			} else {
+          console.log(response);
   				var access_token = response.content.toString();
 					access_token = access_token.split("=")[1];
  					access_token = access_token.split("&")[0];
