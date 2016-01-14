@@ -1,0 +1,12 @@
+{
+	"gitHub" :{
+		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3",
+		"clientId" : "dd53c748f830817dab1c",
+		"organization" : "ProjectKreator"
+	},
+	"trello" : {
+		"organization" : "kreatortest"
+	}
+}
+
+//!! problème en sur updateForm_GitHub ligne 26 environ, le client ne peut acceder au settings je pense => clientID en dur pour le moment

@@ -1,6 +1,6 @@
 Meteor.methods({
 	
-	createTheodoer: function (firstname, name, email, githubaccount) {
+	createTheodoer: function (firstname, name, email, phone, githubaccount) {
 		// Make sure the user is logged in before creating a theodoer
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
@@ -10,6 +10,7 @@ Meteor.methods({
 			prenom: firstname,
 			nom: name,
 			email: email,
+            phone: phone,
 			comptegithub: githubaccount,
 			createdAt: new Date(),
 			current: false

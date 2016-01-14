@@ -10,10 +10,11 @@ Template.createForm.events({
 			var firstname = event.target.prenom.value;
 			var name = event.target.nom.value;
 			var email = event.target.email.value;
+            var phone = event.target.phone.value;
 			var githubaccount = event.target.comptegithub.value;
 			// create the new Theodoer
 			if(firstname != "" && name != "" && email != ""){
-				Meteor.call("createTheodoer", firstname, name, email, githubaccount);
+				Meteor.call("createTheodoer", firstname, name, email, phone, githubaccount);
 			}			
 			// permet de rerouter vers la page index sans utiliser la fonction href de HTML5
 			Router.go('/index');
