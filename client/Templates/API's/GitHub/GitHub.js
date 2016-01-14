@@ -10,10 +10,11 @@
 
 */
 
-Template.GitHub.onCreated(function(){
+Template.GitHub.onRendered(function(){
 	var code = document.location.toString().split("=")[1];
-	Meteor.call("GitHubRequest", code);
-	//window.close();
+	var loginGitHub = Theodoer.findOne({current:true}).comptegithub;
+	Meteor.call("GitHubRequest", code, loginGitHub);
+	window.close();
 
 
 });
