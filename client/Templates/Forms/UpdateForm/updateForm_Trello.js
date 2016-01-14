@@ -4,16 +4,18 @@ Template.trelloAuthentication.events({
 		var authenticationSuccess = function() { console.log("Successful authentication"); };
 		var authenticationFailure = function() { console.log("Failed authentication"); };
 	
-		Trello.authorize({
+		var token = Trello.authorize({
 		  type: "popup",
 		  name: "Getting Started Application",
 		  scope: {
 		    read: true,
 		    write: true },
-		  expiration: "1hour",
+		  expiration: "never",
+		  persist: "false",
 		  authenticationSuccess,
 		  authenticationFailure
 		});
+
 
 		if(Trello.token() != undefined){
 			Theodoer.update({_id : Session.get("currentTheodoer")}, {$set:{"requestTrello.token" : true}});
