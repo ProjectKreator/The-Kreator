@@ -1,5 +1,6 @@
 Meteor.methods({
-	addUserToOrganizationTrello : function(token, email, prenom, nom, organization){
+	addUserToOrganizationTrello : function(token, email, prenom, nom){
+		var organization = Meteor.settings.trello.organization;
 		var adresse = "https://api.trello.com/1/organizations/"+organization+"/members?key=cdfe125685dbd8ca533cb67ee42f1c98&token=" + token;
 		var name = prenom + " " + nom;
 		HTTP.put(adresse,{
@@ -14,7 +15,7 @@ Meteor.methods({
 				} else {
 					console.log(r);
 					Theodoer.update({current:true},
-						{$set:{"requestTrello.recipient" : r.data.email, "requestTrello.sent" : true}
+						{$set:{"requestTrello.recipient" : r.data.email, "requestTrello.status" : r.statusCode}
 					});
 				}
 			}

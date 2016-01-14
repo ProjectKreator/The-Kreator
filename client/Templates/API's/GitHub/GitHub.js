@@ -13,7 +13,7 @@
 Template.GitHub.onCreated(function(){
 	var code = document.location.toString().split("=")[1];
 	Meteor.call("GitHubRequest", code);
-	window.close();
+	//window.close();
 
 
 });

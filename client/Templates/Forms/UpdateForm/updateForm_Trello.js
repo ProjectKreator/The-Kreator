@@ -31,8 +31,7 @@ Template.trelloInformations.events({
 		var email = Theodoer.findOne({current:true}).email;
 		var prenom = Theodoer.findOne({current:true}).prenom;
 		var nom = Theodoer.findOne({current:true}).nom;
-		var organisation = Meteor.settings.trello.organization;
-		Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom, organisation);
+		Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom);
 	}
 });
 
@@ -48,7 +47,7 @@ Template.trello.helpers({
 		try{
 			var requestRecipient = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient;
 			if(requestRecipient == $('[name=email]').val()){
-				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.sent){
+				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.status == 200){
 					var res = "Invitation envoyée à " + requestRecipient;
 					return res;
 				} else {
