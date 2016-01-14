@@ -1,0 +1,38 @@
+<template name = "trelloInformations">
+	<form>
+
+	<label>Login Trello</label>
+		
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-btn">
+						<button class="btn btn-default" name="trelloRequest" type="button">Relier à l'organisation Theodo sur Trello</button>
+				</span>
+				
+			</div>
+			 <p>{{requestTrelloStatus}}</p>
+
+		</div>
+	</form>
+</template>
+
+<template name ="trelloAuthentication">
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-btn">
+						<button class="btn btn-default" name="buttonTrelloAuthentication" type="button">S'authentifier sous Trello</button>
+				</span>
+				
+			</div>
+		</div>
+</template>
+
+<template name = "trello">
+	<h2>Trello</h2>
+	{{#if authenticated}}
+		{{> trelloInformations}}
+	{{else}}
+		{{> trelloAuthentication}}
+	{{/if}}
+
+</template>
