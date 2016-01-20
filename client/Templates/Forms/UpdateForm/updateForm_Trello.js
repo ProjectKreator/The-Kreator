@@ -4,7 +4,7 @@ Template.trelloAuthentication.events({
 		var authenticationSuccess = function() { console.log("Successful authentication"); };
 		var authenticationFailure = function() { console.log("Failed authentication"); };
 	
-		var token = Trello.authorize({
+		Trello.authorize({
 		  type: "popup",
 		  name: "Getting Started Application",
 		  scope: {
