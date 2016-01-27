@@ -1,6 +1,9 @@
 <template name="theodoer">
 	<li>
-		[<a href="/#" class="deleteTheodoer">X</a>]
-		<a href="/Theodoer/{{ _id}}" ><strong>{{prenom}}</strong> {{nom}}</a>
+		<p>
+			[<a href="/#" class="deleteTheodoer">X</a>]
+			[{{job}}]
+			<a href="/Theodoer/{{ _id}}" ><strong>{{prenom}}</strong> {{nom}}</a>
+		</p>
 	</li>
 </template>
