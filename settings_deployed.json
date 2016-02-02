@@ -11,7 +11,11 @@
 	},
 	"gitHub" : {
 		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"
-	}
+	},
+    
+    "googleLogin" : {
+        "acceptedDomainName" : "kretaor.in"
+    }
 }
 
 //!! problème en sur updateForm_GitHub ligne 26 environ, le client ne peut acceder au settings je pense => clientID en dur pour le moment
