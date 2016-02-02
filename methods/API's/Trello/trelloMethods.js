@@ -16,8 +16,8 @@ Meteor.methods({
 				} else {
 					console.log(r);
 					Theodoer.update({current:true},
-						{$set:{"requestTrello.recipient" : r.data.email, "requestTrello.status" : r.statusCode}
-					});
+						{$set:{"requestTrello.status" : r.statusCode}}
+					);
 				}
 			}
 		);

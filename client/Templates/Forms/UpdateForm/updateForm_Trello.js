@@ -33,7 +33,14 @@ Template.trelloInformations.events({
 		var email = Theodoer.findOne({current:true}).email;
 		var prenom = Theodoer.findOne({current:true}).prenom;
 		var nom = Theodoer.findOne({current:true}).nom;
-		Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom);
+		Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom,
+			function(e,r){
+				if(e){
+
+				} else {
+					Theodoer.update({_id : Session.get("currentTheodoer")}, {$set : {"requestTrello.recipient" : email}});
+				}
+			});
 	}
 });
 
