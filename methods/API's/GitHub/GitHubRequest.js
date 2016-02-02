@@ -5,8 +5,6 @@ Meteor.methods({
 
 
     var loginGitHub = Theodoer.findOne({current : true}).comptegithub;
-    console.log(loginGitHub);
-
     var organisation = Meteor.settings.public.gitHub.organization;
     var clientId = Meteor.settings.public.gitHub.clientId;
     var clientSecret = Meteor.settings.gitHub.clientSecret;
@@ -56,7 +54,6 @@ Meteor.methods({
   		}, function(error, response){
   			if(error){
   			} else {
-          console.log(response);
   				var access_token = response.content.toString();
 					access_token = access_token.split("=")[1];
  					access_token = access_token.split("&")[0];
