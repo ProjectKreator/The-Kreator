@@ -1,6 +1,7 @@
 Meteor.methods({
 	addUserToOrganizationTrello : function(token, email, prenom, nom){
-		var organization = Meteor.settings.trello.organization;
+		var organization = Meteor.settings.public.trello.organization;
+		console.log(Meteor.settings.public.trello.organization);
 		var adresse = "https://api.trello.com/1/organizations/"+organization+"/members?key=cdfe125685dbd8ca533cb67ee42f1c98&token=" + token;
 		var name = prenom + " " + nom;
 		HTTP.put(adresse,{

@@ -1,10 +1,14 @@
 {
-	"gitHub" :{
-		"clientSecret" : "0be95f4fec096825b9b92c6b28a3fff72649adf8",
-		"clientId" : "5093e55c974e07f7d5f9",
-		"organization" : "ProjectKreator"
+	"public":{
+		"gitHub" :{
+			"clientId" : "5093e55c974e07f7d5f9",
+			"organization" : "ProjectKreator"
+		},
+		"trello" : {
+			"organization" : "kreatortest"
+		}
 	},
-	"trello" : {
-		"organization" : "kreatortest"
+	"gitHub" : {
+		"clientSecret" : "0be95f4fec096825b9b92c6b28a3fff72649adf8"
 	}
 }

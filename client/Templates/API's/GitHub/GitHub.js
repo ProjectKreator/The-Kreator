@@ -12,9 +12,8 @@
 
 Template.GitHub.onRendered(function(){
 	var code = document.location.toString().split("=")[1];
-	var loginGitHub = Theodoer.findOne({current:true}).comptegithub;
-	Meteor.call("GitHubRequest", code, loginGitHub);
-	window.close();
+	Meteor.call("GitHubRequest", code);
+	//window.close();
 
 
 });

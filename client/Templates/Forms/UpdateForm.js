@@ -22,6 +22,11 @@ Template.UpdateForm.events({
 	}
 });
 
+Template.UpdateForm.helpers({
+	isDev : function(){
+		return (Theodoer.findOne({_id : Session.get("currentTheodoer")}).job=="Dev");
+	}
+})
 
 /*Template.UpdateForm.events({
 
