@@ -11,7 +11,9 @@
 	},
 	"gitHub" : {
 		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"
+	},
+	"google" : {
+		"clientId" : "337810751573-mr60nns3au4vaf24i8ashkdcdfr8i0uo.apps.googleusercontent.com",
+		"secret" : "wmvRWEszSXToFQYA5Nc-DAWU"
 	}
 }
-
-//!! problème en sur updateForm_GitHub ligne 26 environ, le client ne peut acceder au settings je pense => clientID en dur pour le moment
