@@ -13,8 +13,8 @@
 		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"
 	},
 	"google" : {
-		"clientId" : "337810751573-mr60nns3au4vaf24i8ashkdcdfr8i0uo.apps.googleusercontent.com",
-		"secret" : "wmvRWEszSXToFQYA5Nc-DAWU"},
+		"clientId" : "314232841071-6sba6r9r74c1jnpl5qe2q94mrk0dufh8.apps.googleusercontent.com",
+		"secret" : "ZDWzyt5ckudi5dQGKUE1_VCf"},
 	"googleLogin" : {
         "acceptedDomainName" : "kretaor.in"
     }
