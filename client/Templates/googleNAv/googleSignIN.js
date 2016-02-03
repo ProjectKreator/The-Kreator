@@ -1,3 +1,4 @@
+    
 Template.loginButtonsBig.events({  
     'click a#loginGoogle': function(e, t) {
         e.preventDefault();
@@ -7,4 +8,4 @@ Template.loginButtonsBig.events({
             requestOfflineToken: 'true'
         }, Router.go('index'));
     }
-});
+}); 

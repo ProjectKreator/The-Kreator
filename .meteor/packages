@@ -27,6 +27,5 @@ github
 service-configuration
 accounts-google
 meteorhacks:npm
-
-
 npm-container
+percolate:google-api
