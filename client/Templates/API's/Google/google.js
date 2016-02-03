@@ -7,4 +7,4 @@ Template.loginButtonsBig.events({
             requestOfflineToken: 'true'
         }, Router.go('index'));
     }
-});
+}); 

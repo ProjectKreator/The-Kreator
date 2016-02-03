@@ -41,7 +41,13 @@ body
 .txt
 {
 	text-align: center;
-}	
+}
+
+#login-screen	
+{
+	text-align: center;
+	color: #68bd9f
+}
 
 .txt2
 {	position: absolute;
