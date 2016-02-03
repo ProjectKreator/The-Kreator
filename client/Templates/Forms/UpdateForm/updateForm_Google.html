@@ -1,0 +1,36 @@
+<template name = "googleCheckEmail">
+	<form>		
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-btn">
+						<button class="btn btn-default" name="buttonCheckEmail" type="button">Trouver une adresse mail</button>
+				</span>
+				
+			</div>
+
+		</div>
+	</form>
+</template>
+
+<template name ="googleCreateEmail">
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-btn">
+						<button class="btn btn-default" name="buttonCreateEmail" type="button">Créer !</button>
+				</span>
+				
+			</div>
+		</div>
+</template>
+
+<template name = "google">
+	<h2>Adresse kretaor.in</h2>
+	{{#if mailfound}}
+		{{> googleCreateEmail}}
+	{{else}}
+		{{> googleCheckEmail}}
+	{{/if}}
+	<p>{{requestGoogleStatus}}</p>
+
+
+</template>

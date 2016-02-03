@@ -1,6 +1,53 @@
+/*
 Meteor.methods ({
     
-    /*
+
+//#### Generating an authentication URL
+
+//To ask for permissions from a user to retrieve an access token, you redirect them to a consent page. To create a consent page URL:
+    
+    authenticationG: function() {
+        var google = Meteor.npmRequire('googleapis');
+        var OAuth2 = google.auth.OAuth2;
+        var oauth2Client = new OAuth2(Meteor.settings.google.clientId, Meteor.settings.google.secret, "http://localhost");
+
+        // generate a url that asks permissions for Google+ and Google Calendar scopes
+        var scopes = [
+          'https://www.googleapis.com/auth/plus.me',
+          'https://www.googleapis.com/auth/calendar'
+        ];
+
+        var url = oauth2Client.generateAuthUrl({
+          access_type: 'online', // 'online' (default) or 'offline' (gets refresh_token)
+          scope: scopes // If you only need one scope you can pass it as string
+        });
+        
+        return url;
+        
+
+        #### Retrieve authorization code
+
+        Once a user has given permissions on the consent page, Google will redirect
+        the page to the redirect URL you have provided with a code query parameter.
+
+            GET /oauthcallback?code={authorizationCode}
+
+        #### Retrieve access token
+
+        With the code returned, you can ask for an access token as shown below:
+         js
+        oauth2Client.getToken(code, function(err, tokens) {
+          // Now tokens contains an access_token and an optional refresh_token. Save them.
+          if(!err) {
+            oauth2Client.setCredentials(tokens);
+          }
+        });
+
+ 
+    }
+    
+
+    
     getAccessTokenG: function(user) {
       const GoogleApis = Meteor.npmRequire('googleapis');
       const googleService = user.services.google;
@@ -41,45 +88,7 @@ Meteor.methods ({
       //
       return tokens;
     }
-    */
     
-//#### Generating an authentication URL
+    
+});*/
 
-//To ask for permissions from a user to retrieve an access token, you redirect them to a consent page. To create a consent page URL:
-/*   
-var google = require('googleapis');
-var OAuth2 = google.auth.OAuth2;
-var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
-
-// generate a url that asks permissions for Google+ and Google Calendar scopes
-var scopes = [
-  'https://www.googleapis.com/auth/plus.me',
-  'https://www.googleapis.com/auth/calendar'
-];
-
-var url = oauth2Client.generateAuthUrl({
-  access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-  scope: scopes // If you only need one scope you can pass it as string
-});
-```
-
-#### Retrieve authorization code
-
-Once a user has given permissions on the consent page, Google will redirect
-the page to the redirect URL you have provided with a code query parameter.
-
-    GET /oauthcallback?code={authorizationCode}
-
-#### Retrieve access token
-
-With the code returned, you can ask for an access token as shown below:
-
-``` js
-oauth2Client.getToken(code, function(err, tokens) {
-  // Now tokens contains an access_token and an optional refresh_token. Save them.
-  if(!err) {
-    oauth2Client.setCredentials(tokens);
-  }
-});
-*/
-});
