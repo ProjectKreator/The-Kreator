@@ -1,13 +1,17 @@
 Meteor.methods({
     checkEmail: function (prenom,nom) {
-        var res = "";
-        var check = false;
-        var i = 0;
+        var res = prenom;
+        var stopCheckEmail = false;
         var apiKey = Meteor.settings.google.clientId;
         var authorize = "Bearer " + Meteor.user().services.google.accessToken;
         
         var addLetter = function() {
-            return (res + nom.charAt(i).toLowerCase())
+            if(res.length == (prenom.length+nom.length)){
+                stopCheckEmail = true;
+                res = "";
+                return res;
+            }
+            return (res + nom.charAt(res.length).toLowerCase());
         };
             
         var checkEmailApi = function() {
@@ -21,19 +25,18 @@ Meteor.methods({
                 if(error){
                     console.log(error);
                 } else {
-                    check = true
+                    stopCheckEmail = true;
                     }
                 }
             );
         };
         
-        while (!check && i < 1) {
-            res = addLetter()
-            checkEmailApi()
-            i += 1;
+        while (!stopCheckEmail) {
+            res = addLetter();
+            checkEmailApi();
         }
           
-        console.log(res)
+        console.log(res);
     },
     
     createEmail: function (prenom, nom) {
