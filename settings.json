@@ -6,7 +6,7 @@
 		},
         "google" :{
             "clientId" : "337810751573-mr60nns3au4vaf24i8ashkdcdfr8i0uo.apps.googleusercontent.com",
-            "redirectUrl" : "http://localhost:80/_oauth/google"
+            "redirectUrl" : "http://localhost:80/google"
         },
 		"trello" : {
 			"organization" : "kreatortest"

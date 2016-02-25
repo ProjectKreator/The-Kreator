@@ -10,6 +10,5 @@ Template.Test.events({
         var adresse = "https://accounts.google.com/o/oauth2/auth?access_type="+ acces_type + "&scope=" + scope + "&response_type=code&client_id=" + CLIENT_ID +"&redirect_uri=" +REDIRECT_URL;
         console.log(adresse);
         window.open(adresse,'_blank','newwindow', 'width=200', 'height=100');
-        
     },
 });

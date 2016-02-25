@@ -31,7 +31,7 @@ Template.googleCreateEmail.events({
 	}
 });
 
-Template.google.helpers({
+Template.googleApi.helpers({
 	'mailFound' : function(){
 		try{
 			if (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.email != "undefined") {

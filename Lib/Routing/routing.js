@@ -4,6 +4,7 @@ Router.map(function() {
   this.route('Formulaire');
   this.route('GithubForm');
   this.route('GitHub');
+  this.route('google')
 });
 
 var mustBeSignedIn = function(pause) {

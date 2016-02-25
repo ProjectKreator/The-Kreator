@@ -7,7 +7,7 @@
 		},
         "google" :{
             "clientId" : "314232841071-6sba6r9r74c1jnpl5qe2q94mrk0dufh8.apps.googleusercontent.com",
-            "redirectUrl" : "http://www.kreator.meteor.com/_oauth/google"
+            "redirectUrl" : "http://www.kreator.meteor.com/google"
         },
 		"trello" : {
 			"organization" : "kreatortest"

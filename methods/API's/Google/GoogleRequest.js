@@ -1,48 +1,43 @@
 Meteor.methods({
     
-    testToken : function(){
-       // var google = Meteor.npmRequire('C:/Users/Jeremy/The-Kreator/.meteor/local/isopacks/npm-container/npm/node_modules/googleapis/lib/googleapis.js');
-        var google = Meteor.npmRequire('../node_modules/googleapis/lib/googleapis.js');
+    retrieveToken: function(authCode){
+        console.log(authCode);
+       var google = Meteor.npmRequire('C:/Users/Jeremy/The-Kreator/.meteor/local/isopacks/npm-container/npm/node_modules/googleapis/lib/googleapis.js');
+//        var google = Meteor.npmRequire('../node_modules/googleapis/lib/googleapis.js');
+
         var OAuth2Client = google.auth.OAuth2;
         var admin = google.admin('directory_v1');
 
-        // Client ID and client secret are available at
-        // https://code.google.com/apis/console
-        var CLIENT_ID = Meteor.settings.google.clientId;
+        var CLIENT_ID = Meteor.settings.public.google.clientId;
         var CLIENT_SECRET = Meteor.settings.google.secret;
-        var REDIRECT_URL = 'http://localhost:80';
+        var REDIRECT_URL = Meteor.settings.public.google.redirectUrl;
 
         var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
-
-        function getAccessToken(oauth2Client, callback) {
-          // generate consent page url
-          var url = oauth2Client.generateAuthUrl({
-            access_type: 'offline', // will return a refresh token
-            scope: 'https://www.googleapis.com/auth/admin.directory.user' // can be a space-delimited string or an array of scopes
-          });
-            
+        function getAccessToken(oauth2Client) {
             // request access token
-            oauth2Client.getToken(code, function(err, tokens) {
-              console.log("err before "+err);
-              // set tokens to the client
-              // TODO: tokens should be set by OAuth2 client.
-              oauth2Client.setCredentials(tokens);
-              callback();
-            }); 
-        }
+            oauth2Client.getToken(authCode, Meteor.bindEnvironment(function(err, tokens) {
+                if (err) {
+                    console.log("err before "+err);        
+                } else {
+                    console.log("tokens  "+tokens);
+                    console.log(tokens.acces_token);
+                    console.log(tokens.refresh_token);
+
+//                  Meteor.users.update({_id: user._id}, {$set: {"services.requestGoogle": tokens}});
+                    //console.log(tokens[1]);
+                }
+            
+            // set tokens to the client
+            // TODO: tokens should be set by OAuth2 client.
+            oauth2Client.setCredentials(tokens);
+                
+            })); 
+        };
 
         // retrieve an access token
 
-        getAccessToken(oauth2Client, function(e, r){
-            if(e){
-                console.log("error "+e);
-            }
-            else{
-                console.log("response "+r);
-            }
-
-        });
+        getAccessToken(oauth2Client);
         
         /*getAccessToken(oauth2Client, function() {
           // retrieve user profile
