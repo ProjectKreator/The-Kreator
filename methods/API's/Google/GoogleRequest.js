@@ -1,7 +1,6 @@
 Meteor.methods({
     
     retrieveToken: function(authCode){
-        console.log(authCode);
         var google = Meteor.npmRequire('../node_modules/googleapis/lib/googleapis.js');
 
         var OAuth2Client = google.auth.OAuth2;
@@ -20,7 +19,8 @@ Meteor.methods({
                     console.log("err before "+err);        
                 } else {
                     Tokens.insert({
-                        "google" : tokens
+                        "name" : "google",
+                        "tokens" : tokens
                     });
                 }
             
@@ -48,49 +48,65 @@ Meteor.methods({
     },
     
     checkEmail: function (prenom,nom) {
-        var res = prenom;
+        prenom = "admi";
+        nom = "nalbot";
+        var res = prenom.toLowerCase();
         var stopCheckEmail = false;
-        var apiKey = Meteor.settings.google.clientId;
-        var authorize = "Bearer " + Meteor.user().services.google.accessToken;
         
-        var addLetter = function() {
-            if(res.length == (prenom.length+nom.length)){
+        var addLetter = function(nameTest) {
+            if(nameTest.length >= (prenom.length+nom.length)){
                 stopCheckEmail = true;
-                res = "";
-                return res;
+                nameTest = "";
+                return nameTest;
             }
-            return (res + nom.charAt(res.length).toLowerCase());
+            return (nameTest + nom.charAt(nameTest.length-prenom.length).toLowerCase());
         };
             
-        var checkEmailApi = function() {
-            // requete http ou methode google pour voir si l'adresse existe deja 
-            var url = "https://www.googleapis.com/admin/directory/v1/users/" + res + "@kretaor.in";
-            HTTP.get(url, {
-                "data": {
-                    "Authorization": authorize
-                },    
-            }, function(error, response){
-                if(error){
-                    console.log(error);
-                } else {
-                    stopCheckEmail = true;
+        var checkEmailApi = function(nameTest) {
+            // requete http ou methode google pour voir si l'adresse existe deja
+            if(nameTest == ""){
+                Theodoer.update({current:true},
+                    {$set : {"requestGoogle.email" : ""}});
+            }
+            else{
+                var url = "https://www.googleapis.com/admin/directory/v1/users/" + nameTest + "@kretaor.in";
+                HTTP.get(url, {
+                    "params": {
+                        "access_token": Tokens.findOne({name : "google"}).tokens.access_token
+                    },    
+                }, function(error, response){
+                    if(error){
+                        res = nameTest;
+                        console.log("e " + error);
+                        Theodoer.update({current:true},
+                            {$set : {"requestGoogle.email" : res}});
+
+                    } else {
+                        console.log("r " + response);
+                        checkEmailApi(addLetter(nameTest));
                     }
-                }
-            );
+                });
+            }
         };
         
-        while (!stopCheckEmail) {
-            res = addLetter();
-            checkEmailApi();
-        }
-          
-        console.log(res);
+        checkEmailApi(addLetter(res));
     },
     
     createEmail: function (prenom, nom) {
-      
+        var url = "https://www.googleapis.com/admin/directory/v1/users/paul@kretaor.in";
+        HTTP.get(url, {
+            "params": {
+                "access_token": Tokens.findOne({name : "google"}).tokens.access_token
+            },    
+            }, function(error, response){
+                if(error){
+                    console.log("erreur :" + error);
+                } else {
+                    console.log(response);
+                }
+            }
+        );
+
     }
-   
-    
     
 });

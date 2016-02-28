@@ -12,3 +12,12 @@ Template.Test.events({
         window.open(adresse,'_blank','newwindow', 'width=200', 'height=100');
     },
 });
+
+Template.TestGetEmail.events({
+    'click [name=testgetEmail]' : function(event){
+           
+        event.preventDefault();
+        
+        Meteor.call("checkEmail");
+    },
+});
