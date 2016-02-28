@@ -19,14 +19,9 @@ Meteor.methods({
                 if (err) {
                     console.log("err before "+err);        
                 } else {
-                    console.log("tokens  "+tokens);
-                    console.log(admin);
                     Tokens.insert({
                         "google" : tokens
                     });
-
-//                  Meteor.users.update({_id: user._id}, {$set: {"services.requestGoogle": tokens}});
-                    //console.log(tokens[1]);
                 }
             
             // set tokens to the client

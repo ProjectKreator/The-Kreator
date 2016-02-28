@@ -16,4 +16,5 @@ Template.google.onRendered(function(){
 	//window.close();
     console.log(authCode);
     Meteor.call("retrieveToken",authCode);
+    window.close();
 });
