@@ -2,8 +2,7 @@ Meteor.methods({
     
     retrieveToken: function(authCode){
         console.log(authCode);
-       var google = Meteor.npmRequire('C:/Users/Jeremy/The-Kreator/.meteor/local/isopacks/npm-container/npm/node_modules/googleapis/lib/googleapis.js');
-//        var google = Meteor.npmRequire('../node_modules/googleapis/lib/googleapis.js');
+        var google = Meteor.npmRequire('../node_modules/googleapis/lib/googleapis.js');
 
         var OAuth2Client = google.auth.OAuth2;
         var admin = google.admin('directory_v1');
@@ -21,8 +20,10 @@ Meteor.methods({
                     console.log("err before "+err);        
                 } else {
                     console.log("tokens  "+tokens);
-                    console.log(tokens.acces_token);
-                    console.log(tokens.refresh_token);
+                    console.log(admin);
+                    Tokens.insert({
+                        "google" : tokens
+                    });
 
 //                  Meteor.users.update({_id: user._id}, {$set: {"services.requestGoogle": tokens}});
                     //console.log(tokens[1]);
