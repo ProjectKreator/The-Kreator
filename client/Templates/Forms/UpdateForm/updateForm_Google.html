@@ -15,6 +15,7 @@
 <template name ="googleCreateEmail">
 		<div class="form-group">
 			<div class="input-group">
+				<input type="text" name="googleMail" class="form-control" value={{mailCompany}}>
 				<span class="input-group-btn">
 						<button class="btn btn-default" name="buttonCreateEmail" type="button">Créer !</button>
 				</span>
@@ -25,7 +26,7 @@
 
 <template name = "googleApi">
 	<h2>Adresse kretaor.in</h2>
-	{{#if mailfound}}
+	{{#if mailFound}}
 		{{> googleCreateEmail}}
 	{{else}}
 		{{> googleCheckEmail}}

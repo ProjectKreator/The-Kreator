@@ -30,18 +30,30 @@ Template.googleCreateEmail.events({
 
 	}
 });
+Template.googleCreateEmail.helpers({
+	'mailCompany' : function(){
+		var res = Theodoer.findOne({current:true}).requestGoogle.email + "@theodo.fr";
+		return res;
+	},
 
+});
 Template.googleApi.helpers({
 	'mailFound' : function(){
 		try{
 			if (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.email != "undefined") {
                return true; 
-            }  
+            }
+            else{
+            	return false;
+            }
 		} catch(e){
 			return false;
 		}
 	},
-	requestGoogleStatus:function(){
+
+
+
+	'requestGoogleStatus' : function(){
 		try{
 			var email = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.email;
             
@@ -49,6 +61,8 @@ Template.googleApi.helpers({
 					var res = "L'adresse mail " + email + "à été créée!";
 					return res;
                     
+				} else if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.status == undefined){
+					return "";
 				} else {
 					return "Erreur. Adresse email non créée.";
 				}

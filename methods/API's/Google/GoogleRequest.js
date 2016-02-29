@@ -18,10 +18,9 @@ Meteor.methods({
                 if (err) {
                     console.log("err before "+err);        
                 } else {
-                    Tokens.insert({
-                        "name" : "google",
-                        "tokens" : tokens
-                    });
+                    var user = Meteor.user();
+
+                    Meteor.users.update({_id: user._id}, {$set:{"profile.googleToken" : tokens}});
                 }
             
             // set tokens to the client
@@ -48,8 +47,6 @@ Meteor.methods({
     },
     
     checkEmail: function (prenom,nom) {
-        prenom = "admi";
-        nom = "nalbot";
         var res = prenom.toLowerCase();
         var stopCheckEmail = false;
         
@@ -72,17 +69,15 @@ Meteor.methods({
                 var url = "https://www.googleapis.com/admin/directory/v1/users/" + nameTest + "@kretaor.in";
                 HTTP.get(url, {
                     "params": {
-                        "access_token": Tokens.findOne({name : "google"}).tokens.access_token
+                        "access_token": Meteor.user().profile.googleToken.access_token
                     },    
                 }, function(error, response){
                     if(error){
                         res = nameTest;
-                        console.log("e " + error);
                         Theodoer.update({current:true},
                             {$set : {"requestGoogle.email" : res}});
 
                     } else {
-                        console.log("r " + response);
                         checkEmailApi(addLetter(nameTest));
                     }
                 });
@@ -93,20 +88,6 @@ Meteor.methods({
     },
     
     createEmail: function (prenom, nom) {
-        var url = "https://www.googleapis.com/admin/directory/v1/users/paul@kretaor.in";
-        HTTP.get(url, {
-            "params": {
-                "access_token": Tokens.findOne({name : "google"}).tokens.access_token
-            },    
-            }, function(error, response){
-                if(error){
-                    console.log("erreur :" + error);
-                } else {
-                    console.log(response);
-                }
-            }
-        );
-
     }
     
 });
