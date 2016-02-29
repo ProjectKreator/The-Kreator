@@ -3,6 +3,10 @@
 	<p class="logo"><img src="images/logo.png" /></p>
 	
 	<h1><strong>WELCOME TO THE KREATOR !</strong></h1>
+
+	{{#if loginWithUnauthorizedDomainAttempted}}
+		{{> RestrictionOfDomain}}
+	{{/if}}
 		
 	
 	<div id="login-screen"> 
@@ -11,4 +15,8 @@
 
 
 	
+</template>
+
+<template name="RestrictionOfDomain">
+	<h2>Vous ne pouvez vous connecter qu'avec une addresse en {{authorizedDomain}} !</h2>
 </template>

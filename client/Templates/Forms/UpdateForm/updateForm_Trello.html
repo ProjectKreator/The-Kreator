@@ -9,7 +9,6 @@
 				</span>
 				
 			</div>
-
 		</div>
 	</form>
 </template>
@@ -25,6 +24,14 @@
 		</div>
 </template>
 
+<template name ="TrelloCopyFormationBoard">
+	<div class="input-group">
+		<span class="input-group-btn">
+			<button class="btn btn-default" name="copyFormationBoardTrello" type="button">Envoyer le board de formation</button>
+		</span>			
+	</div>
+</template>
+
 <template name = "trello">
 	<h2>Trello</h2>
 	{{#if authenticated}}
@@ -34,5 +41,7 @@
 	{{/if}}
 	<p>{{requestTrelloStatus}}</p>
 
-
+	{{#if requestTrelloStatusBoolean}}
+		{{> TrelloCopyFormationBoard}}
+	{{/if}}
 </template>

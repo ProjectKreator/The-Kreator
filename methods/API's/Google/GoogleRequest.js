@@ -87,7 +87,29 @@ Meteor.methods({
         checkEmailApi(addLetter(res));
     },
     
-    createEmail: function (prenom, nom) {
+    createEmail: function (prenom, nom, mail) {
+        var accessToken = "Bearer " + Meteor.user().profile.googleToken.access_token;
+        HTTP.post('https://www.googleapis.com/admin/directory/v1/users',{
+            "data" : {
+                "name" : {
+                    "familyName" : nom,
+                    "givenName" : prenom
+                },
+                "password" : "paultalbot",
+                "primaryEmail" : mail
+            },
+            "headers" : {
+                "Authorization" : accessToken,
+                "User-Agent" : "Meteor"
+            }
+        }, function(e,r){
+            if(e){
+                console.log("erreur "+e);
+            } else {
+                console.log(r);
+            }
+        } 
+        )
     }
     
 });

@@ -52,7 +52,7 @@ Template.trello.helpers({
 			return false;
 		}
 	},
-	requestTrelloStatus:function(){
+	'requestTrelloStatus':function(){
 		try{
 			var requestRecipient = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient;
 			if(requestRecipient == $('[name=email]').val()){
@@ -67,5 +67,20 @@ Template.trello.helpers({
 		} catch (error) {
 			return "";
 		}
+	},
+	'requestTrelloStatusBoolean' : function(){
+		try{
+			var requestRecipient = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient;
+			if(requestRecipient == $('[name=email]').val()){
+				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.status == 200){
+					return true;
+				} else {
+					return false;
+				}
+			}
+			return false;
+		} catch (error) {
+			return false;
+		}	
 	}
 });

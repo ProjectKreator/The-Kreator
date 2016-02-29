@@ -15,4 +15,15 @@
 	});
 */
 
-Accounts.config({restrictCreationByEmailDomain: Meteor.settings.googleLogin.acceptedDomainName})
+Accounts.config({restrictCreationByEmailDomain: function(email){
+	var domain = email.slice(email.lastIndexOf("@")+1);
+	var authorized = Meteor.settings.public.googleLogin.acceptedDomainName;
+	if(domain == authorized){
+		return true;
+	} else {
+		var id = LoginAttempt.findOne({"name" : "attempt"})._id;
+		LoginAttempt.update({_id : id}, {$set : {"state" : true}});
+		return false;
+	}
+}
+});

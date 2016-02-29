@@ -17,7 +17,8 @@
 		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"
 	},
 	"google" : {
-		"secret" : "ZDWzyt5ckudi5dQGKUE1_VCf"},
+		"secret" : "ZDWzyt5ckudi5dQGKUE1_VCf"
+	},
 	"googleLogin" : {
         "acceptedDomainName" : "kretaor.in"
     }

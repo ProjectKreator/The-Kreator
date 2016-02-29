@@ -18,6 +18,6 @@ Template.TestGetEmail.events({
            
         event.preventDefault();
         
-        Meteor.call("checkEmail");
+        Meteor.call("createEmail", "paul", "talbot", "pvtalbottest@gmail.com");
     },
 });

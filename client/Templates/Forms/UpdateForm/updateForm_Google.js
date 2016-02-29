@@ -15,43 +15,32 @@ Template.googleCheckEmail.events({
 Template.googleCreateEmail.events({
 	'click [name=buttonCreateEmail]' : function(event){
 		event.preventDefault();
-/*		
-        var prenom = Theodoer.findOne({current:true}).prenom;
-		var nom = Theodoer.findOne({current:true}).nom;
-
-        var token = Trello.token();
-		var email = Theodoer.findOne({current:true}).email;
-		Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom,
-			function(e,r){
-				if(e){
-
-				} else {
-					Theodoer.update({_id : Session.get("currentTheodoer")}, {$set : {"requestTrello.recipient" : email}});*/
-
 	}
 });
 Template.googleCreateEmail.helpers({
 	'mailCompany' : function(){
-		var res = Theodoer.findOne({current:true}).requestGoogle.email + "@theodo.fr";
-		return res;
+		try{
+			var res = Theodoer.findOne({current:true}).requestGoogle.email + "@theodo.fr";
+			return res;
+		} catch (e) {
+			return "";
+		}
 	},
 
 });
+
 Template.googleApi.helpers({
 	'mailFound' : function(){
 		try{
-			if (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.email != "undefined") {
-               return true; 
-            }
-            else{
-            	return false;
-            }
+			return (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.email != undefined);
 		} catch(e){
 			return false;
 		}
 	},
 
-
+	'companyName' : function(){
+		return Meteor.settings.public.googleLogin.acceptedDomainName;
+	},
 
 	'requestGoogleStatus' : function(){
 		try{
