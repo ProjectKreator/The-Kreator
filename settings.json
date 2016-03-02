@@ -5,20 +5,20 @@
 			"organization" : "ProjectKreator"
 		},
         "google" :{
-            "clientId" : "337810751573-mr60nns3au4vaf24i8ashkdcdfr8i0uo.apps.googleusercontent.com",
+            "clientId" : "563683486604-u0vj77qgfjhp8ttfgpmi58pjuqgr3fop.apps.googleusercontent.com",
             "redirectUrl" : "http://localhost:80/google"
         },
 		"trello" : {
 			"organization" : "kreatortest"
 		},
 		"googleLogin" : {
-        	"acceptedDomainName" : "kretaor.in"
+        	"acceptedDomainName" : "kreatorteam.in"
     	}
     },
 	"gitHub" : {
 		"clientSecret" : "0be95f4fec096825b9b92c6b28a3fff72649adf8"
 	},
 	"google" : {
-		"secret" : "wmvRWEszSXToFQYA5Nc-DAWU"
+		"secret" : "g2FoHViBsKkE6XB9wRsoUfx-"
 	}
 }

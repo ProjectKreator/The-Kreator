@@ -19,6 +19,7 @@ Meteor.methods({
                     console.log("err before "+err);        
                 } else {
                     var user = Meteor.user();
+                    console.log(tokens);
 
                     Meteor.users.update({_id: user._id}, {$set:{"profile.googleToken" : tokens}});
                 }
@@ -29,6 +30,7 @@ Meteor.methods({
                 
             })); 
         };
+
 
         // retrieve an access token
 
@@ -61,21 +63,27 @@ Meteor.methods({
             
         var checkEmailApi = function(nameTest) {
             // requete http ou methode google pour voir si l'adresse existe deja
+            // TODO
+            // IL FAUT GERER LES ERREURS
+
+
             if(nameTest == ""){
                 Theodoer.update({current:true},
                     {$set : {"requestGoogle.email" : ""}});
             }
             else{
-                var url = "https://www.googleapis.com/admin/directory/v1/users/" + nameTest + "@kretaor.in";
+                var domain = Meteor.settings.public.googleLogin.acceptedDomainName;
+                var url = "https://www.googleapis.com/admin/directory/v1/users/" + nameTest + "@" + domain;
                 HTTP.get(url, {
                     "params": {
                         "access_token": Meteor.user().profile.googleToken.access_token
                     },    
                 }, function(error, response){
                     if(error){
-                        res = nameTest;
+                        res = nameTest + "@" + domain;
+                        console.log(error);
                         Theodoer.update({current:true},
-                            {$set : {"requestGoogle.email" : res}});
+                            {$set : {"companyMail" : res}});
 
                     } else {
                         checkEmailApi(addLetter(nameTest));
@@ -87,7 +95,7 @@ Meteor.methods({
         checkEmailApi(addLetter(res));
     },
     
-    createEmail: function (prenom, nom, mail) {
+    createEmail: function (prenom, nom, mail, phone) {
         var accessToken = "Bearer " + Meteor.user().profile.googleToken.access_token;
         HTTP.post('https://www.googleapis.com/admin/directory/v1/users',{
             "data" : {
@@ -95,8 +103,12 @@ Meteor.methods({
                     "familyName" : nom,
                     "givenName" : prenom
                 },
-                "password" : "paultalbot",
-                "primaryEmail" : mail
+                "password" : "jedoischangermonmotdepasse",
+                "primaryEmail" : mail,
+                "phones" : [{
+                    "type" : "work",
+                    "value" : phone
+                }]
             },
             "headers" : {
                 "Authorization" : accessToken,
@@ -107,6 +119,9 @@ Meteor.methods({
                 console.log("erreur "+e);
             } else {
                 console.log(r);
+                Theodoer.update({current:true},{
+                    $set:{"companyMail" : r.data.primaryEmail, "requestGoogle.status" : r.statusCode, 
+                    "requestGoogle.email" : r.data.primaryEmail}});
             }
         } 
         )

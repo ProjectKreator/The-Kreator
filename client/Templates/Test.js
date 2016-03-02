@@ -18,6 +18,13 @@ Template.TestGetEmail.events({
            
         event.preventDefault();
         
-        Meteor.call("createEmail", "paul", "talbot", "pvtalbottest@gmail.com");
+        Meteor.call("createEmail", "paul", "talbot", "paulta@kreatorteam.in");
     },
 });
+
+Template.TestEmail.events({
+    'click [name=testEmail]' : function(event){
+        event.preventDefault();
+        Meteor.call("sendEmail", "pvtalbottest@gmail.com", "pvtalbottest@gmail.com", "Test", "Hello !");
+    }
+})

@@ -11,6 +11,9 @@
         },
 		"trello" : {
 			"organization" : "kreatortest"
+		},
+		"googleLogin" : {
+			"acceptedDomainName" : "kreatorteam.in"
 		}
 	},
 	"gitHub" : {
@@ -19,7 +22,4 @@
 	"google" : {
 		"secret" : "ZDWzyt5ckudi5dQGKUE1_VCf"
 	},
-	"googleLogin" : {
-        "acceptedDomainName" : "kretaor.in"
-    }
 }
