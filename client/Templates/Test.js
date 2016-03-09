@@ -25,3 +25,5 @@ Template.TestGroups.events({
         Meteor.call("addToGoogleGroup", "antoined@kreatorteam.in", "biz@kreatorteam.in");
     },
 });
+
+  

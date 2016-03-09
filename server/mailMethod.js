@@ -1,34 +1,49 @@
-Meteor.methods({
-  sendEmail: function (to, from, subject, text) {
+   // on the server, we create the sendEmail RPC function
+  Meteor.methods({
+    
 
-    // Let other method calls from the same client start running,
-    // without waiting for the email sending to complete.
-    this.unblock();
+    sendEmail: function(email) {
+      // send the email!
+            SSR.compileTemplate( 'htmlEmail', Assets.getText( 'html-email.html' ) );
 
-    //actual email sending method
-    /*Email.send({
-      to: to,
-      from: from,
-      subject: subject,
-      text: text
-    });*/
-  HTTP.post("https://api.mailgun.net/v3/sandboxf7c43340f7dd48af8829fa208778f816.mailgun.org",
-    {
-      "data" : {
-        "to" : to,
-        "from" : from,
-        "subject" : subject,
-        "text" : text
-      },
-      "headers" :{
-        "api" : "key-fb032d282326f2fa5565dc81a6e93ad3"
+            var emailData = {
+              prenom : Theodoer.findOne({current:true}).prenom,
+              nom :  Theodoer.findOne({current:true}).nom,
+              fonction: Theodoer.findOne({current:true}).job
+            };
+
+            Email.send({
+              to:email, 
+              from:'acemtp@gmail.com', 
+              subject:'Bienvenu chez Theodo !! =D', 
+              html: SSR.render( 'htmlEmail', emailData )
+            });
+    },
+
+  sendEmail2: function(email) {
+        // send the email!
+              SSR.compileTemplate( 'htmlEmail', Assets.getText( 'html-email2.html' ) );
+
+
+              var emailData = {
+              prenom : Theodoer.findOne({current:true}).prenom,
+              nom :  Theodoer.findOne({current:true}).nom,
+              fonction: Theodoer.findOne({current:true}).job
+       
+              };
+
+              Email.send({
+                to:email, 
+                from:'acemtp@gmail.com', 
+                subject:'Bienvenu chez Theodo !! =D [2nd mail]', 
+                html: SSR.render( 'htmlEmail', emailData )
+              });
       }
-    }, function(e, r){
-      if(e){
-        console.log("erreur" + e);
-      } else {
-        console.log(r);
-      }
-    });
-  }
-});
+
+
+
+
+
+
+
+  });

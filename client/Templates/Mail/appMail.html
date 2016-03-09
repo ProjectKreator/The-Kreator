@@ -1,0 +1,73 @@
+
+
+
+<template name = "email1_envoi">
+	
+	<h2>MAIL I</h2>
+
+
+	{{#if done}}
+
+	<div class="form-group">
+		<div class="input-group">
+			<span class="input-group-btn">
+					<button class="btn btn-default" name="NDmail" type="button">Renvoyer le premier mail</button>
+			</span>
+				
+		</div>
+	</div>
+
+	<p>Mail envoyé !</p>
+
+ {{else}}
+		<form>
+
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-btn">
+						<button class="btn btn-default" name="STmail" type="button">Envoyer le premier mail</button>
+				</span>
+				
+			</div>
+		</div>
+	</form>
+
+ {{/if}}
+
+</template>
+
+<template name = "email2_envoi">
+	<h2>MAIL II</h2>
+
+	{{#if done2}}
+
+	<div class="form-group">
+		<div class="input-group">
+			<span class="input-group-btn">
+					<button class="btn btn-default" name="NDmail" type="button">Renvoyer le second mail</button>
+			</span>
+				
+		</div>
+	</div>
+
+	<p>Mail envoyé !</p>
+
+ {{else}}
+		<form>
+
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-btn">
+						<button class="btn btn-default" name="STmail" type="button">Envoyer le second mail</button>
+				</span>
+				
+			</div>
+		</div>
+	</form>
+
+ {{/if}}
+
+</template>
+
+
+
