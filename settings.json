@@ -13,6 +13,15 @@
 		},
 		"googleLogin" : {
         	"acceptedDomainName" : "kreatorteam.in"
+    	},
+    	"googleGroups" : {
+    		"biz" : [
+    			"biz",
+    			"joinus"
+    		],
+    		"dev" : [
+    			"dev"
+    		]
     	}
     },
 	"gitHub" : {

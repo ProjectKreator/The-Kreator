@@ -24,7 +24,38 @@
 		</div>
 </template>
 
+<template name = "listOfGoogleGroupsJoined">
+	<ul>
+		{{#each groupsJoined}}
+			<li>{{groupName}}</li>
+		{{/each}}
+	</ul>
+</template>
+
+<template name = "googleGroupJoined">
+
+</template>
+
+<template name="joinGoogleGroups">
+	<form>		
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-btn">
+						<button class="btn btn-default" name="joinGroups" type="button">Relier aux groupes de {{job}}</button>
+				</span>
+				
+			</div>
+
+		</div>
+	</form>
+	{{#if groupsHaveBeenJoined}}
+		{{> listOfGoogleGroupsJoined}}
+	{{/if}}
+</template>
+
+
 <template name = "googleApi">
+
 	<h2>Adresse {{companyName}}</h2>
 	{{#if mailFound}}
 		{{> googleCreateEmail}}
@@ -32,6 +63,8 @@
 		{{> googleCheckEmail}}
 	{{/if}}
 	<p>{{requestGoogleStatus}}</p>
-
+	{{#if mailCreated}}
+		{{> joinGoogleGroups}}
+	{{/if}}
 
 </template>

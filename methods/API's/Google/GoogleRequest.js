@@ -121,10 +121,38 @@ Meteor.methods({
                 console.log(r);
                 Theodoer.update({current:true},{
                     $set:{"companyMail" : r.data.primaryEmail, "requestGoogle.status" : r.statusCode, 
-                    "requestGoogle.email" : r.data.primaryEmail}});
+                    "requestGoogle.email" : r.data.primaryEmail, "requestGoogle.id" : r.data.id}});
             }
         } 
         )
+    },
+
+    addToGoogleGroup : function(mail, group){
+        var accessToken = "Bearer " + Meteor.user().profile.googleToken.access_token;
+        var url = 'https://www.googleapis.com/admin/directory/v1/groups/'+ group +'/members'
+        HTTP.post(url, {
+            "data" : {
+                "kind" : "admin#directory#member",
+                "email" : mail,
+                "role" : "MEMBER",
+                "type" : "USER"
+            },
+            "headers" : {
+                "Authorization" : accessToken,
+                "User-Agent" : "Meteor"
+            }
+        }, function(e,r){
+            if(e){
+                console.log("erreur " + e);
+            } else {
+                Theodoer.update({"current" : true}, {
+                    $push : {"requestGoogle.groups" : {
+                        "groupName" : group,
+                        "status" : r.statusCode
+                    }}
+                });
+            }
+        });
     }
     
 });
