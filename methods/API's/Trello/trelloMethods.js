@@ -49,24 +49,35 @@ Meteor.methods({
 		);
 	},
     
-    
-    copyBoard : function(token, boardName, boardTemplate){
-		var adresse = "https://api.trello.com/1/boards/?key=cdfe125685dbd8ca533cb67ee42f1c98&token=" + token;
-		HTTP.post(adresse,{
-			data:{
-				name: boardName,
-                idBoardSource: boardTemplate
-			}},
+    getIdAndCopyBoardTrello : function(token, boardId, boardName, email, prenom, nom){
+		var adresseGet = "https://api.trello.com/1/boards/"+ boardId +"?key=cdfe125685dbd8ca533cb67ee42f1c98&token=" + token;
+		var adressePost = "https://api.trello.com/1/boards?key=cdfe125685dbd8ca533cb67ee42f1c98&token=" + token;
+        HTTP.get(adresseGet,{},
 			function(e,r){
 				if(e){
 					console.log(e);
 				} else {
-					console.log(r);
-                    //return l'id du nouveau board
+					var idBoard = r.data.id;
+                    console.log("Test dans methode getIdBoardTrello " +idBoard);
+                        HTTP.post(adressePost,{
+                            data:{
+                                name: boardName,
+                                idBoardSource: idBoard
+                            }},
+                            function(error,response){
+                                if(error){
+                                    console.log(error);
+                                } else {
+                                    var newBoardId = response.data.shortUrl.split(".com/b/")[1];
+                                    console.log(newBoardId);
+                                    Meteor.call("inviteToBoardTrello", token, email, prenom, nom, newBoardId, true);
+                                    
+                                }
+                            }
+                        );
                 }
             }
 		);
 	}
-    
     
 });

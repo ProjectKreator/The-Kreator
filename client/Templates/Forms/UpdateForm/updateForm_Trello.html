@@ -27,8 +27,12 @@
 <template name ="TrelloInviteToBoards">
 	<div class="input-group">
 		<span class="input-group-btn">
-			<button class="btn btn-default" name="TrelloInviteToBoards" type="button">Inviter aux Boards</button>
-            <button class="btn btn-default" name="TrelloCopyAndInvite" type="button">Inviter à une copie du board Formation {{job}}</button>
+            {{#if hasACompanyEmail}}
+                <button class="btn btn-default" name="TrelloInviteToBoards" type="button">Inviter aux Boards</button>
+                {{#if invitedToPersonalBoard}}
+                    <button class="btn btn-default" name="TrelloCopyAndInvite" type="button">Inviter à une copie du board Formation {{job}}</button>
+                {{/if}}
+            {{/if}}
 		</span>			
 	</div>
 </template>
