@@ -131,8 +131,15 @@ Template.trello.helpers({
         } catch(e){
             return "";
         }
-	}
+	},
     
+    'hasACompanyEmail' : function() {
+        try{
+            return (Theodoer.findOne({current : true}).companyMail != undefined);
+        } catch(e){
+            return false;
+        }
+    }
 });
 
 
@@ -141,12 +148,10 @@ Template.TrelloInviteToBoards.events({
 
 		event.preventDefault();
 		var isDev = (Theodoer.findOne({"current" : true}).job == "Dev");
-//[TBC]
-//		var email = Theodoer.findOne({current:true}).companyMail;
+        var email = Theodoer.findOne({current:true}).companyMail;
         var token = Trello.token();
         var prenom = Theodoer.findOne({current:true}).prenom;
         var nom = Theodoer.findOne({current:true}).nom;
-        var email = Theodoer.findOne({current:true}).email;
 		var boards = Meteor.settings.public.trello.boards;
 
 		for(i = 0; i<boards.length; ++i){
@@ -157,25 +162,46 @@ Template.TrelloInviteToBoards.events({
     'click [name=TrelloCopyAndInvite]' : function(event){
 
 		event.preventDefault();
-        console.log("Hello1");
-		var isDev = (Theodoer.findOne({"current" : true}).job == "Dev");
-//[TBC]
-//		var email = Theodoer.findOne({current:true}).companyMail;
+        var isDev = (Theodoer.findOne({"current" : true}).job == "Dev");
+        var email = Theodoer.findOne({current:true}).companyMail;
         var token = Trello.token();
         var prenom = Theodoer.findOne({current:true}).prenom;
         var nom = Theodoer.findOne({current:true}).nom;
-        var email = Theodoer.findOne({current:true}).email;
         var boardName = "Formation " + prenom;
 		if(isDev){
-			var templateBoard = Meteor.settings.public.trello.templateBoardFormation.dev;
+			var templateBoardId = Meteor.settings.public.trello.templateBoardFormation.dev;
 		} else {
-			var templateBoard = Meteor.settings.public.trello.templateBoardFormation.biz;
+			var templateBoardId = Meteor.settings.public.trello.templateBoardFormation.biz;
 		}
-
         
+        //Appel à la méthode permettant de récuperer l'id complet du board
+        
+       Meteor.call("getIdAndCopyBoardTrello", token, templateBoardId, boardName, email, prenom, nom);
+    
+        /*
+       Meteor.call("getIdBoardTrello",token , templateBoard, function(error, response){
+            if(error){
+                console.log(error);
+            } else {
+                idTemplateBoard = response;
+                console.log("Test in 1st callback function " +idTemplateBoard);
+                //Appel à la méthode permettant de copier ce board
+                Meteor.call("copyBoardTrello",token , boardName, idTemplateBoard, function(error, response){
+/*                    if(error){
+                        console.log(error);
+                    } else {
+                        console.log(response);
+                        console.log(response.data.id);
+                        console.log(response.data.shortUrl.split("trello.com/b/"[1]));
+                        //Meteor.call("inviteToOrganisationBoardTrello", token, email, prenom, nom,copyBoard)
+                    }
+                }
+                           );
+            }
+        });
+       */
         //Copy board + Invite to board
-        Meteor.call("CopyBoardTrello",token, boardName, templateBoard);
-        //Meteor.call("inviteToOrganisationBoardTrello", token, email, prenom, nom,copyBoard);
+        
         //test de copy (appel api)
         
 	}
