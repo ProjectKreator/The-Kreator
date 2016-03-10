@@ -109,7 +109,7 @@ Template.trello.helpers({
         }
 	},
     
-    'invitedToPersonalBoard' : function(){
+/*    'invitedToPersonalBoard' : function(){
         try{
             var isInvited = false;
             var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
@@ -122,7 +122,7 @@ Template.trello.helpers({
         } catch(e){
             return "Problème avec l'invitation";
         }
-	},
+	},*/
     
     'job' : function(){
         try{
@@ -132,13 +132,27 @@ Template.trello.helpers({
         }
 	},
     
-    'hasACompanyEmail' : function() {
+    'hasACompanyMail' : function() {
         try{
             return (Theodoer.findOne({current : true}).companyMail != undefined);
         } catch(e){
             return false;
         }
-    }
+    },
+
+    'isInvitedToPersonalBoard' : function(){
+        try{
+            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
+            for(i = 0 ; i < boards.length ; ++i){
+                if(boards[i].status == 200 && boards[i].isPersonal){
+                    return true;
+                }
+            }
+            return false;
+        } catch(e){
+            return false;
+        }
+	},
 });
 
 
@@ -175,33 +189,6 @@ Template.TrelloInviteToBoards.events({
         
         //Appel à la méthode permettant de récuperer l'id complet du board
         
-       Meteor.call("getIdAndCopyBoardTrello", token, templateBoardId, boardName, email, prenom, nom);
-    
-        /*
-       Meteor.call("getIdBoardTrello",token , templateBoard, function(error, response){
-            if(error){
-                console.log(error);
-            } else {
-                idTemplateBoard = response;
-                console.log("Test in 1st callback function " +idTemplateBoard);
-                //Appel à la méthode permettant de copier ce board
-                Meteor.call("copyBoardTrello",token , boardName, idTemplateBoard, function(error, response){
-/*                    if(error){
-                        console.log(error);
-                    } else {
-                        console.log(response);
-                        console.log(response.data.id);
-                        console.log(response.data.shortUrl.split("trello.com/b/"[1]));
-                        //Meteor.call("inviteToOrganisationBoardTrello", token, email, prenom, nom,copyBoard)
-                    }
-                }
-                           );
-            }
-        });
-       */
-        //Copy board + Invite to board
-        
-        //test de copy (appel api)
-        
+       Meteor.call("getIdAndCopyBoardTrello", token, templateBoardId, boardName, email, prenom, nom);    
 	}
 });
