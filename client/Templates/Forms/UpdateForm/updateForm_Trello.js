@@ -28,13 +28,13 @@ Template.trelloAuthentication.events({
 Template.trelloInformations.events({
 	'click [name=trelloRequest]' : function(event){
 		try{
-/*			if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.status != 200){
+			if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.status != 200){
 				alert("L\'adresse mail de l'entreprise n'a pas encore été créée !");
 			}
-			else{ [TBC]*/
+			else{
 			event.preventDefault();
 			var token = Trello.token();
-			var email = Theodoer.findOne({current:true}).email;
+			var email = Theodoer.findOne({current:true}).companyMail;
 			var prenom = Theodoer.findOne({current:true}).prenom;
 			var nom = Theodoer.findOne({current:true}).nom;
 			Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom,
@@ -45,7 +45,7 @@ Template.trelloInformations.events({
 						Theodoer.update({_id : Session.get("currentTheodoer")}, {$set : {"requestTrello.recipient" : email}});
 					}
 				});
-			//}
+			}
 		} catch(e){
 			alert("L\'adresse mail de l'entreprise n'a pas encore été créée !");
 		}

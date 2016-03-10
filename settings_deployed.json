@@ -9,7 +9,16 @@
             "redirectUrl" : "http://kreator.meteor.com/google"
         },
 		"trello" : {
-			"organization" : "kreatortest"
+			"organization" : "kreatortest",
+			"boards" : [
+                "mfhpmSbM",
+                "c0kYVeB2",
+                "pxZWU77O"
+            ],
+            "templateBoardFormation" :{
+                "biz" : "7VeQpQrr",
+                "dev" : "7VeQpQrr"
+            }
 		},
 		"googleLogin" : {
 			"acceptedDomainName" : "kreatorteam.in"
@@ -28,6 +37,6 @@
 		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"
 	},
 	"google" : {
-		"secret" : "g2FoHViBsKkE6XB9wRsoUfx-"
-	},
+		"secret" : "SZyzR4872NTIrsF-K8Eacmb7"
+	}
 }
