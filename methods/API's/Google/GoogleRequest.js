@@ -19,8 +19,8 @@ Meteor.methods({
                     console.log("err before "+err);        
                 } else {
                     var user = Meteor.user();
-                    console.log(tokens);
-
+                    
+                    Theodoer.update({current:true}, {$set : {"requestGoogle.token" : true}});
                     Meteor.users.update({_id: user._id}, {$set:{"profile.googleToken" : tokens}});
                 }
             

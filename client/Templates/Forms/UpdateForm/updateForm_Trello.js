@@ -11,9 +11,8 @@ Template.trelloAuthentication.events({
 		    read: true,
 		    write: true },
 		  expiration: "never",
-		  persist: "false",
-		  authenticationSuccess,
-		  authenticationFailure
+		  success : authenticationSuccess,
+		  failure : authenticationFailure
 		});
 
 
