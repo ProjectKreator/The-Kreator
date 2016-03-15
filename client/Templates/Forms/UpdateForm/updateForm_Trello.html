@@ -28,11 +28,11 @@
 	<div class="input-group">
 		<span class="input-group-btn">
                 <button class="btn btn-default" name="TrelloInviteToBoards" type="button">Inviter aux Boards</button>
-                {{#if isInvitedToPersonalBoard}}
+                
                 	<p>Invitation pour le Board Personel de Formation envoyée !</p>
-                {{else}}
+                
                     <button class="btn btn-default" name="TrelloCopyAndInvite" type="button">Inviter à une copie du board Formation {{job}}</button>
-                {{/if}}
+                
 		</span>			
 	</div>
 </template>
@@ -41,14 +41,14 @@
 	<h2>Trello</h2>
 	{{#if authenticated}}
 		{{> trelloInformations}}
+    	<p>{{requestTrelloStatus}}</p>
+		{{> TrelloInviteToBoards}}
+	    <p>{{boardsJoined}}</p>
+        <p classe="alert">{{invitedToPersonalBoard}}</p>
 	{{else}}
 		{{> trelloAuthentication}}
 	{{/if}}
-	<p>{{requestTrelloStatus}}</p>
 
-	{{#if requestTrelloStatusBoolean}}
-		{{> TrelloInviteToBoards}}
-		<p>{{boardsJoined}}</p>
-	{{/if}}
+	
 
 </template>
