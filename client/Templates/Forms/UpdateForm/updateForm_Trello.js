@@ -23,8 +23,6 @@ Template.trelloAuthentication.events({
 
 });
 
-
-
 Template.trelloInformations.events({
 	'click [name=trelloRequest]' : function(event){
 		try{
@@ -40,7 +38,7 @@ Template.trelloInformations.events({
 			Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom,
 				function(e,r){
 					if(e){
-
+						console.log(e);
 					} else {
 						Theodoer.update({_id : Session.get("currentTheodoer")}, {$set : {"requestTrello.recipient" : email}});
 					}
@@ -52,6 +50,32 @@ Template.trelloInformations.events({
 	}
 });
 
+Template.StatusOfInvitationToTrelloOrganization.helpers({
+	'joinOrganizationTrelloAttempted':function(){
+		try {
+			var success = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.joinOrganizationAttempted;
+			return success;
+		} catch (e){
+			return false;
+		}
+	},
+	'joinOrganizationTrelloSucceeded':function(){
+		try{
+			var requestRecipient = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient;
+			if(requestRecipient == $('[name=email]').val()){
+				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.status == 200){
+					return true;
+				} else {
+					return false;
+				}
+			}
+			return false;
+		} catch (error) {
+			return false;
+		}	
+	}	
+});
+
 Template.trello.helpers({
 	'authenticated' : function(){
 		try{
@@ -60,7 +84,30 @@ Template.trello.helpers({
 			return false;
 		}
 	},
-	'requestTrelloStatus':function(){
+	'joinOrganizationTrelloAttempted':function(){
+		try {
+			var success = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.joinOrganizationAttempted;
+			return success;
+		} catch (e){
+			return false;
+		}
+	},
+	'joinOrganizationTrelloSucceeded':function(){
+		try{
+			var requestRecipient = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient;
+			if(requestRecipient == $('[name=email]').val()){
+				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.status == 200){
+					return true;
+				} else {
+					return false;
+				}
+			}
+			return false;
+		} catch (error) {
+			return false;
+		}	
+	},
+/*	'requestTrelloStatus':function(){
 		try{
 			var requestRecipient = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient;
 			if(requestRecipient == $('[name=email]').val()){
@@ -91,7 +138,7 @@ Template.trello.helpers({
 			return false;
 		}	
 	},
-    
+*/    
     'boardsJoined' : function(){
         try{
             var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;

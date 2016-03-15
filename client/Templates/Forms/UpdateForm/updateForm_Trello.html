@@ -37,6 +37,24 @@
 	</div>
 </template>
 
+<template name="TrelloOrganizationRejoined">
+	<div class ="alert alert-success">L'invitation a bien été envoyée !</div>
+</template>
+
+<template name="ErrorWhileRejoiningOrganizationTrello">
+	<div class="alert alert-danger">Erreur. Invitation non envoyée.</div>
+</template>
+
+<template name="StatusOfInvitationToTrelloOrganization">
+	{{#if joinOrganizationTrelloAttempted}}
+		{{#if joinOrganizationTrelloSucceeded}}
+			{{> TrelloOrganizationRejoined}}
+		{{else}}
+			{{> ErrorWhileRejoiningOrganizationTrello}}
+		{{/if}}
+	{{/if}}
+</template>
+
 <template name = "trello">
 	<h2>Trello</h2>
 	{{#if authenticated}}
@@ -44,9 +62,9 @@
 	{{else}}
 		{{> trelloAuthentication}}
 	{{/if}}
-	<p>{{requestTrelloStatus}}</p>
+	{{> StatusOfInvitationToTrelloOrganization}}
 
-	{{#if requestTrelloStatusBoolean}}
+	{{#if joinOrganizationTrelloSucceeded}}
 		{{> TrelloInviteToBoards}}
 		<p>{{boardsJoined}}</p>
 	{{/if}}
