@@ -10,7 +10,11 @@ Template.Main.onCreated(function(){
 
 Template.Main.helpers({
 	'loginWithUnauthorizedDomainAttempted' : function(){
-		return LoginAttempt.findOne({"name" : "attempt"}).state;
+		try{
+			return LoginAttempt.findOne({"name" : "attempt"}).state;
+		} catch (e){
+			return false;
+		}
 	}
 })
 

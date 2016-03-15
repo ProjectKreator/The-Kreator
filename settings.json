@@ -9,7 +9,16 @@
             "redirectUrl" : "http://localhost:80/google"
         },
 		"trello" : {
-			"organization" : "kreatortest"
+            "organization" : "kreatortest",
+            "boards" : [
+                "mfhpmSbM",
+                "c0kYVeB2",
+                "pxZWU77O"
+            ],
+            "templateBoardFormation" :{
+                "biz" : "0EZlJLCj",
+                "dev" : "0EZlJLCj"
+            }
 		},
 		"googleLogin" : {
         	"acceptedDomainName" : "kreatorteam.in"

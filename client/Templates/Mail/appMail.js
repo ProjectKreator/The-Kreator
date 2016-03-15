@@ -14,7 +14,9 @@
 
   });
   
-  Template.email1_envoi.done = function () { return Session.equals('done', true); }
+  Template.email1_envoi.helpers({
+    'done' : function (){ return Session.equals('done', true); }
+  });
 
 
   Template.email2_envoi.events({
@@ -32,5 +34,7 @@
 
   });
   
-  Template.email2_envoi.done2 = function () { return Session.equals('done2', true); }
+  Template.email2_envoi.helpers({
+    'done2' : function () { return Session.equals('done2', true); }
+  });
 

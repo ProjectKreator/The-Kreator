@@ -1,3 +1,14 @@
+<template name ="googleAuthentication">
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-btn">
+						<button class="btn btn-default" name="buttonGoogleAuthentication" type="button">S'authentifier sur Google</button>
+				</span>
+				
+			</div>
+		</div>
+</template>
+
 <template name = "googleCheckEmail">
 	<form>		
 		<div class="form-group">
@@ -25,6 +36,7 @@
 </template>
 
 <template name = "listOfGoogleGroupsJoined">
+	{{prenom}} a été rajouté aux groupes :
 	<ul>
 		{{#each groupsJoined}}
 			<li>{{groupName}}</li>
@@ -57,14 +69,18 @@
 <template name = "googleApi">
 
 	<h2>Adresse {{companyName}}</h2>
-	{{#if mailFound}}
-		{{> googleCreateEmail}}
+	{{#if authenticated}}
+		{{#if mailFound}}
+			{{> googleCreateEmail}}
+		{{else}}
+			{{> googleCheckEmail}}
+		{{/if}}
+		<p>{{requestGoogleStatus}}</p>
+		{{#if mailCreated}}
+			{{> joinGoogleGroups}}
+		{{/if}}
 	{{else}}
-		{{> googleCheckEmail}}
-	{{/if}}
-	<p>{{requestGoogleStatus}}</p>
-	{{#if mailCreated}}
-		{{> joinGoogleGroups}}
+		{{> googleAuthentication}}
 	{{/if}}
 
 </template>

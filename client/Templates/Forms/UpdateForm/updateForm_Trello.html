@@ -24,10 +24,15 @@
 		</div>
 </template>
 
-<template name ="TrelloCopyFormationBoard">
+<template name ="TrelloInviteToBoards">
 	<div class="input-group">
 		<span class="input-group-btn">
-			<button class="btn btn-default" name="copyFormationBoardTrello" type="button">Envoyer le board de formation</button>
+                <button class="btn btn-default" name="TrelloInviteToBoards" type="button">Inviter aux Boards</button>
+                {{#if isInvitedToPersonalBoard}}
+                	<p>Invitation pour le Board Personel de Formation envoyée !</p>
+                {{else}}
+                    <button class="btn btn-default" name="TrelloCopyAndInvite" type="button">Inviter à une copie du board Formation {{job}}</button>
+                {{/if}}
 		</span>			
 	</div>
 </template>
@@ -42,6 +47,8 @@
 	<p>{{requestTrelloStatus}}</p>
 
 	{{#if requestTrelloStatusBoolean}}
-		{{> TrelloCopyFormationBoard}}
+		{{> TrelloInviteToBoards}}
+		<p>{{boardsJoined}}</p>
 	{{/if}}
+
 </template>
