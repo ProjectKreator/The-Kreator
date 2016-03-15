@@ -106,39 +106,7 @@ Template.trello.helpers({
 		} catch (error) {
 			return false;
 		}	
-	},
-/*	'requestTrelloStatus':function(){
-		try{
-			var requestRecipient = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient;
-			if(requestRecipient == $('[name=email]').val()){
-				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.status == 200){
-					var res = "Invitation envoyée à " + requestRecipient;
-					return res;
-				} else {
-					return "Erreur. Invitation non envoyée.";
-				}
-			}
-			return "";
-		} catch (error) {
-			return "";
-		}
-	},
-	'requestTrelloStatusBoolean' : function(){
-		try{
-			var requestRecipient = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient;
-			if(requestRecipient == $('[name=email]').val()){
-				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.status == 200){
-					return true;
-				} else {
-					return false;
-				}
-			}
-			return false;
-		} catch (error) {
-			return false;
-		}	
-	},
-*/    
+	},   
     'boardsJoined' : function(){
         try{
             var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
