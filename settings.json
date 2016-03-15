@@ -8,7 +8,7 @@
             "clientId" : "563683486604-u0vj77qgfjhp8ttfgpmi58pjuqgr3fop.apps.googleusercontent.com",
             "redirectUrl" : "http://localhost:80/google",
             "acceptedDomainName" : "kreatorteam.in",
-            "groups" : 
+            "groups" : {
                 "biz" : [
                     "biz",
                     "joinus"
@@ -16,6 +16,7 @@
                 "dev" : [
                     "dev"
                 ]
+            }
         },
 		"trello" : {
             "apiKey" : "cdfe125685dbd8ca533cb67ee42f1c98",
@@ -28,11 +29,8 @@
             "templateBoardFormation" :{
                 "biz" : "0EZlJLCj",
                 "dev" : "0EZlJLCj"
-            },
-		},
-    	"googleGroups" : {
-
-    	},
+            }
+		}
     },
 	"gitHub" : {
 		"clientSecret" : "0be95f4fec096825b9b92c6b28a3fff72649adf8"
