@@ -20,6 +20,6 @@ Template.Main.helpers({
 
 Template.RestrictionOfDomain.helpers({
 	'authorizedDomain' : function(){
-		return Meteor.settings.public.googleLogin.acceptedDomainName;
+		return Meteor.settings.public.google.acceptedDomainName;
 	}
 })

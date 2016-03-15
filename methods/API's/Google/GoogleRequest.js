@@ -72,7 +72,7 @@ Meteor.methods({
                     {$set : {"requestGoogle.email" : ""}});
             }
             else{
-                var domain = Meteor.settings.public.googleLogin.acceptedDomainName;
+                var domain = Meteor.settings.public.google.acceptedDomainName;
                 var url = "https://www.googleapis.com/admin/directory/v1/users/" + nameTest + "@" + domain;
                 HTTP.get(url, {
                     "params": {
