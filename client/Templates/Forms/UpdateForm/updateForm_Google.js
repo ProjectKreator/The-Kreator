@@ -33,7 +33,7 @@ Template.googleCreateEmail.events({
 		event.preventDefault();
 		var prenom = Theodoer.findOne({current:true}).prenom;
 		var nom = Theodoer.findOne({current:true}).nom;
-		var domain = Meteor.settings.public.googleLogin.acceptedDomainName;
+		var domain = Meteor.settings.public.google.acceptedDomainName;
 		var mail = (Theodoer.findOne({current:true}).companyMail);
 		var phone = Theodoer.findOne({current:true}).phone;
 		Meteor.call("createEmail", prenom, nom, mail,phone);
@@ -58,7 +58,7 @@ Template.googleApi.helpers({
 	},
 
 	'companyName' : function(){
-		return Meteor.settings.public.googleLogin.acceptedDomainName;
+		return Meteor.settings.public.google.acceptedDomainName;
 	},
 
 	'requestGoogleStatus' : function(){
@@ -145,13 +145,13 @@ Template.joinGoogleGroups.events({
 		var isDev = (Theodoer.findOne({"current" : true}).job == "Dev");
 
 		var email = Theodoer.findOne({current:true}).companyMail;
-		var domain = Meteor.settings.public.googleLogin.acceptedDomainName;
+		var domain = Meteor.settings.public.google.acceptedDomainName;
 		var groups;
 
 		if(isDev){
-			var groups = Meteor.settings.public.googleGroups.dev;
+			var groups = Meteor.settings.public.google.groups.dev;
 		} else {
-			var groups = Meteor.settings.public.googleGroups.biz;
+			var groups = Meteor.settings.public.google.groups.biz;
 		}
 
 

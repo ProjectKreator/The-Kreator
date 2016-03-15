@@ -72,7 +72,7 @@ Meteor.methods({
                     {$set : {"requestGoogle.email" : ""}});
             }
             else{
-                var domain = Meteor.settings.public.googleLogin.acceptedDomainName;
+                var domain = Meteor.settings.public.google.acceptedDomainName;
                 var url = "https://www.googleapis.com/admin/directory/v1/users/" + nameTest + "@" + domain;
                 HTTP.get(url, {
                     "params": {
@@ -97,13 +97,14 @@ Meteor.methods({
     
     createEmail: function (prenom, nom, mail, phone) {
         var accessToken = "Bearer " + Meteor.user().profile.googleToken.access_token;
+        var password = Meteor.settings.google.passwordForNewUser;
         HTTP.post('https://www.googleapis.com/admin/directory/v1/users',{
             "data" : {
                 "name" : {
                     "familyName" : nom,
                     "givenName" : prenom
                 },
-                "password" : "jedoischangermonmotdepasse",
+                "password" : password,
                 "primaryEmail" : mail,
                 "phones" : [{
                     "type" : "work",

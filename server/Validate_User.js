@@ -17,7 +17,7 @@
 
 Accounts.config({restrictCreationByEmailDomain: function(email){
 	var domain = email.slice(email.lastIndexOf("@")+1);
-	var authorized = Meteor.settings.public.googleLogin.acceptedDomainName;
+	var authorized = Meteor.settings.public.google.acceptedDomainName;
 	if(domain == authorized){
 		return true;
 	} else {

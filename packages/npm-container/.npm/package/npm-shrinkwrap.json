@@ -32,7 +32,7 @@
                   }
                 },
                 "base64url": {
-                  "version": "1.0.5",
+                  "version": "1.0.6",
                   "dependencies": {
                     "concat-stream": {
                       "version": "1.4.10",
@@ -121,7 +121,7 @@
                   "version": "0.1.0",
                   "dependencies": {
                     "node-forge": {
-                      "version": "0.6.38"
+                      "version": "0.6.39"
                     }
                   }
                 },
@@ -156,7 +156,7 @@
                   }
                 },
                 "base64url": {
-                  "version": "1.0.5",
+                  "version": "1.0.6",
                   "dependencies": {
                     "concat-stream": {
                       "version": "1.4.10",
@@ -234,10 +234,10 @@
               "version": "2.60.0",
               "dependencies": {
                 "bl": {
-                  "version": "1.0.1",
+                  "version": "1.0.3",
                   "dependencies": {
                     "readable-stream": {
-                      "version": "2.0.5",
+                      "version": "2.0.6",
                       "dependencies": {
                         "core-util-is": {
                           "version": "1.0.2"
@@ -246,7 +246,7 @@
                           "version": "2.0.1"
                         },
                         "isarray": {
-                          "version": "0.0.1"
+                          "version": "1.0.0"
                         },
                         "process-nextick-args": {
                           "version": "1.0.6"
@@ -277,10 +277,10 @@
                   "version": "5.0.1"
                 },
                 "mime-types": {
-                  "version": "2.1.9",
+                  "version": "2.1.10",
                   "dependencies": {
                     "mime-db": {
-                      "version": "1.21.0"
+                      "version": "1.22.0"
                     }
                   }
                 },
@@ -294,7 +294,7 @@
                   "version": "0.4.2"
                 },
                 "tough-cookie": {
-                  "version": "2.2.1"
+                  "version": "2.2.2"
                 },
                 "http-signature": {
                   "version": "0.11.0",
@@ -357,10 +357,15 @@
                       "version": "1.1.1",
                       "dependencies": {
                         "ansi-styles": {
-                          "version": "2.1.0"
+                          "version": "2.2.0",
+                          "dependencies": {
+                            "color-convert": {
+                              "version": "1.0.0"
+                            }
+                          }
                         },
                         "escape-string-regexp": {
-                          "version": "1.0.4"
+                          "version": "1.0.5"
                         },
                         "has-ansi": {
                           "version": "2.0.0",
@@ -371,7 +376,7 @@
                           }
                         },
                         "strip-ansi": {
-                          "version": "3.0.0",
+                          "version": "3.0.1",
                           "dependencies": {
                             "ansi-regex": {
                               "version": "2.0.0"
@@ -392,7 +397,7 @@
                       }
                     },
                     "is-my-json-valid": {
-                      "version": "2.12.4",
+                      "version": "2.13.1",
                       "dependencies": {
                         "generate-function": {
                           "version": "2.0.0"
@@ -460,10 +465,10 @@
                   "version": "1.5.2"
                 },
                 "mime-types": {
-                  "version": "2.1.9",
+                  "version": "2.1.10",
                   "dependencies": {
                     "mime-db": {
-                      "version": "1.21.0"
+                      "version": "1.22.0"
                     }
                   }
                 }
@@ -490,7 +495,7 @@
               "version": "0.4.2"
             },
             "tough-cookie": {
-              "version": "2.2.1"
+              "version": "2.2.2"
             },
             "http-signature": {
               "version": "0.11.0",
@@ -553,10 +558,15 @@
                   "version": "1.1.1",
                   "dependencies": {
                     "ansi-styles": {
-                      "version": "2.1.0"
+                      "version": "2.2.0",
+                      "dependencies": {
+                        "color-convert": {
+                          "version": "1.0.0"
+                        }
+                      }
                     },
                     "escape-string-regexp": {
-                      "version": "1.0.4"
+                      "version": "1.0.5"
                     },
                     "has-ansi": {
                       "version": "2.0.0",
@@ -567,7 +577,7 @@
                       }
                     },
                     "strip-ansi": {
-                      "version": "3.0.0",
+                      "version": "3.0.1",
                       "dependencies": {
                         "ansi-regex": {
                           "version": "2.0.0"
@@ -588,7 +598,7 @@
                   }
                 },
                 "is-my-json-valid": {
-                  "version": "2.12.4",
+                  "version": "2.13.1",
                   "dependencies": {
                     "generate-function": {
                       "version": "2.0.0"

@@ -1,8 +1,8 @@
 Meteor.methods({
 	addUserToOrganizationTrello : function(token, email, prenom, nom){
 		var organization = Meteor.settings.public.trello.organization;
-		console.log(Meteor.settings.public.trello.organization);
-		var adresse = "https://api.trello.com/1/organizations/"+organization+"/members?key=cdfe125685dbd8ca533cb67ee42f1c98&token=" + token;
+		var apiKeyTrello = Meteor.settings.public.trello.apiKey ;
+		var adresse = "https://api.trello.com/1/organizations/"+organization+"/members?key=" + apiKeyTrello + "&token=" + token;
 		var name = prenom + " " + nom;
 		HTTP.put(adresse,{
 			data:{
@@ -24,7 +24,8 @@ Meteor.methods({
 	},
     
     inviteToBoardTrello : function(token, email, prenom, nom, board, isPersonalBoard){
-		var adresse = "https://api.trello.com/1/boards/"+board+"/members?key=cdfe125685dbd8ca533cb67ee42f1c98&token=" + token;
+    	var apiKeyTrello = Meteor.settings.public.trello.apiKey ;
+		var adresse = "https://api.trello.com/1/boards/"+board+"/members?key=" + apiKeyTrello + "&token=" + token;
 		var name = prenom + " " + nom;
 		HTTP.put(adresse,{
 			data:{
@@ -50,8 +51,9 @@ Meteor.methods({
 	},
     
     getIdAndCopyBoardTrello : function(token, boardId, boardName, email, prenom, nom){
-		var adresseGet = "https://api.trello.com/1/boards/"+ boardId +"?key=cdfe125685dbd8ca533cb67ee42f1c98&token=" + token;
-		var adressePost = "https://api.trello.com/1/boards?key=cdfe125685dbd8ca533cb67ee42f1c98&token=" + token;
+    	var apiKeyTrello = Meteor.settings.public.trello.apiKey ;
+		var adresseGet = "https://api.trello.com/1/boards/"+ boardId +"?key=" + apiKeyTrello + "&token=" + token;
+		var adressePost = "https://api.trello.com/1/boards?key=" + apiKeyTrello + "&token=" + token;
         HTTP.get(adresseGet,{},
 			function(e,r){
 				if(e){

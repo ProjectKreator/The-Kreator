@@ -6,9 +6,20 @@
 		},
         "google" :{
             "clientId" : "604282370571-g5l35uah7keg16ipv0culhtfcj08risj.apps.googleusercontent.com",
-            "redirectUrl" : "http://kreator.meteor.com/google"
+            "redirectUrl" : "http://kreator.meteor.com/google",
+            "acceptedDomainName" : "kreatorteam.in",
+            "groups" : {
+	    		"biz" : [
+	    			"biz",
+	    			"joinus"
+	    		],
+	    		"dev" : [
+	    			"dev"
+	    		]
+	    	}
         },
 		"trello" : {
+            "apiKey" : "cdfe125685dbd8ca533cb67ee42f1c98",
 			"organization" : "kreatortest",
 			"boards" : [
                 "mfhpmSbM",
@@ -20,23 +31,12 @@
                 "dev" : "7VeQpQrr"
             }
 		},
-		"googleLogin" : {
-			"acceptedDomainName" : "kreatorteam.in"
-		},
-		"googleGroups" : {
-    		"biz" : [
-    			"biz",
-    			"joinus"
-    		],
-    		"dev" : [
-    			"dev"
-    		]
-    	}
 	},
 	"gitHub" : {
 		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"
 	},
 	"google" : {
-		"secret" : "SZyzR4872NTIrsF-K8Eacmb7"
+		"secret" : "SZyzR4872NTIrsF-K8Eacmb7",
+		"passwordForNewUser" : "jedoischangermonmotdepasse"
 	}
 }
