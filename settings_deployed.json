@@ -37,6 +37,7 @@
 		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"
 	},
 	"google" : {
-		"secret" : "SZyzR4872NTIrsF-K8Eacmb7"
+		"secret" : "SZyzR4872NTIrsF-K8Eacmb7",
+		"passwordForNewUser" : "jedoischangermonmotdepasse"
 	}
 }

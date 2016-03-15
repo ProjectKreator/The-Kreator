@@ -31,12 +31,13 @@
     		"dev" : [
     			"dev"
     		]
-    	}
+    	},
     },
 	"gitHub" : {
 		"clientSecret" : "0be95f4fec096825b9b92c6b28a3fff72649adf8"
 	},
 	"google" : {
-		"secret" : "g2FoHViBsKkE6XB9wRsoUfx-"
+		"secret" : "g2FoHViBsKkE6XB9wRsoUfx-",
+        "passwordForNewUser" : "jedoischangermonmotdepasse"
 	}
 }
