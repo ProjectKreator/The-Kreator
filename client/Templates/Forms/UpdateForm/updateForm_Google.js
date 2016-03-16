@@ -146,7 +146,7 @@ Template.googleApi.helpers({
 
 	'mailCreated' : function(){
 		try{
-			currentTheodoer = Theodoer.findOne({current : true});
+			var currentTheodoer = Theodoer.findOne({current : true});
 			var email = currentTheodoer.companyMail;
             
 				if(currentTheodoer.requestGoogle.status == 200 && email == currentTheodoer.requestGoogle.email){
@@ -160,6 +160,17 @@ Template.googleApi.helpers({
 				}
 		} catch (error) {
 			return false;
+		}
+	},
+
+	'allGroupsHaveBeenJoined' : function(){
+		var currentTheodoer = Theodoer.findOne({current : true});
+		if (currentTheodoer.job == "Dev") {
+			var groupsToJoin = Meteor.settings.public.google.groups.dev;
+			return currentTheodoer.requestGoogle.groupsJoined.length == groupsToJoin.length;
+		} else {
+			var groupsToJoin = Meteor.settings.public.google.groups.biz;
+			return currentTheodoer.requestGoogle.groupsJoined.length == groupsToJoin.length;
 		}
 	}
 });
@@ -193,11 +204,6 @@ Template.joinGoogleGroups.events({
 			return true;
 		}
 		var groupNameWithDomain;
-
-/*		var createGroupName = function(group){
-			var res = group.groupName + "@" + domain;
-			return res;
-		}*/
 
 		for(i = 0; i<groups.length; ++i){
 			groupNameWithDomain = groups[i] + '@' + domain;

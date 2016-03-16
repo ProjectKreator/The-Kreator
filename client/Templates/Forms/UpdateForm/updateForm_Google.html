@@ -9,10 +9,14 @@
 			{{> googleCheckEmail}}
 		{{/if}}
 		{{#if mailCreated}}
-			{{> joinGoogleGroups}}
+			{{#unless allGroupsHaveBeenJoined}}
+				{{> joinGoogleGroups}}
+			{{/unless}}
 		{{/if}}
 	{{else}}
-		{{> googleAuthentication}}
+		{{#unless allGroupsHaveBeenJoined}}
+			{{> googleAuthentication}}
+		{{/unless}}
 	{{/if}}
 	{{> StatusOfGoogleRequests}}
 </template>
