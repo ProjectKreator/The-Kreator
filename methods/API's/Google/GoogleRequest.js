@@ -20,8 +20,7 @@ Meteor.methods({
                 } else {
                     var user = Meteor.user();
                     
-                    Theodoer.update({current:true}, {$set : {"requestGoogle.token" : true}});
-                    Meteor.users.update({_id: user._id}, {$set:{"profile.googleToken" : tokens}});
+                    Meteor.users.update({_id: user._id}, {$set:{"profile.googleToken" : tokens, "profile.googleTokenRequested" : true}});
                 }
             
             // set tokens to the client
@@ -48,7 +47,7 @@ Meteor.methods({
         });*/
     },
     
-    checkEmail: function (prenom,nom) {
+    checkEmail: function (prenom,nom, idMongoTheodoer) {
         var clean = function(string){
             string = string.replace(/[é|è|ê]/g, "e");
             string = string.replace(/[î]/g, "i");
@@ -75,12 +74,9 @@ Meteor.methods({
             
         var checkEmailApi = function(nameTest) {
             // requete http ou methode google pour voir si l'adresse existe deja
-            // TODO
-            // IL FAUT GERER LES ERREURS
-
 
             if(nameTest == ""){
-                Theodoer.update({current:true},
+                Theodoer.update({_id : idMongoTheodoer},
                     {$set : {"requestGoogle.email" : ""}});
             }
             else{
@@ -94,10 +90,10 @@ Meteor.methods({
                     if(error){
                         if(error.response.statusCode == 404){
                             res = nameTest + "@" + domain;
-                            Theodoer.update({current:true},
+                            Theodoer.update({_id : idMongoTheodoer},
                                 {$set : {"companyMail" : res}});
                         } else {
-                            Theodoer.update({current:true},{$set : {"requestGoogle.email" : ""}});
+                            Theodoer.update({_id : idMongoTheodoer},{$set : {"requestGoogle.email" : ""}});
                         }
 
                     } else {
@@ -110,7 +106,7 @@ Meteor.methods({
         checkEmailApi(addLetter(res));
     },
     
-    createEmail: function (prenom, nom, mail, phone) {
+    createEmail: function (prenom, nom, mail, phone, idMongoTheodoer) {
         var accessToken = "Bearer " + Meteor.user().profile.googleToken.access_token;
         var password = Meteor.settings.google.passwordForNewUser;
         HTTP.post('https://www.googleapis.com/admin/directory/v1/users',{
@@ -135,7 +131,7 @@ Meteor.methods({
                 console.log("erreur "+e);
             } else {
                 console.log(r);
-                Theodoer.update({current:true},{
+                Theodoer.update({_id : idMongoTheodoer},{
                     $set:{"companyMail" : r.data.primaryEmail, "requestGoogle.status" : r.statusCode, 
                     "requestGoogle.email" : r.data.primaryEmail, "requestGoogle.id" : r.data.id}});
             }
@@ -143,9 +139,11 @@ Meteor.methods({
         )
     },
 
-    addToGoogleGroup : function(mail, group){
+    addToGoogleGroup : function(mail, group, idMongoTheodoer){
         var accessToken = "Bearer " + Meteor.user().profile.googleToken.access_token;
-        var currentTheodoer = Theodoer.findOne({current : true})
+        var currentTheodoer = Theodoer.findOne({_id : idMongoTheodoer});
+        var compteur = 0;
+ 
         var userHadFailedtoJoin = function (){
             for(i = 0 ; i < currentTheodoer.requestGoogle.groupsNotJoined.length ; ++i){
                 if (currentTheodoer.requestGoogle.groupsNotJoined[i].groupName == group){
@@ -154,7 +152,9 @@ Meteor.methods({
             }
             return false;
         };
-        var url = 'https://www.googleapis.com/admin/directory/v1/groups/'+ group +'/members'
+
+        var url = 'https://www.googleapis.com/admin/directory/v1/groups/'+ group +'/members';
+        
         HTTP.post(url, {
             "data" : {
                 "kind" : "admin#directory#member",
@@ -169,23 +169,22 @@ Meteor.methods({
         }, function(e,r){
             if(e){
                 console.log("erreur " + e);
-                Theodoer.update({"current" : true}, {
+                Theodoer.update({_id : idMongoTheodoer}, {
                     $push : {"requestGoogle.groupsNotJoined" : {
-                        "groupName" : group,
-                    }}
+                        "groupName" : group}}
                 });
             } else {
-                Theodoer.update({"current" : true}, {
-                    $push : {"requestGoogle.groupsJoined" : {
-                        "groupName" : group,
-                    }}
-                });
                 if( userHadFailedtoJoin() ) {
-                    Theodoer.update({current : true}, {
+                    Theodoer.update({_id : idMongoTheodoer}, {
                         $pull: {"requestGoogle.groupsNotJoined" : {
                             "groupName" : group}}
-                        });
+                    });
                 }
+                Theodoer.update({_id : idMongoTheodoer}, {
+                    $push : {"requestGoogle.groupsJoined" : {
+                        "groupName" : group}}
+                });
+
             }
         });
     }

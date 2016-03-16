@@ -31,11 +31,12 @@ Template.trelloInformations.events({
 			}
 			else{
 			event.preventDefault();
+			var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 			var token = Trello.token();
-			var email = Theodoer.findOne({current:true}).companyMail;
-			var prenom = Theodoer.findOne({current:true}).prenom;
-			var nom = Theodoer.findOne({current:true}).nom;
-			Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom,
+			var email = currentTheodoer.companyMail;
+			var prenom = currentTheodoer.prenom;
+			var nom = currentTheodoer.nom;
+			Meteor.call("addUserToOrganizationTrello", token, email, prenom, nom, currentTheodoer._id,
 				function(e,r){
 					if(e){
 						console.log(e);
@@ -61,7 +62,7 @@ Template.StatusOfInvitationToTrelloOrganization.helpers({
 	},
 	'joinOrganizationTrelloSucceeded':function(){
 		try{
-			var currentTheodoer = Theodoer.findOne({current : true});
+			var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 			var requestRecipient = currentTheodoer.requestTrello.recipient;
 			if(requestRecipient == currentTheodoer.companyMail){
 				if(currentTheodoer.requestTrello.status == 200){
@@ -110,7 +111,7 @@ Template.trello.helpers({
 	},   
     'boardsJoined' : function(){
         try{
-            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
+            var boards = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.boards;
             var boardsS = Meteor.settings.public.trello.boards;
             var index = 0;
             for(i = 0 ; i < boards.length ; ++i){
@@ -128,7 +129,7 @@ Template.trello.helpers({
     'invitedToPersonalBoard' : function(){
         try{
             var isInvited = false;
-            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
+            var boards = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.boards;
             for(i = 0 ; i < boards.length ; ++i){
                 if(boards[i].status == 200 && boards[i].isPersonal){
                     return "Invitation pour le Board Personel de Formation envoyée";
@@ -142,7 +143,7 @@ Template.trello.helpers({
     
     'job' : function(){
         try{
-            return Theodoer.findOne({"current" : true}).job;
+            return Theodoer.findOne({_id : Session.get("currentTheodoer")}).job;
         } catch(e){
             return "";
         }
@@ -150,7 +151,7 @@ Template.trello.helpers({
     
     'hasACompanyMail' : function() {
         try{
-            return (Theodoer.findOne({current : true}).companyMail != undefined);
+            return (Theodoer.findOne({_id : Session.get("currentTheodoer")}).companyMail != undefined);
         } catch(e){
             return false;
         }
@@ -158,7 +159,7 @@ Template.trello.helpers({
 
 /*    'isInvitedToPersonalBoard' : function(){
         try{
-            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
+            var boards = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.boards;
             for(i = 0 ; i < boards.length ; ++i){
                 if(boards[i].status == 200 && boards[i].isPersonal){
                     return true;
@@ -176,7 +177,7 @@ Template.TrelloInviteToBoards.events({
 	'click [name=TrelloInviteToBoards]' : function(event){
         
 		event.preventDefault();
-		var currentTheodoer = Theodoer.findOne({"current" : true});
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
         var isDev = (currentTheodoer.job == "Dev");
         var email = currentTheodoer.companyMail;
         var token = Trello.token();
@@ -202,7 +203,7 @@ Template.TrelloInviteToBoards.events({
 		for(i = 0; i<boards.length; ++i){
             // on vérifie que le Theodoer n'a pas déjà été invité au board
             if (!isAlreadyInvited(boards[i], currentTheodoer)) {
-                Meteor.call("inviteToBoardTrello", token, email, prenom, nom, boards[i], false);
+                Meteor.call("inviteToBoardTrello", token, email, prenom, nom, boards[i], false, Session.get("currentTheodoer"));
             }
         }
 			 
@@ -211,7 +212,7 @@ Template.TrelloInviteToBoards.events({
     'click [name=TrelloCopyAndInvite]' : function(event){
 
 		event.preventDefault();
-        var currentTheodoer = Theodoer.findOne({"current" : true});
+        var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
         var isDev = (currentTheodoer.job == "Dev");
         var email = currentTheodoer.companyMail;
         var token = Trello.token();
@@ -243,7 +244,7 @@ Template.TrelloInviteToBoards.events({
                
         // on vérifie que le Theodoer n'a pas déjà été invité au board
         if (!isAlreadyInvitedToPersonalBoard(currentTheodoer)) {
-            Meteor.call("getIdAndCopyBoardTrello", token, templateBoardId, boardName, email, prenom, nom); 
+            Meteor.call("getIdAndCopyBoardTrello", token, templateBoardId, boardName, email, prenom, nom, Session.get("currentTheodoer")); 
         } 
 	}
 });

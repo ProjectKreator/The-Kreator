@@ -1,10 +1,10 @@
 /*Méthode permettant de relier un utilisateur à une organisation*/
 
 Meteor.methods({
-	GitHubRequest : function(adresse){
+	GitHubRequest : function(adresse, idMongoTheodoer){
 
 
-    var loginGitHub = Theodoer.findOne({current : true}).comptegithub;
+    var loginGitHub = Theodoer.findOne({_id : idMongoTheodoer}).comptegithub;
     var organisation = Meteor.settings.public.gitHub.organization;
     var clientId = Meteor.settings.public.gitHub.clientId;
     var clientSecret = Meteor.settings.gitHub.clientSecret;
@@ -33,7 +33,7 @@ Meteor.methods({
           console.log(response);
           var res = response.headers.status;
           res = res.toString();
-          Theodoer.update({current:true},
+          Theodoer.update({_id : idMongoTheodoer},
           {$set:{
             "requestGitHub.status" : response.statusCode, "requestGitHub.recipient" : loginGitHub
             }
@@ -47,7 +47,8 @@ Meteor.methods({
   			data: {
   				code : adresse,
   				client_id : clientId,
-  				client_secret : clientSecret
+  				client_secret : clientSecret,
+          state : idMongoTheodoer
   			}
   		}, function(error, response){
   			if(error){
