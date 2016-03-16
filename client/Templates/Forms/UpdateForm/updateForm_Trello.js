@@ -61,9 +61,10 @@ Template.StatusOfInvitationToTrelloOrganization.helpers({
 	},
 	'joinOrganizationTrelloSucceeded':function(){
 		try{
-			var requestRecipient = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.recipient;
-			if(requestRecipient == $('[name=email]').val()){
-				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.status == 200){
+			var currentTheodoer = Theodoer.findOne({current : true});
+			var requestRecipient = currentTheodoer.requestTrello.recipient;
+			if(requestRecipient == currentTheodoer.companyMail){
+				if(currentTheodoer.requestTrello.status == 200){
 					return true;
 				} else {
 					return false;
