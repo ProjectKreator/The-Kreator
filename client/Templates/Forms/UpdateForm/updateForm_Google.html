@@ -2,7 +2,9 @@
 	<h2>Adresse {{companyName}}</h2>
 	{{#if authenticated}}
 		{{#if mailFound}}
-			{{> googleCreateEmail}}
+			{{#unless mailCreated}}
+				{{> googleCreateEmail}}
+			{{/unless}}
 		{{else}}
 			{{> googleCheckEmail}}
 		{{/if}}
@@ -22,7 +24,7 @@
 				<p>Erreur. L'adresse mail n'a pas été créée.</p>
 			{{/if}}
 			{{#if groupsHaveNotBeenJoined}}
-				<p>L'adresse {{companyMail}} n'a été rajoutée aux groupes :</p>
+				<p>L'adresse {{companyMail}} n'a pas été rajoutée aux groupes :</p>
 				<ul>
 				{{#each requestGoogle.groupsNotJoined}}
 					<li>{{groupName}}</li>
@@ -79,16 +81,18 @@
 </template>
 
 <template name ="googleCreateEmail">
-		{{#unless mailCreated}}
+		{{#if mailNotCreated}}
 		<div class = "alert alert-info">L'adresse mail suivante est disponible. Vous pouvez demander sa création immédiatement.</div>
-		{{/unless}}
+		{{/if}}
+		{{#if noMailFound}}
+		<div class ="alert alert-danger">Aucune adresse mail n'a été trouvée. Veuillez entrer manuellement une adresse mail.</div>
+		{{/if}}
 		<div class="form-group">
 			<div class="input-group">
 				<input type="text" name="companyMail" class="form-control" value={{companyMail}}>
 				<span class="input-group-btn">
 						<button class="btn btn-default" name="buttonCreateEmail" type="button">Créer !</button>
-				</span>
-				
+				</span>				
 			</div>
 		</div>
 </template>

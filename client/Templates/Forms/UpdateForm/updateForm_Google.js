@@ -113,8 +113,13 @@ Template.googleCreateEmail.events({
 });
 
 Template.googleCreateEmail.helpers({
-	'mailCreated' : function(){
-		return (Theodoer.findOne({current:true}).requestGoogle.status == 200);
+	'mailNotCreated' : function(){
+		var currentTheodoer = Theodoer.findOne({current : true});
+		return (currentTheodoer.requestGoogle.status != 200 && currentTheodoer.companyMail != "");
+	},
+
+	'noMailFound' : function(){
+		return(Theodoer.findOne({current:true}).companyMail == "");
 	}
 })
 
@@ -165,9 +170,11 @@ Template.joinGoogleGroups.events({
 
 		event.preventDefault();
 
-		var isDev = (Theodoer.findOne({"current" : true}).job == "Dev");
+		var currentTheodoer = Theodoer.findOne({current : true});
 
-		var email = Theodoer.findOne({current:true}).companyMail;
+		var isDev = (currentTheodoer.job == "Dev");
+
+		var email = currentTheodoer.companyMail;
 		var domain = Meteor.settings.public.google.acceptedDomainName;
 		var groups;
 
@@ -177,14 +184,26 @@ Template.joinGoogleGroups.events({
 			var groups = Meteor.settings.public.google.groups.biz;
 		}
 
-
-		var createGroupName = function(name){
-			var res = name + "@" + domain;
-			return res;
+		var userHasNotJoinedYet = function (nameOfTheGroupToJoin){
+			for(j = 0 ; j < currentTheodoer.requestGoogle.groupsJoined.length ; ++j){
+				if (currentTheodoer.requestGoogle.groupsJoined[j].groupName == nameOfTheGroupToJoin){
+					return false;
+				}
+			}
+			return true;
 		}
+		var groupNameWithDomain;
+
+/*		var createGroupName = function(group){
+			var res = group.groupName + "@" + domain;
+			return res;
+		}*/
 
 		for(i = 0; i<groups.length; ++i){
-			Meteor.call("addToGoogleGroup", email, createGroupName(groups[i]));
+			groupNameWithDomain = groups[i] + '@' + domain;
+			if(userHasNotJoinedYet(groupNameWithDomain)){
+				Meteor.call("addToGoogleGroup", email,groupNameWithDomain);
+			}
 		}
 	}
 });

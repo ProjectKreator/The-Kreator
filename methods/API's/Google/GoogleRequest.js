@@ -130,6 +130,15 @@ Meteor.methods({
 
     addToGoogleGroup : function(mail, group){
         var accessToken = "Bearer " + Meteor.user().profile.googleToken.access_token;
+        var currentTheodoer = Theodoer.findOne({current : true})
+        var userHadFailedtoJoin = function (){
+            for(i = 0 ; i < currentTheodoer.requestGoogle.groupsNotJoined.length ; ++i){
+                if (currentTheodoer.requestGoogle.groupsNotJoined[i].groupName == group){
+                    return true;
+                }
+            }
+            return false;
+        };
         var url = 'https://www.googleapis.com/admin/directory/v1/groups/'+ group +'/members'
         HTTP.post(url, {
             "data" : {
@@ -156,6 +165,12 @@ Meteor.methods({
                         "groupName" : group,
                     }}
                 });
+                if( userHadFailedtoJoin() ) {
+                    Theodoer.update({current : true}, {
+                        $pull: {"requestGoogle.groupsNotJoined" : {
+                            "groupName" : group}}
+                        });
+                }
             }
         });
     }
