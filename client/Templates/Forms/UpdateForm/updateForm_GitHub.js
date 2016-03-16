@@ -1,16 +1,26 @@
 Template.gitHubInformations.helpers({
-	requestGitHubStatus:function(){
-		try{
-			if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGitHub.recipient == $('[name=comptegithub]').val()){
-				if(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGitHub.sent == '200 OK'){
-					return "Invitation envoyée !";
-				} else if (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGitHub.sent != undefined){
-					return "Erreur. Invitation non envoyée.";
-				}
-			}
-			return "";
-		} catch (error) {
-			return "";
+	'failureOfGitHubRequest' : function(){
+		var currentTheodoer = Theodoer.findOne({current : true});
+		if(currentTheodoer.requestGitHub.sent != '200 OK' && currentTheodoer.requestGitHub.sent != undefined){
+			return true;
+		} else {
+			return false;
+		}
+	},
+	'warningAboutGitHubRequest' : function(){
+		var currentTheodoer = Theodoer.findOne({current : true});
+		if (currentTheodoer.requestGitHub.sent == '200 OK' && currentTheodoer.requestGitHub.recipient != currentTheodoer.comptegithub){
+			return true;
+		} else {
+			return false;
+		}
+	},
+	'successOfGitHubRequest' : function(){
+		var currentTheodoer = Theodoer.findOne({current : true});
+		if (currentTheodoer.requestGitHub.sent == '200 OK' && currentTheodoer.requestGitHub.recipient == currentTheodoer.comptegithub){
+			return true;
+		} else {
+			return false;
 		}
 	}
 });

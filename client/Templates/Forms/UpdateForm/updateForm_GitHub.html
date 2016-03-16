@@ -7,15 +7,28 @@
 		<div class="form-group">
 			<div class="input-group">
 				<input type="text" name="comptegithub" class="form-control" value={{comptegithub}}>
-						
-							
 				<span class="input-group-btn">
 						<button class="btn btn-default" name="windowGitHubForm" type="button">Relier à l'organisation Theodo sur GitHub</button>
 				</span>
 				
 			</div>
-			 <p>{{requestGitHubStatus}}</p>
-
 		</div>
 	</form>
+
+	{{#if failureOfGitHubRequest}}
+		<div class = "alert alert-danger">
+			<p>Erreur. L'invitation n'a pas été envoyée.</p>
+		</div>
+	{{/if}}	
+
+	{{#if warningAboutGitHubRequest}}
+		<p class = "alert alert-info">Attention ! Le compte GitHub qui a été relié à l'organisation est {{requestGitHub.recipient}} ! </p>
+	{{/if}}
+
+	{{#if successOfGitHubRequest}}
+		<div class="alert alert-success">
+			<p>Le compte GitHub a été relié à l'organisation.</p>
+		</div>
+	{{/if}}
+
 </template>

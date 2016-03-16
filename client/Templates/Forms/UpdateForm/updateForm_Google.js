@@ -17,7 +17,7 @@ Template.StatusOfGoogleRequests.helpers({
 		var companyEmail = currentTheodoer.companyMail;
 		var status = currentTheodoer.requestGoogle.status;
 
-		if((status != 200 && status != 0)|| currentTheodoer.requestGoogle.groupsNotJoined.length > 0){
+		if((status != 200 && status != undefined)|| currentTheodoer.requestGoogle.groupsNotJoined.length > 0){
 			return true;
 		} else {
 			return false;
@@ -53,7 +53,7 @@ Template.StatusOfGoogleRequests.helpers({
 		var companyEmail = currentTheodoer.companyMail;
 		var status = currentTheodoer.requestGoogle.status;
 
-		if(status != 200 && status != 0){
+		if(status != 200 && status != undefined){
 			return true;
 		} else {
 			return false;
@@ -106,7 +106,7 @@ Template.googleCreateEmail.events({
 		var prenom = currentTheodoer.prenom;
 		var nom = currentTheodoer.nom;
 		var domain = Meteor.settings.public.google.acceptedDomainName;
-		var mail = currentTheodoer.companyMail);
+		var mail = currentTheodoer.companyMail;
 		var phone = currentTheodoer.phone;
 		Meteor.call("createEmail", prenom, nom, mail,phone);
 	}
