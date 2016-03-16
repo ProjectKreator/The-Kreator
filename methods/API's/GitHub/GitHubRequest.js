@@ -34,11 +34,8 @@ Meteor.methods({
           res = res.toString();
           Theodoer.update({current:true},
           {$set:{
-            requestGitHub : {
-              sent:res,
-              recipient:loginGitHub
+            "requestGitHub.sent" : res, "requestGitHub.recipient" : loginGitHub
             }
-          }
           });
         }
       });

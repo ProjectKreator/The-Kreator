@@ -14,7 +14,25 @@ Meteor.methods({
             "phone": phone,
 			"comptegithub": githubaccount,
 			"createdAt": new Date(),
-			"current": false
+			"current": false,
+			"requestGitHub" : {
+				"sent" : undefined,
+				"recipient" : undefined
+			},
+			"requestGoogle" : {
+				"token" : false,
+				"email" : undefined,
+				"status" : undefined,
+				"id" : undefined,
+				"groupsJoined" : [],
+				"groupsNotJoined" : []
+			},
+			"requestTrello" : {
+				"joinOrganizationAttempted" : false,
+				"status" : undefined,
+				"boards" : []
+			},
+			"companyMail" : undefined
 		});
 	},
 

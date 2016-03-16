@@ -1,3 +1,58 @@
+<template name = "googleApi">
+	<h2>Adresse {{companyName}}</h2>
+	{{#if authenticated}}
+		{{#if mailFound}}
+			{{> googleCreateEmail}}
+		{{else}}
+			{{> googleCheckEmail}}
+		{{/if}}
+		{{#if mailCreated}}
+			{{> joinGoogleGroups}}
+		{{/if}}
+	{{else}}
+		{{> googleAuthentication}}
+	{{/if}}
+	{{> StatusOfGoogleRequests}}
+</template>
+
+<template name="StatusOfGoogleRequests">
+	{{#if failuresOfRequestsGoogle}}
+		<div class = "alert alert-danger">
+			{{#if failureOfCompanyMailCreation}}
+				<p>Erreur. L'adresse mail n'a pas été créée.</p>
+			{{/if}}
+			{{#if groupsHaveNotBeenJoined}}
+				<p>L'adresse {{companyMail}} n'a été rajoutée aux groupes :</p>
+				<ul>
+				{{#each requestGoogle.groupsNotJoined}}
+					<li>{{groupName}}</li>
+				{{/each}}
+				</ul>
+			{{/if}}
+		</div>
+	{{/if}}	
+
+	{{#if warningAboutCompanyMailCreation}}
+		<p class = "alert alert-info">Attention ! L'adresse mail qui a été créée est {{requestGoogle.email}} ! </p>
+	{{/if}}
+
+	{{#if successesOfRequestsGoogle}}
+		<div class="alert alert-success">
+			{{#if successOfCompanyMailCreation}}
+				<p>L'adresse mail {{requestGoogle.email}} a été créée !</p>
+			{{/if}}
+			{{#if groupsHaveBeenJoined}}
+				<p>L'adresse {{requestGoogle.email}} a été rajoutée aux groupes :</p>
+				<ul>
+				{{#each requestGoogle.groupsJoined}}
+					<li>{{groupName}}</li>
+				{{/each}}
+				</ul>
+			{{/if}}
+		</div>
+	{{/if}}
+</template>
+
 <template name ="googleAuthentication">
 		<div class="form-group">
 			<div class="input-group">
@@ -35,15 +90,6 @@
 		</div>
 </template>
 
-<template name = "listOfGoogleGroupsJoined">
-	{{prenom}} a été rajouté aux groupes :
-	<ul>
-		{{#each groupsJoined}}
-			<li>{{groupName}}</li>
-		{{/each}}
-	</ul>
-</template>
-
 <template name="joinGoogleGroups">
 	<form>		
 		<div class="form-group">
@@ -56,27 +102,4 @@
 
 		</div>
 	</form>
-	{{#if groupsHaveBeenJoined}}
-		{{> listOfGoogleGroupsJoined}}
-	{{/if}}
-</template>
-
-
-<template name = "googleApi">
-
-	<h2>Adresse {{companyName}}</h2>
-	{{#if authenticated}}
-		{{#if mailFound}}
-			{{> googleCreateEmail}}
-		{{else}}
-			{{> googleCheckEmail}}
-		{{/if}}
-		<p>{{requestGoogleStatus}}</p>
-		{{#if mailCreated}}
-			{{> joinGoogleGroups}}
-		{{/if}}
-	{{else}}
-		{{> googleAuthentication}}
-	{{/if}}
-
 </template>

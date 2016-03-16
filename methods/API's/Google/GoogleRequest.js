@@ -145,11 +145,15 @@ Meteor.methods({
         }, function(e,r){
             if(e){
                 console.log("erreur " + e);
+                Theodoer.update({"current" : true}, {
+                    $push : {"requestGoogle.groupsNotJoined" : {
+                        "groupName" : group,
+                    }}
+                });
             } else {
                 Theodoer.update({"current" : true}, {
-                    $push : {"requestGoogle.groups" : {
+                    $push : {"requestGoogle.groupsJoined" : {
                         "groupName" : group,
-                        "status" : r.statusCode
                     }}
                 });
             }
