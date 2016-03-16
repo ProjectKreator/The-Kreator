@@ -49,7 +49,19 @@ Meteor.methods({
     },
     
     checkEmail: function (prenom,nom) {
-        var res = prenom.toLowerCase();
+        var clean = function(string){
+            string = string.replace(/[é|è|ê]/g, "e");
+            string = string.replace(/[î]/g, "i");
+            string = string.replace(/[ô]/g, "o");
+            string = string.replace(/[ç]/g, "c");
+            string = string.replace(/[à]/g, "a");
+            string = string.replace(/[^a-zA-Z ]/g, "");
+            string = string.toLowerCase();
+            return string;
+        };
+        prenom = clean(prenom);
+        nom = clean(nom);
+        var res = prenom;
         var stopCheckEmail = false;
         
         var addLetter = function(nameTest) {
@@ -58,7 +70,7 @@ Meteor.methods({
                 nameTest = "";
                 return nameTest;
             }
-            return (nameTest + nom.charAt(nameTest.length-prenom.length).toLowerCase());
+            return (nameTest + nom.charAt(nameTest.length-prenom.length));
         };
             
         var checkEmailApi = function(nameTest) {
@@ -80,10 +92,13 @@ Meteor.methods({
                     },    
                 }, function(error, response){
                     if(error){
-                        res = nameTest + "@" + domain;
-                        console.log(error);
-                        Theodoer.update({current:true},
-                            {$set : {"companyMail" : res}});
+                        if(error.response.statusCode == 404){
+                            res = nameTest + "@" + domain;
+                            Theodoer.update({current:true},
+                                {$set : {"companyMail" : res}});
+                        } else {
+                            Theodoer.update({current:true},{$set : {"requestGoogle.email" : ""}});
+                        }
 
                     } else {
                         checkEmailApi(addLetter(nameTest));
