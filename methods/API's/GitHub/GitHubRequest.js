@@ -30,11 +30,12 @@ Meteor.methods({
 
         }
         else {
+          console.log(response);
           var res = response.headers.status;
           res = res.toString();
           Theodoer.update({current:true},
           {$set:{
-            "requestGitHub.sent" : res, "requestGitHub.recipient" : loginGitHub
+            "requestGitHub.status" : response.statusCode, "requestGitHub.recipient" : loginGitHub
             }
           });
         }

@@ -1,7 +1,7 @@
 Template.gitHubInformations.helpers({
 	'failureOfGitHubRequest' : function(){
 		var currentTheodoer = Theodoer.findOne({current : true});
-		if(currentTheodoer.requestGitHub.sent != '200 OK' && currentTheodoer.requestGitHub.sent != undefined){
+		if(currentTheodoer.requestGitHub.status != 200 && currentTheodoer.requestGitHub.sent != undefined){
 			return true;
 		} else {
 			return false;
@@ -9,7 +9,7 @@ Template.gitHubInformations.helpers({
 	},
 	'warningAboutGitHubRequest' : function(){
 		var currentTheodoer = Theodoer.findOne({current : true});
-		if (currentTheodoer.requestGitHub.sent == '200 OK' && currentTheodoer.requestGitHub.recipient != currentTheodoer.comptegithub){
+		if (currentTheodoer.requestGitHub.status == 200 && currentTheodoer.requestGitHub.recipient != currentTheodoer.comptegithub){
 			return true;
 		} else {
 			return false;
@@ -17,7 +17,7 @@ Template.gitHubInformations.helpers({
 	},
 	'successOfGitHubRequest' : function(){
 		var currentTheodoer = Theodoer.findOne({current : true});
-		if (currentTheodoer.requestGitHub.sent == '200 OK' && currentTheodoer.requestGitHub.recipient == currentTheodoer.comptegithub){
+		if (currentTheodoer.requestGitHub.status == 200 && currentTheodoer.requestGitHub.recipient == currentTheodoer.comptegithub){
 			return true;
 		} else {
 			return false;

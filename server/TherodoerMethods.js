@@ -5,8 +5,10 @@ Meteor.methods({
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
 		}
+		var currentUser = Meteor.userId();
 		
 		Theodoer.insert({
+			"createdBy" : currentUser,
 			"prenom": firstname,
 			"nom": name,
 			"job" : job,
