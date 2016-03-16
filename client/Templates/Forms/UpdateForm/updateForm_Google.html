@@ -79,6 +79,9 @@
 </template>
 
 <template name ="googleCreateEmail">
+		{{#unless mailCreated}}
+		<div class = "alert alert-info">L'adresse mail suivante est disponible. Vous pouvez demander sa création immédiatement.</div>
+		{{/unless}}
 		<div class="form-group">
 			<div class="input-group">
 				<input type="text" name="companyMail" class="form-control" value={{companyMail}}>

@@ -112,6 +112,12 @@ Template.googleCreateEmail.events({
 	}
 });
 
+Template.googleCreateEmail.helpers({
+	'mailCreated' : function(){
+		return (Theodoer.findOne({current:true}).requestGoogle.status == 200);
+	}
+})
+
 
 Template.googleApi.helpers({
 	'authenticated' : function(){
