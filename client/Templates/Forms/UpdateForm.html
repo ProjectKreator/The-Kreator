@@ -3,12 +3,14 @@
 	{{> gitHubInformations}}
 	{{ >googleApi}}
 	{{> trello}}
-
-	{{> email1_envoi}}
-	{{> email2_envoi}}
-	{{#if isDev}}
+	
+    {{#if isDev}}
 		{{> openStack}}
 	{{/if}}
+    
+	{{> email1_envoi}}
+	{{> email2_envoi}}
+
 	
   
 </template>
