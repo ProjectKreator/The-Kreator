@@ -31,6 +31,10 @@
                 "dev" : "7VeQpQrr"
             }
 		},
+        "OpenStack" : {
+            "apiKey" : "blabla",
+            "projectID" : "blabla"
+        }
 	},
 	"gitHub" : {
 		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"

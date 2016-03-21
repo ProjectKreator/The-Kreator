@@ -30,7 +30,11 @@
                 "biz" : "0EZlJLCj",
                 "dev" : "0EZlJLCj"
             }
-		}
+		},
+        "OpenStack" : {
+            "apiKey" : "blabla",
+            "projectID" : "blabla"
+        }
     },
 	"gitHub" : {
 		"clientSecret" : "0be95f4fec096825b9b92c6b28a3fff72649adf8"

@@ -24,48 +24,61 @@
 		</div>
 </template>
 
+<template name="StatusOfInvitationToTrelloOrganization">
+	{{#if joinOrganizationTrelloAttempted}}
+		{{#if joinOrganizationTrelloSucceeded}}
+			<div class ="alert alert-success" role ="alert">Invitation à rejoindre l'organisation envoyée.</div>
+		{{else}}
+            <div class ="alert alert-danger" role = "alert"><b>Erreur!</b> Invitation à rejoindre l'organisation non envoyée.</div>
+		{{/if}}
+	{{/if}}
+</template>
+
 <template name ="TrelloInviteToBoards">
 	<div class="form-group">
-		<div class="input-group">
-			<span class="input-group-btn">
-	                <button class="btn btn-default" name="TrelloInviteToBoards" type="button">Inviter aux Boards</button>
-	                
-	                	<p>Invitation pour le Board Personel de Formation envoyée !</p>
-	                
-	                    <button class="btn btn-default" name="TrelloCopyAndInvite" type="button">Inviter à une copie du board Formation {{job}}</button>
-	                
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" name="TrelloInviteToBoards" type="button">Inviter aux Boards</button>
 			</span>			
+     
 		</div>
 	</div>
 </template>
 
-<template name="StatusOfInvitationToTrelloOrganization">
-	{{#if joinOrganizationTrelloAttempted}}
-		{{#if joinOrganizationTrelloSucceeded}}
-			<div class ="alert alert-success">Invitation à rejoindre l'organisation envoyée.</div>
-		{{else}}
-			<div class ="alert alert-danger">Erreur. Invitation à rejoindre l'organisation non envoyée.</div>
-		{{/if}}
-	{{/if}}
+<template name ="TrelloInviteToPersonalBoard">
+	<div class="form-group">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" name="TrelloCopyAndInvite" type="button">Inviter à une copie du board Formation {{job}}</button>
+			</span>			
+            
+		</div>
+	</div>
 </template>
 
 <template name = "trello">
 	<h2>Trello</h2>
 	{{#if authenticated}}
 		{{> trelloInformations}}
-
-		{{#if joinOrganizationTrelloSucceeded}}
-			{{> TrelloInviteToBoards}}
-		{{/if}}
-
+        {{> StatusOfInvitationToTrelloOrganization}}
+        {{> TrelloInviteToBoards}}
+        {{#if allBoardsJoined}}
+            <div class="alert alert-success" role ="alert">{{boardsJoined}}</div>
+        {{else}}
+            <div class="alert alert-danger" role ="alert">{{boardsJoined}}</div>
+        {{/if}}
+        {{> TrelloInviteToPersonalBoard}}
+        {{#if invitedToPersonalBoard}}
+            <div class="alert alert-success" role ="alert">Invitation pour le Board Personel de Formation envoyée</div>
+        {{else}}
+            <div class="alert alert-danger" role ="alert">Invitation pour le Board Personel de Formation non envoyée</div>
+        {{/if}}
 	{{else}}
 		{{> trelloAuthentication}}
 
 	{{/if}}
 
-	{{> StatusOfInvitationToTrelloOrganization}}
-	<p>{{boardsJoined}}</p>
-	<p classe="alert">{{invitedToPersonalBoard}}</p>
+
 
 
 </template>

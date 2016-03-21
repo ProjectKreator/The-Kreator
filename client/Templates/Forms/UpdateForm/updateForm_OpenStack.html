@@ -1,3 +1,21 @@
+<template name ="requestOpenStack">
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-btn">
+						<button class="btn btn-default" name="buttonRequestOpenStack" type="button">Inviter à OpenStack</button>
+				</span>
+				
+			</div>
+		</div>
+</template>
+
+
 <template name = "openStack">
 	<h2>OpenStack</h2>
+    {{>requestOpenStack}}
+    {{#if invitationSent}} 
+        <div class ="alert alert-success">Invitation envoyée.</div>
+    {{else}}
+        <div class ="alert alert-danger">Invitation non envoyée.</div>
+    {{/if}}
 </template>
