@@ -108,6 +108,37 @@ Template.trello.helpers({
 			return false;
 		}	
 	},   
+        
+    'job' : function(){
+        try{
+            return Theodoer.findOne({"current" : true}).job;
+        } catch(e){
+            return "";
+        }
+	},
+    
+    'hasACompanyMail' : function() {
+        try{
+            return (Theodoer.findOne({current : true}).companyMail != undefined);
+        } catch(e){
+            return false;
+        }
+    },
+         
+    'invitedToPersonalBoard' : function(){
+        try{
+            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
+            for(i = 0 ; i < boards.length ; ++i){
+                if(boards[i].status == 200 && boards[i].isPersonal){
+                    return true;
+                }
+            }
+            return false;
+        } catch(e){
+            return false;
+        }
+	},
+
     'boardsJoined' : function(){
         try{
             var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
@@ -124,51 +155,21 @@ Template.trello.helpers({
             return "Invitations non envoyées";
         }
 	},
-    
-    'invitedToPersonalBoard' : function(){
-        try{
-            var isInvited = false;
-            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
-            for(i = 0 ; i < boards.length ; ++i){
-                if(boards[i].status == 200 && boards[i].isPersonal){
-                    return "Invitation pour le Board Personel de Formation envoyée";
-                }
-            }
-            return "Invitation pour le Board Personel de Formation non envoyée";
-        } catch(e){
-            return "Problème avec l'invitation";
-        }
-	},
-    
-    'job' : function(){
-        try{
-            return Theodoer.findOne({"current" : true}).job;
-        } catch(e){
-            return "";
-        }
-	},
-    
-    'hasACompanyMail' : function() {
-        try{
-            return (Theodoer.findOne({current : true}).companyMail != undefined);
-        } catch(e){
-            return false;
-        }
-    },
-
-/*    'isInvitedToPersonalBoard' : function(){
+    'allBoardsJoined' : function(){
         try{
             var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
+            var boardsS = Meteor.settings.public.trello.boards;
+            var index = 0;
             for(i = 0 ; i < boards.length ; ++i){
-                if(boards[i].status == 200 && boards[i].isPersonal){
-                    return true;
+                if(boards[i].status == 200 && !boards[i].isPersonal){
+                    index++;
                 }
             }
-            return false;
+            return index == boardsS.length;
         } catch(e){
             return false;
         }
-	},*/
+    }
 });
 
 
@@ -198,7 +199,7 @@ Template.TrelloInviteToBoards.events({
             }
         }
         
-        
+        console.log("stamp1");
 		for(i = 0; i<boards.length; ++i){
             // on vérifie que le Theodoer n'a pas déjà été invité au board
             if (!isAlreadyInvited(boards[i], currentTheodoer)) {
@@ -206,8 +207,10 @@ Template.TrelloInviteToBoards.events({
             }
         }
 			 
-    },
+    }
+});
     
+Template.TrelloInviteToPersonalBoards.events({
     'click [name=TrelloCopyAndInvite]' : function(event){
 
 		event.preventDefault();
@@ -239,7 +242,7 @@ Template.TrelloInviteToBoards.events({
 			var templateBoardId = Meteor.settings.public.trello.templateBoardFormation.biz;
 		}
         
-        //Appel à la méthode permettant de récuperer l'id complet du board
+        //Appel à la méthode permettant de récuperer l'id complet du board, de le copier puis d'inviter le theodoer au board
                
         // on vérifie que le Theodoer n'a pas déjà été invité au board
         if (!isAlreadyInvitedToPersonalBoard(currentTheodoer)) {
