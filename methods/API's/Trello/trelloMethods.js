@@ -28,7 +28,7 @@ Meteor.methods({
     	var apiKeyTrello = Meteor.settings.public.trello.apiKey ;
 		var adresse = "https://api.trello.com/1/boards/"+board+"/members?key=" + apiKeyTrello + "&token=" + token;
 		var name = prenom + " " + nom;
-		HTTP.put(adresse,{
+        HTTP.put(adresse,{
 			data:{
 				email: email,
 				fullName: name,

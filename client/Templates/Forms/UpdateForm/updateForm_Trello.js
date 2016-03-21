@@ -108,23 +108,7 @@ Template.trello.helpers({
 			return false;
 		}	
 	},   
-    'boardsJoined' : function(){
-        try{
-            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
-            var boardsS = Meteor.settings.public.trello.boards;
-            var index = 0;
-            for(i = 0 ; i < boards.length ; ++i){
-                if(boards[i].status == 200 && !boards[i].isPersonal){
-                    index++;
-                }
-            }
-            var res = "Invitation envoyée pour " + index + " boards sur " + boardsS.length
-            return res;
-        } catch(e){
-            return "Invitations non envoyées";
-        }
-	},
-    
+        
     'job' : function(){
         try{
             return Theodoer.findOne({"current" : true}).job;
@@ -172,6 +156,23 @@ Template.TrelloInviteToBoards.helpers({
             return "Problème avec l'invitation";
         }
 	},
+
+    'boardsJoined' : function(){
+        try{
+            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
+            var boardsS = Meteor.settings.public.trello.boards;
+            var index = 0;
+            for(i = 0 ; i < boards.length ; ++i){
+                if(boards[i].status == 200 && !boards[i].isPersonal){
+                    index++;
+                }
+            }
+            var res = "Invitation envoyée pour " + index + " boards sur " + boardsS.length
+            return res;
+        } catch(e){
+            return "Invitations non envoyées";
+        }
+	}
 });
 
 Template.TrelloInviteToBoards.events({
@@ -200,7 +201,7 @@ Template.TrelloInviteToBoards.events({
             }
         }
         
-        
+        console.log("stamp1");
 		for(i = 0; i<boards.length; ++i){
             // on vérifie que le Theodoer n'a pas déjà été invité au board
             if (!isAlreadyInvited(boards[i], currentTheodoer)) {
@@ -241,7 +242,7 @@ Template.TrelloInviteToBoards.events({
 			var templateBoardId = Meteor.settings.public.trello.templateBoardFormation.biz;
 		}
         
-        //Appel à la méthode permettant de récuperer l'id complet du board
+        //Appel à la méthode permettant de récuperer l'id complet du board, de le copier puis d'inviter le theodoer au board
                
         // on vérifie que le Theodoer n'a pas déjà été invité au board
         if (!isAlreadyInvitedToPersonalBoard(currentTheodoer)) {
