@@ -125,21 +125,6 @@ Template.trello.helpers({
         }
 	},
     
-    'invitedToPersonalBoard' : function(){
-        try{
-            var isInvited = false;
-            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
-            for(i = 0 ; i < boards.length ; ++i){
-                if(boards[i].status == 200 && boards[i].isPersonal){
-                    return "Invitation pour le Board Personel de Formation envoyée";
-                }
-            }
-            return "Invitation pour le Board Personel de Formation non envoyée";
-        } catch(e){
-            return "Problème avec l'invitation";
-        }
-	},
-    
     'job' : function(){
         try{
             return Theodoer.findOne({"current" : true}).job;
@@ -171,6 +156,23 @@ Template.trello.helpers({
 	},*/
 });
 
+
+Template.TrelloInviteToBoards.helpers({
+     'invitedToPersonalBoard' : function(){
+        try{
+            var isInvited = false;
+            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
+            for(i = 0 ; i < boards.length ; ++i){
+                if(boards[i].status == 200 && boards[i].isPersonal){
+                    return "Invitation pour le Board Personel de Formation envoyée";
+                }
+            }
+            return "Invitation pour le Board Personel de Formation non envoyée";
+        } catch(e){
+            return "Problème avec l'invitation";
+        }
+	},
+});
 
 Template.TrelloInviteToBoards.events({
 	'click [name=TrelloInviteToBoards]' : function(event){
