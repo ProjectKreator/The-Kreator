@@ -29,21 +29,29 @@
 		{{#if joinOrganizationTrelloSucceeded}}
 			<div class ="alert alert-success" role ="alert">Invitation à rejoindre l'organisation envoyée.</div>
 		{{else}}
-    <div class ="alert alert-danger" role = "alert"><b>Erreur!</b> Invitation à rejoindre l'organisation non envoyée.</div>
+            <div class ="alert alert-danger" role = "alert"><b>Erreur!</b> Invitation à rejoindre l'organisation non envoyée.</div>
 		{{/if}}
 	{{/if}}
 </template>
 
 <template name ="TrelloInviteToBoards">
 	<div class="form-group">
-		<div class="input-group">
-			<span class="input-group-btn">
-	                <button class="btn btn-default" name="TrelloInviteToBoards" type="button">Inviter aux Boards</button>
-                	    <div class="alert alert-info" role="alert">{{boardsJoined}}</div>
-	                    <button class="btn btn-default" name="TrelloCopyAndInvite" type="button">Inviter à une copie du board Formation {{job}}</button>
-                	    <div classe="alert alert-info" role="alert">{{invitedToPersonalBoard}}</div>
-	                
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" name="TrelloInviteToBoards" type="button">Inviter aux Boards</button>
 			</span>			
+     
+		</div>
+	</div>
+</template>
+
+<template name ="TrelloInviteToPersonalBoard">
+	<div class="form-group">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" name="TrelloCopyAndInvite" type="button">Inviter à une copie du board Formation {{job}}</button>
+			</span>			
+            
 		</div>
 	</div>
 </template>
@@ -54,6 +62,17 @@
 		{{> trelloInformations}}
         {{> StatusOfInvitationToTrelloOrganization}}
         {{> TrelloInviteToBoards}}
+        {{#if allBoardsJoined}}
+            <div class="alert alert-success" role ="alert">{{boardsJoined}}</div>
+        {{else}}
+            <div class="alert alert-danger" role ="alert">{{boardsJoined}}</div>
+        {{/if}}
+        {{> TrelloInviteToPersonalBoard}}
+        {{#if invitedToPersonalBoard}}
+            <div class="alert alert-success" role ="alert">Invitation pour le Board Personel de Formation envoyée</div>
+        {{else}}
+            <div class="alert alert-danger" role ="alert">Invitation pour le Board Personel de Formation non envoyée</div>
+        {{/if}}
 	{{else}}
 		{{> trelloAuthentication}}
 

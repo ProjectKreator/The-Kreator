@@ -124,8 +124,8 @@ Template.trello.helpers({
             return false;
         }
     },
-
-/*    'isInvitedToPersonalBoard' : function(){
+         
+    'invitedToPersonalBoard' : function(){
         try{
             var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
             for(i = 0 ; i < boards.length ; ++i){
@@ -136,24 +136,6 @@ Template.trello.helpers({
             return false;
         } catch(e){
             return false;
-        }
-	},*/
-});
-
-
-Template.TrelloInviteToBoards.helpers({
-     'invitedToPersonalBoard' : function(){
-        try{
-            var isInvited = false;
-            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
-            for(i = 0 ; i < boards.length ; ++i){
-                if(boards[i].status == 200 && boards[i].isPersonal){
-                    return "Invitation pour le Board Personel de Formation envoyée";
-                }
-            }
-            return "Invitation pour le Board Personel de Formation non envoyée";
-        } catch(e){
-            return "Problème avec l'invitation";
         }
 	},
 
@@ -172,8 +154,24 @@ Template.TrelloInviteToBoards.helpers({
         } catch(e){
             return "Invitations non envoyées";
         }
-	}
+	},
+    'allBoardsJoined' : function(){
+        try{
+            var boards = Theodoer.findOne({"current" : true}).requestTrello.boards;
+            var boardsS = Meteor.settings.public.trello.boards;
+            var index = 0;
+            for(i = 0 ; i < boards.length ; ++i){
+                if(boards[i].status == 200 && !boards[i].isPersonal){
+                    index++;
+                }
+            }
+            return index == boardsS.length;
+        } catch(e){
+            return false;
+        }
+    }
 });
+
 
 Template.TrelloInviteToBoards.events({
 	'click [name=TrelloInviteToBoards]' : function(event){
@@ -209,8 +207,10 @@ Template.TrelloInviteToBoards.events({
             }
         }
 			 
-    },
+    }
+});
     
+Template.TrelloInviteToPersonalBoards.events({
     'click [name=TrelloCopyAndInvite]' : function(event){
 
 		event.preventDefault();
