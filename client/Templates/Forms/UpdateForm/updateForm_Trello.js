@@ -210,7 +210,7 @@ Template.TrelloInviteToBoards.events({
     }
 });
     
-Template.TrelloInviteToPersonalBoards.events({
+Template.TrelloInviteToPersonalBoard.events({
     'click [name=TrelloCopyAndInvite]' : function(event){
 
 		event.preventDefault();

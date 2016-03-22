@@ -2,9 +2,7 @@ Template.requestOpenStack.events({
 	'click [name=buttonRequestOpenStack]' : function(event){
 		event.preventDefault();
         var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
-        var nom = currentTheodoer.nom;
-        var prenom = currentTheodoer.prenom;
-        var email = currentTheodoer.companyMail;
+        var username = currentTheodoer.companyMail.split("@")[0];
         alert("the method is empty atm");
         //Meteor.call("inviteToOpenStack", nom, prenom, email); 
 	}
