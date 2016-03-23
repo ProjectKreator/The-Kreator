@@ -34,17 +34,6 @@ Meteor.methods({
         // retrieve an access token
 
         getAccessToken(oauth2Client);
-        
-        /*getAccessToken(oauth2Client, function() {
-          // retrieve user profile
-          plus.people.get({ userId: 'me', auth: oauth2Client }, function(err, profile) {
-            if (err) {
-              console.log('An error occured', err);
-              return;
-            }
-            console.log(profile.displayName, ':', profile.tagline);
-          });
-        });*/
     },
     
     checkEmail: function (prenom,nom, idMongoTheodoer) {
@@ -130,7 +119,6 @@ Meteor.methods({
             if(e){
                 console.log("erreur "+e);
             } else {
-                console.log(r);
                 Theodoer.update({_id : idMongoTheodoer},{
                     $set:{"companyMail" : r.data.primaryEmail, "requestGoogle.status" : r.statusCode, 
                     "requestGoogle.email" : r.data.primaryEmail, "requestGoogle.id" : r.data.id}});
