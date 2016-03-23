@@ -33,7 +33,11 @@ Meteor.methods({
 				"status" : undefined,
 				"boards" : []
 			},
-			"companyMail" : undefined
+			"companyMail" : undefined,
+			"mailsSent" : {
+				"mailPerso" : false,
+				"mailPro" : false
+			}
 		});
 	},
 

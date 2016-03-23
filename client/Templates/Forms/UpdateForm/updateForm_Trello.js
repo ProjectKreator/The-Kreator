@@ -173,21 +173,6 @@ Template.trello.helpers({
             return false;
         }
     }
-
-/*    'isInvitedToPersonalBoard' : function(){
-        try{
-            var boards = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.boards;
->>>>>>> accessibleParPlusieursUsers
-            for(i = 0 ; i < boards.length ; ++i){
-                if(boards[i].status == 200 && !boards[i].isPersonal){
-                    index++;
-                }
-            }
-            return index == boardsS.length;
-        } catch(e){
-            return false;
-        }
-    }
 });
 
 
