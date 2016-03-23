@@ -144,14 +144,14 @@ Template.trello.helpers({
     'boardsJoined' : function(){
         try{
             var boards = Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestTrello.boards;
-            var boardsS = Meteor.settings.public.trello.boards;
+            var boardsSettings = Meteor.settings.public.trello.boards;
             var index = 0;
             for(i = 0 ; i < boards.length ; ++i){
                 if(boards[i].status == 200 && !boards[i].isPersonal){
                     index++;
                 }
             }
-            var res = "Invitation envoyée pour " + index + " boards sur " + boardsS.length
+            var res = "Invitation envoyée pour " + index + " boards sur " + boardsSettings.length
             return res;
         } catch(e){
             return "Invitations non envoyées";
