@@ -2,43 +2,51 @@
 Meteor.methods({
   sendEmail: function(email, idMongoTheodoer) {
   // send the email!
-    SSR.compileTemplate( 'htmlEmail', Assets.getText( 'html-email.html' ) );
     var currentTheodoer = Theodoer.findOne({_id : idMongoTheodoer});
-
     var emailData = {
       prenom : currentTheodoer.prenom,
       nom :  currentTheodoer.nom,
       fonction: currentTheodoer.job,
       companyMail: currentTheodoer.companyMail,
-      password: Meteor.settings.public.google.passwordForNewUser
+      password: Meteor.settings.google.passwordForNewUser
     };
-
+    
+    if (currentTheodoer.comptegithub == "") {
+        SSR.compileTemplate( 'htmlEmail', Assets.getText('html-emailSansGitHub.html'));
+    } else {
+        SSR.compileTemplate('htmlEmail', Assets.getText('html-emailAvecGitHub.html'));
+    }
     Email.send({
       to:email, 
       from:'acemtp@gmail.com', 
-      subject:'Bienvenu chez Theodo !! =D', 
-      html: SSR.render( 'htmlEmail', emailData )
+      subject:'Bienvenue chez Theodo !! =D', 
+      html: SSR.render('htmlEmail', emailData)
     });
+
   },
 
-  sendEmail2: function(email) {
+  sendEmail2: function(email, idMongoTheodoer) {
     // send the email!
-    SSR.compileTemplate( 'htmlEmail', Assets.getText( 'html-email2.html' ) );
     var currentTheodoer = Theodoer.findOne({_id : idMongoTheodoer});
-
+      
     var emailData = {
       prenom : currentTheodoer.prenom,
       nom :  currentTheodoer.nom,
       fonction: currentTheodoer.job,
-      companyMail: currentTheodoer.companyMail,
-      password: Meteor.settings.public.google.passwordForNewUser
+      loginOpenStack: currentTheodoer.companyMail.split("@")[0]
     };
 
-    Email.send({
-      to:email, 
-      from:'acemtp@gmail.com', 
-      subject:'Bienvenu chez Theodo !! =D [2nd mail]', 
-      html: SSR.render( 'htmlEmail', emailData )
+      
+      if (currentTheodoer.job == "Dev") {
+        SSR.compileTemplate('htmlEmail', Assets.getText('html-email2_dev.html'));
+    } else {
+        SSR.compileTemplate('htmlEmail', Assets.getText('html-email2_biz.html'));
+    }
+     Email.send({
+         to:email, 
+         from:'acemtp@gmail.com', 
+         subject:'Bienvenue chez Theodo !! =D [2nd mail]', 
+         html: SSR.render( 'htmlEmail', emailData )
     });
   }
 });
