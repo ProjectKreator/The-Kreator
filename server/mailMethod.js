@@ -42,4 +42,3 @@ Meteor.methods({
     });
   }
 });
->>>>>>> 43ac9cc15c1ab8d3c80df5be263a07fd76abd9af
