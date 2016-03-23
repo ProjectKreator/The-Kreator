@@ -155,38 +155,37 @@ Meteor.methods({
 
         var url = 'https://www.googleapis.com/admin/directory/v1/groups/'+ group +'/members';
         
-        HTTP.post(url, {
-            "data" : {
-                "kind" : "admin#directory#member",
-                "email" : mail,
-                "role" : "MEMBER",
-                "type" : "USER"
-            },
-            "headers" : {
-                "Authorization" : accessToken,
-                "User-Agent" : "Meteor"
-            }
-        }, function(e,r){
-            if(e){
-                console.log("erreur " + e);
-                Theodoer.update({_id : idMongoTheodoer}, {
-                    $push : {"requestGoogle.groupsNotJoined" : {
-                        "groupName" : group}}
-                });
-            } else {
-                if( userHadFailedtoJoin() ) {
+            HTTP.post(url, {
+                "data" : {
+                    "kind" : "admin#directory#member",
+                    "email" : mail,
+                    "role" : "MEMBER",
+                    "type" : "USER"
+                },
+                "headers" : {
+                    "Authorization" : accessToken,
+                    "User-Agent" : "Meteor"
+                }
+            }, function(e,r){
+                if(e){
+                    console.log("erreur " + e);
                     Theodoer.update({_id : idMongoTheodoer}, {
-                        $pull: {"requestGoogle.groupsNotJoined" : {
+                        $addToSet : {"requestGoogle.groupsNotJoined" : {
+                            "groupName" : group}}
+                    });
+                } else {
+                    if( userHadFailedtoJoin() ) {
+                        Theodoer.update({_id : idMongoTheodoer}, {
+                            $pull: {"requestGoogle.groupsNotJoined" : {
+                                "groupName" : group}}
+                        });
+                    }
+                    Theodoer.update({_id : idMongoTheodoer}, {
+                        $addToSet : {"requestGoogle.groupsJoined" : {
                             "groupName" : group}}
                     });
                 }
-                Theodoer.update({_id : idMongoTheodoer}, {
-                    $push : {"requestGoogle.groupsJoined" : {
-                        "groupName" : group}}
-                });
-
-            }
-        });
+            });
     }
     
 });
