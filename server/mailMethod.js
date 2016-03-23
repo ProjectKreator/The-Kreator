@@ -8,7 +8,9 @@ Meteor.methods({
     var emailData = {
       prenom : currentTheodoer.prenom,
       nom :  currentTheodoer.nom,
-      fonction: currentTheodoer.job
+      fonction: currentTheodoer.job,
+      companyMail: currentTheodoer.companyMail,
+      password: Meteor.settings.public.google.passwordForNewUser
     };
 
     Email.send({
@@ -27,7 +29,9 @@ Meteor.methods({
     var emailData = {
       prenom : currentTheodoer.prenom,
       nom :  currentTheodoer.nom,
-      fonction: currentTheodoer.job
+      fonction: currentTheodoer.job,
+      companyMail: currentTheodoer.companyMail,
+      password: Meteor.settings.public.google.passwordForNewUser
     };
 
     Email.send({
