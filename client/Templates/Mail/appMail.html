@@ -1,10 +1,12 @@
 <template name = "email1_envoi">
 	
-	<h2>MAIL I</h2>
+	<h2>Mail sur l'adresse personnelle</h2>
 
+	{{#unless done}}
+	<div class ="alert alert-info"> Ce mail sera envoyé sur l'adresse personnelle, renseignée en haut du formulaire. Il donne les accès à l'adresse professionnelle (qui doit donc avoir été créée), et invite si nécessaire à créer un compte GitHub.</div>
+	{{/unless}}
 
 	{{#if done}}
-
 	<div class="form-group">
 		<div class="input-group">
 			<span class="input-group-btn">
@@ -15,7 +17,6 @@
 	</div>
 
 	<p>Mail envoyé !</p>
-
  {{else}}
 		<form>
 
@@ -34,7 +35,11 @@
 </template>
 
 <template name = "email2_envoi">
-	<h2>MAIL II</h2>
+	<h2>Mail sur l'adresse professionnelle</h2>
+
+	{{#unless done2}}
+	<div class = "alert alert-info">Ce second mail sera envoyé sur l'adresse mail professionnelle. Il contient les informations sur le reste des APIs (Trello, ...) et comment créer les comptes restants (Google plus, Slack, ...).</div>
+	{{/unless}}
 
 	{{#if done2}}
 
