@@ -30,7 +30,6 @@ Meteor.methods({
 
         }
         else {
-          console.log(response);
           var res = response.headers.status;
           res = res.toString();
           Theodoer.update({_id : idMongoTheodoer},

@@ -79,8 +79,7 @@ Template.googleAuthentication.events({
             adresse += '%20';
             adresse += scope[i];
         }
-        console.log(adresse);
-        window.open(adresse,'_blank','newwindow', 'width=200', 'height=100');
+        window.open(adresse,'_blank','newwindow', 'width=100', 'height=50');
 	}
 });
 
