@@ -9,7 +9,9 @@
             var emailData = {
               prenom : Theodoer.findOne({current:true}).prenom,
               nom :  Theodoer.findOne({current:true}).nom,
-              fonction: Theodoer.findOne({current:true}).job
+              fonction: Theodoer.findOne({current:true}).job,
+                companyMail: Theodoer.findOne({current:true}).companyMail,
+                password: Meteor.settings.public.google.passwordForNewUser
             };
 
             Email.send({
@@ -28,8 +30,9 @@
               var emailData = {
               prenom : Theodoer.findOne({current:true}).prenom,
               nom :  Theodoer.findOne({current:true}).nom,
-              fonction: Theodoer.findOne({current:true}).job
-       
+              fonction: Theodoer.findOne({current:true}).job,
+                companyMail: Theodoer.findOne({current:true}).companyMail,
+                password: Meteor.settings.public.google.passwordForNewUser
               };
 
               Email.send({
