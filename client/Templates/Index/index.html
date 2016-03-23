@@ -11,8 +11,14 @@
 		
 		
 		<h2><strong>Liste des Theodoers créés</strong></h2>
-		
+
+
 		<div class="txt2">
+			<div class = "panel panel-warning">
+				<div class = "panel-heading">
+					<input type ="checkbox" name="printOnlyOnesCreatedEmployees" {{checked}}>N'afficher que les utilisateurs que j'ai créés
+				</div>
+			</div>
 			<ul class="list-group">
 			{{#each theodoers}}
 				<li class="list-group-item list-group-item-info">{{> theodoer}}</li>
