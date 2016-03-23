@@ -1,6 +1,6 @@
 Template.StatusOfGoogleRequests.helpers({
 	'successesOfRequestsGoogle' : function(){
-		var currentTheodoer = Theodoer.findOne({current : true});
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 		var requestGoogleEmail = currentTheodoer.requestGoogle.email;
 		var companyEmail = currentTheodoer.companyMail;
 		var status = currentTheodoer.requestGoogle.status;
@@ -12,7 +12,7 @@ Template.StatusOfGoogleRequests.helpers({
 		}
 	},
 	'failuresOfRequestsGoogle' : function(){
-		var currentTheodoer = Theodoer.findOne({current : true});
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 		var requestGoogleEmail = currentTheodoer.requestGoogle.email;
 		var companyEmail = currentTheodoer.companyMail;
 		var status = currentTheodoer.requestGoogle.status;
@@ -24,7 +24,7 @@ Template.StatusOfGoogleRequests.helpers({
 		}
 	},
 	'warningAboutCompanyMailCreation' : function(){
-		var currentTheodoer = Theodoer.findOne({current : true});
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 		var requestGoogleEmail = currentTheodoer.requestGoogle.email;
 		var companyEmail = currentTheodoer.companyMail;
 		var status = currentTheodoer.requestGoogle.status;
@@ -36,7 +36,7 @@ Template.StatusOfGoogleRequests.helpers({
 		}
 	},
 	'successOfCompanyMailCreation' : function(){
-		var currentTheodoer = Theodoer.findOne({current : true});
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 		var requestGoogleEmail = currentTheodoer.requestGoogle.email;
 		var companyEmail = currentTheodoer.companyMail;
 		var status = currentTheodoer.requestGoogle.status;
@@ -48,7 +48,7 @@ Template.StatusOfGoogleRequests.helpers({
 		}
 	},
 	'failureOfCompanyMailCreation' : function(){
-		var currentTheodoer = Theodoer.findOne({current : true});
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 		var requestGoogleEmail = currentTheodoer.requestGoogle.email;
 		var companyEmail = currentTheodoer.companyMail;
 		var status = currentTheodoer.requestGoogle.status;
@@ -60,10 +60,10 @@ Template.StatusOfGoogleRequests.helpers({
 		}
 	},
 	'groupsHaveBeenJoined' : function(){
-		return (Theodoer.findOne({current:true}).requestGoogle.groupsJoined.length > 0);
+		return (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.groupsJoined.length > 0);
 	},
 	'groupsHaveNotBeenJoined' : function(){
-		return (Theodoer.findOne({current:true}).requestGoogle.groupsNotJoined.length > 0);
+		return (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.groupsNotJoined.length > 0);
 	}
 });
 
@@ -87,10 +87,11 @@ Template.googleAuthentication.events({
 Template.googleCheckEmail.events({
 	'click [name=buttonCheckEmail]' : function(event){
 		event.preventDefault();
-		var currentTheodoer = Theodoer.findOne({current:true});
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 		var prenom = currentTheodoer.prenom;
 		var nom = currentTheodoer.nom;
-        Meteor.call("checkEmail", prenom, nom);
+		var id = currentTheodoer._id;
+        Meteor.call("checkEmail", prenom, nom, id);
 
         // fonction pour checker le mail
 
@@ -102,24 +103,25 @@ Template.googleCheckEmail.events({
 Template.googleCreateEmail.events({
 	'click [name=buttonCreateEmail]' : function(event){
 		event.preventDefault();
-		var currentTheodoer = Theodoer.findOne({current:true});
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 		var prenom = currentTheodoer.prenom;
 		var nom = currentTheodoer.nom;
 		var domain = Meteor.settings.public.google.acceptedDomainName;
 		var mail = currentTheodoer.companyMail;
 		var phone = currentTheodoer.phone;
-		Meteor.call("createEmail", prenom, nom, mail,phone);
+		var id = currentTheodoer._id;
+		Meteor.call("createEmail", prenom, nom, mail,phone,id);
 	}
 });
 
 Template.googleCreateEmail.helpers({
 	'mailNotCreated' : function(){
-		var currentTheodoer = Theodoer.findOne({current : true});
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 		return (currentTheodoer.requestGoogle.status != 200 && currentTheodoer.companyMail != "");
 	},
 
 	'noMailFound' : function(){
-		return(Theodoer.findOne({current:true}).companyMail == "");
+		return(Theodoer.findOne({_id : Session.get("currentTheodoer")}).companyMail == "");
 	}
 })
 
@@ -127,7 +129,7 @@ Template.googleCreateEmail.helpers({
 Template.googleApi.helpers({
 	'authenticated' : function(){
 		try{
-			return Theodoer.findOne({current : true}).requestGoogle.token;
+			return Meteor.user().profile.googleTokenRequested;
 		} catch(e) {
 			return false;
 		}
@@ -146,16 +148,12 @@ Template.googleApi.helpers({
 
 	'mailCreated' : function(){
 		try{
-			var currentTheodoer = Theodoer.findOne({current : true});
+			var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 			var email = currentTheodoer.companyMail;
             
 				if(currentTheodoer.requestGoogle.status == 200 && email == currentTheodoer.requestGoogle.email){
 					return true;
-       			} else if(currentTheodoer.requestGoogle.status == undefined){
-					return false;
-				} else if(currentTheodoer.requestGoogle.status == 200){
-					return false
-				} else {
+       			} else {
 					return false;
 				}
 		} catch (error) {
@@ -164,7 +162,7 @@ Template.googleApi.helpers({
 	},
 
 	'allGroupsHaveBeenJoined' : function(){
-		var currentTheodoer = Theodoer.findOne({current : true});
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 		if (currentTheodoer.job == "Dev") {
 			var groupsToJoin = Meteor.settings.public.google.groups.dev;
 			return currentTheodoer.requestGoogle.groupsJoined.length == groupsToJoin.length;
@@ -181,11 +179,12 @@ Template.joinGoogleGroups.events({
 
 		event.preventDefault();
 
-		var currentTheodoer = Theodoer.findOne({current : true});
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
 
 		var isDev = (currentTheodoer.job == "Dev");
 
 		var email = currentTheodoer.companyMail;
+		var id = currentTheodoer._id;
 		var domain = Meteor.settings.public.google.acceptedDomainName;
 		var groups;
 
@@ -208,7 +207,7 @@ Template.joinGoogleGroups.events({
 		for(i = 0; i<groups.length; ++i){
 			groupNameWithDomain = groups[i] + '@' + domain;
 			if(userHasNotJoinedYet(groupNameWithDomain)){
-				Meteor.call("addToGoogleGroup", email,groupNameWithDomain);
+				Meteor.call("addToGoogleGroup", email,groupNameWithDomain, id);
 			}
 		}
 	}

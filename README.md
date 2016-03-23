@@ -71,4 +71,4 @@ Le fichier settings est un json renfermant toutes les configurations de l'applic
 - Dans la partie non publique :
 	N/A
 
-Pour trello, il est également nécessaire de modifier la ligne "<script src="https://api.trello.com/1/client.js?key=cdfe125685dbd8ca533cb67ee42f1c98"></script>" du fichier "the-kreator.html" ; il faut remplacer, après "key=" la chaîne par la nouvel clef d'API trello.
+Pour trello, il est également nécessaire de modifier la ligne "<script src="https://api.trello.com/1/client.js?key=cdfe125685dbd8ca533cb67ee42f1c98"></script>" du fichier "the-kreator.html" ; il faut remplacer, après "key=" la chaîne par la nouvelle clef d'API trello.

@@ -2,7 +2,7 @@
 avec la session qui a été ouverte lors du routage*/
 
 Template.UpdateForm.onRendered(function(){
-	Meteor.call("setCurrentTheodoer", Session.get("currentTheodoer"));
+	Meteor.call("setCurrentTheodoer", Session.get("currentTheodoer"), Meteor.user()._id);
 });
 
 
@@ -26,12 +26,4 @@ Template.UpdateForm.helpers({
 	isDev : function(){
 		return (Theodoer.findOne({_id : Session.get("currentTheodoer")}).job=="Dev");
 	}
-})
-
-/*Affiche si l'invitation a bien été envoyée ou non. Lors des requêtes HTTP, on enregistre dans l'objet requestGitHub :
-- La réponse du serveur dans sent
-- Le login auquel l'invitation a été envoyée.
-Ainsi, si le login est faux et qu'il faut le modifier, l'indication de réussite n'apparaît pas une fois que le login a été modifié.*/
-
-
-
+});

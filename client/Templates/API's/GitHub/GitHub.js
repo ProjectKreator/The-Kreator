@@ -11,8 +11,10 @@
 */
 
 Template.GitHub.onRendered(function(){
-	var code = document.location.toString().split("=")[1];
-	Meteor.call("GitHubRequest", code);
+	var adresse = document.location.toString().split("=");
+	var code = adresse[1].split('&')[0];
+	var idMongoTheodoer = adresse[2]
+	Meteor.call("GitHubRequest", code, idMongoTheodoer);
 	//window.close();
 
 
