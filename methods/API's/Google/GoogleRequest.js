@@ -50,11 +50,9 @@ Meteor.methods({
         prenom = clean(prenom);
         nom = clean(nom);
         var res = prenom;
-        var stopCheckEmail = false;
         
         var addLetter = function(nameTest) {
             if(nameTest.length >= (prenom.length+nom.length)){
-                stopCheckEmail = true;
                 nameTest = "";
                 return nameTest;
             }
@@ -80,9 +78,9 @@ Meteor.methods({
                         if(error.response.statusCode == 404){
                             res = nameTest + "@" + domain;
                             Theodoer.update({_id : idMongoTheodoer},
-                                {$set : {"companyMail" : res}});
+                                {$set : {"companyMail" : res, "requestGoogle.mailSuggested" : res}});
                         } else {
-                            Theodoer.update({_id : idMongoTheodoer},{$set : {"requestGoogle.email" : ""}});
+                            Theodoer.update({_id : idMongoTheodoer},{$set : {"requestGoogle.email" : "", "requestGoogle.mailSuggested" : ""}});
                         }
 
                     } else {
@@ -94,7 +92,42 @@ Meteor.methods({
         
         checkEmailApi(addLetter(res));
     },
-    
+
+    checkEmailManually: function (email, idMongoTheodoer) {
+        var clean = function(string){
+            string = string.replace(/[é|è|ê]/g, "e");
+            string = string.replace(/[î]/g, "i");
+            string = string.replace(/[ô]/g, "o");
+            string = string.replace(/[ç]/g, "c");
+            string = string.replace(/[à]/g, "a");
+            string = string.replace(/[^a-zA-Z ]/g, "");
+            string = string.toLowerCase();
+            return string;
+        };
+        var local = email.split('@')[0];
+        local = clean(local);
+        var domain = Meteor.settings.public.google.acceptedDomainName;
+        local = local + '@' + domain;
+
+        var url = "https://www.googleapis.com/admin/directory/v1/users/" + local;
+        HTTP.get(url, {
+            "params": {
+                "access_token": Meteor.user().profile.googleToken.access_token
+            },    
+        }, function(error, response){
+            if(error){
+                if(error.response.statusCode == 404){
+                    Theodoer.update({_id : idMongoTheodoer},
+                        {$set : {"companyMail" : local, "requestGoogle.mailSuggested" : local, "requestGoogle.status" : "undefined"}});
+                } else {
+                    Theodoer.update({_id : idMongoTheodoer},{$set : {"requestGoogle.status" : 404}});
+                }
+            } else {
+                Theodoer.update({_id : idMongoTheodoer}, {$set : {"requestGoogle.status" : 404}});
+            }
+        });
+    },
+
     createEmail: function (prenom, nom, mail, phone, idMongoTheodoer) {
         var accessToken = "Bearer " + Meteor.user().profile.googleToken.access_token;
         var password = Meteor.settings.google.passwordForNewUser;
@@ -118,6 +151,9 @@ Meteor.methods({
         }, function(e,r){
             if(e){
                 console.log("erreur "+e);
+                Theodoer.update({_id : idMongoTheodoer}, {
+                    $set : {"requestGoogle.status" : 409}
+                });
             } else {
                 Theodoer.update({_id : idMongoTheodoer},{
                     $set:{"companyMail" : r.data.primaryEmail, "requestGoogle.status" : r.statusCode, 

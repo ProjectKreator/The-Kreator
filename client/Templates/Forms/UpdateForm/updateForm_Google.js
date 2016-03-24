@@ -17,7 +17,7 @@ Template.StatusOfGoogleRequests.helpers({
 		var companyEmail = currentTheodoer.companyMail;
 		var status = currentTheodoer.requestGoogle.status;
 
-		if((status != 200 && status != undefined)|| currentTheodoer.requestGoogle.groupsNotJoined.length > 0){
+		if((status != 200 && status != undefined && status != 404 && status != "undefined")|| currentTheodoer.requestGoogle.groupsNotJoined.length > 0){
 			return true;
 		} else {
 			return false;
@@ -53,7 +53,7 @@ Template.StatusOfGoogleRequests.helpers({
 		var companyEmail = currentTheodoer.companyMail;
 		var status = currentTheodoer.requestGoogle.status;
 
-		if(status != 200 && status != undefined){
+		if(status != 200 && status != undefined && status != 404 && status != "undefined"){
 			return true;
 		} else {
 			return false;
@@ -94,7 +94,7 @@ Template.googleCheckEmail.events({
 
         // fonction pour checker le mail
 
-    }
+    },
 });
 
 
@@ -110,19 +110,50 @@ Template.googleCreateEmail.events({
 		var phone = currentTheodoer.phone;
 		var id = currentTheodoer._id;
 		Meteor.call("createEmail", prenom, nom, mail,phone,id);
+	},
+
+	'click [name=buttonKeepGoing]' : function(event){
+		event.preventDefault();
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
+		Theodoer.update({_id : Session.get("currentTheodoer")},{
+                    $set:{"requestGoogle.status" : 200, 
+                    "requestGoogle.email" : currentTheodoer.companyMail}});
+	},
+
+	'click [name=buttonCheckEmailManually]' : function(event){
+		event.preventDefault();
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
+		var mail = currentTheodoer.companyMail;
+		var phone = currentTheodoer.phone;
+		var id = currentTheodoer._id;
+		Meteor.call("checkEmailManually", mail,id);
 	}
 });
 
 Template.googleCreateEmail.helpers({
 	'mailNotCreated' : function(){
 		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
-		return (currentTheodoer.requestGoogle.status != 200 && currentTheodoer.companyMail != "");
+		return (currentTheodoer.requestGoogle.status != 200 && currentTheodoer.requestGoogle.status != 409 && currentTheodoer.companyMail != "");
 	},
 
 	'noMailFound' : function(){
-		return(Theodoer.findOne({_id : Session.get("currentTheodoer")}).companyMail == "");
+		return(Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.mailSuggested == "");
+	},
+
+	'errorWhileEmailCreation' : function(){
+		return (Theodoer.findOne({_id : Session.get("currentTheodoer")}).requestGoogle.status == 409);
+	},
+
+	'mailWantedDifferentFromMailSuggested' : function(){
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
+		return (currentTheodoer.companyMail != currentTheodoer.requestGoogle.mailSuggested);
+	},
+
+	'mailUnavailable' : function(){
+		var currentTheodoer = Theodoer.findOne({_id : Session.get("currentTheodoer")});
+		return currentTheodoer.requestGoogle.status == 404 && currentTheodoer.companyMail != currentTheodoer.requestGoogle.mailSuggested;
 	}
-})
+});
 
 
 Template.googleApi.helpers({

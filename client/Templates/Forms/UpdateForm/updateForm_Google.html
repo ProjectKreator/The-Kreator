@@ -86,19 +86,45 @@
 
 <template name ="googleCreateEmail">
 		{{#if mailNotCreated}}
+			{{#unless mailWantedDifferentFromMailSuggested}}
 		<div class = "alert alert-info">L'adresse mail suivante est disponible. Vous pouvez demander sa création immédiatement.</div>
+			{{/unless}}
 		{{/if}}
+
 		{{#if noMailFound}}
 		<div class ="alert alert-danger">Aucune adresse mail n'a été trouvée. Veuillez entrer manuellement une adresse mail.</div>
+		{{/if}}
+
+		{{#if errorWhileEmailCreation}}
+		<div class="alert alert-danger">Une erreur s'est produite pendant la création de l'adresse mail. Vérifiez si l'utilisateur a bien été créé sur <a href = http://admin.google.com>admin.google.com</a> (il peut être placé dans les utilisateurs suspendus). S'il n'a pas été créé, il sera nécessaire de le créer manuellement. Appuyez sur le bouton "continuer" pour passer à la suite.</div>
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-btn">
+						<button class="btn btn-default" name="buttonKeepGoing" type="button">Continuer</button>
+				</span>				
+			</div>
+		</div>
 		{{/if}}
 		<div class="form-group">
 			<div class="input-group">
 				<input type="text" name="companyMail" class="form-control" value={{companyMail}}>
 				<span class="input-group-btn">
+					{{#if mailWantedDifferentFromMailSuggested}}
+						<button class="btn btn-default" name="buttonCheckEmailManually" type="button">Vérifier la disponibilité</button>
+					{{else}}
 						<button class="btn btn-default" name="buttonCreateEmail" type="button">Créer !</button>
+					{{/if}}
+					}
+					}
 				</span>				
 			</div>
 		</div>
+
+
+		{{#if mailUnavailable}}
+		<div class = "alert alert-danger">Cette adresse n'est pas disponible.</div>
+		{{/if}}
+
 </template>
 
 <template name="joinGoogleGroups">

@@ -23,6 +23,7 @@ Meteor.methods({
 			"requestGoogle" : {
 				"token" : false,
 				"email" : undefined,
+				"mailSuggested" : undefined,
 				"status" : undefined,
 				"id" : undefined,
 				"groupsJoined" : [],

@@ -44,7 +44,7 @@ NB : ces opérations ne sont pas réalisables si la console n'a pas été autori
 - Se connecter sur http://trello.com/app-key avec un compte qui a des droits d'administration et noter la clef affichée. Contrairement à GitHub et Google, les API sont personnelles et ne peuvent pas dépendre d'une organisation.
 
 II - Configuration du fichier settings
-Le fichier settings est un json renfermant toutes les configurations de l'application. Il est séparé en deux parties : la partie "public", qui est accessible par les clients, et le reste, qui n'est accessible que par le serveur. Lors de la configuration, il est donc nécessaire, pour chaque application, de modifier la partie publique et la partie qui n'est pas publique pour ne pas oublier de réglages.
+Le fichier settings (présent à la racine du répertoire) est un json renfermant toutes les configurations de l'application. Il est séparé en deux parties : la partie "public", qui est accessible par les clients, et le reste, qui n'est accessible que par le serveur. Lors de la configuration, il est donc nécessaire, pour chaque application, de modifier la partie publique et la partie qui n'est pas publique pour ne pas oublier de réglages.
 
 	1 - API GitHub
 - Dans la partie publique : renseigner le client ID précédemment obtenu, ainsi que le nom de l'organisation qui détient l'application
@@ -72,3 +72,6 @@ Le fichier settings est un json renfermant toutes les configurations de l'applic
 	N/A
 
 Pour trello, il est également nécessaire de modifier la ligne "<script src="https://api.trello.com/1/client.js?key=cdfe125685dbd8ca533cb67ee42f1c98"></script>" du fichier "the-kreator.html" ; il faut remplacer, après "key=" la chaîne par la nouvelle clef d'API trello.
+
+III - Lancement
+Il ne reste plus qu'à installer Meteor sur le serveur, et lancer l'application, en ajoutant le réglage "--settings settings.json"
