@@ -5,9 +5,9 @@
 			"organization" : "ProjectKreator"
 		},
         "google" :{
-            "clientId" : "604282370571-g5l35uah7keg16ipv0culhtfcj08risj.apps.googleusercontent.com",
-            "redirectUrl" : "http://kreator.meteor.com/google",
-            "acceptedDomainName" : "kreatorteam.in",
+            "clientId" : "151432305494-s18085tkedk8d5j36po72c8qa4pslh5p.apps.googleusercontent.com",
+            "redirectUrl" : "http://kreator.theo.do/google",
+            "acceptedDomainName" : "theodo.fr",
             "groups" : {
 	    		"biz" : [
 	    			"biz",
