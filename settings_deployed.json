@@ -1,13 +1,13 @@
 {
 	"public" :{
 		"gitHub" :{
-			"clientId" : "dd53c748f830817dab1c",
-			"organization" : "ProjectKreator"
+			"clientId" : "4896c68464fb3db8321d",
+			"organization" : "theodo"
 		},
         "google" :{
-            "clientId" : "604282370571-g5l35uah7keg16ipv0culhtfcj08risj.apps.googleusercontent.com",
-            "redirectUrl" : "http://kreator.meteor.com/google",
-            "acceptedDomainName" : "kreatorteam.in",
+            "clientId" : "151432305494-s18085tkedk8d5j36po72c8qa4pslh5p.apps.googleusercontent.com",
+            "redirectUrl" : "http://kreator.theo.do/google",
+            "acceptedDomainName" : "theodo.fr",
             "groups" : {
 	    		"biz" : [
 	    			"biz",
@@ -27,20 +27,20 @@
                 "pxZWU77O"
             ],
             "templateBoardFormation" :{
-                "biz" : "7VeQpQrr",
-                "dev" : "7VeQpQrr"
+                "biz" : "",
+                "dev" : "AjJhxwOf"
             }
 		},
         "OpenStack" : {
-            "apiKey" : "blabla",
-            "projectID" : "blabla"
+            "apiKey" : "c3f151c9a49924b1b1cc0da84c4944687f51fb38",
+            "projectID" : "d538f0d1885a4aefefefd9be62952135941093"
         }
 	},
 	"gitHub" : {
-		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"
+		"clientSecret" : "b9e98ae93ed14ae046cb10fe3b22dfba21a72d62"
 	},
 	"google" : {
-		"secret" : "SZyzR4872NTIrsF-K8Eacmb7",
+		"secret" : "Cic1W9lD_QDD4UAFvo5Htp6N",
 		"passwordForNewUser" : "jedoischangermonmotdepasse"
 	}
 }
