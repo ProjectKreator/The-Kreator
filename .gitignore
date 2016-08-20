@@ -1,2 +1,2 @@
-doc/*
-.meteor
+.meteor/versions
+.meteor/packages
