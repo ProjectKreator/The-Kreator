@@ -1,13 +1,13 @@
 {
 	"public":{
 		"gitHub" :{
-			"clientId" : "5093e55c974e07f7d5f9",
+			"clientId" : "47667aa9c4e9527b2de0",
 			"organization" : "ProjectKreator"
 		},
         "google" :{
-            "clientId" : "563683486604-u0vj77qgfjhp8ttfgpmi58pjuqgr3fop.apps.googleusercontent.com",
-            "redirectUrl" : "http://localhost:80/google",
-            "acceptedDomainName" : "kreatorteam.in",
+            "clientId" : "572692534294-s6igbp9ksea835kmtt4gvv03pofn5qu7.apps.googleusercontent.com",
+            "redirectUrl" : "http://kreator.theo.do/google",
+            "acceptedDomainName" : "theodo.fr",
             "groups" : {
                 "biz" : [
                     "biz",
@@ -37,10 +37,10 @@
         }
     },
 	"gitHub" : {
-		"clientSecret" : "0be95f4fec096825b9b92c6b28a3fff72649adf8"
+		"clientSecret" : "3027b708ee6f75d410ff268e97e496687a56d598"
 	},
 	"google" : {
-		"secret" : "g2FoHViBsKkE6XB9wRsoUfx-",
+		"secret" : "a4fky8w5DS1Op3oRZv1gmUqC",
         "passwordForNewUser" : "jedoischangermonmotdepasse"
 	}
 }
