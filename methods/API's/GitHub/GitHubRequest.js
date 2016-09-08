@@ -17,7 +17,8 @@ Meteor.methods({
 
     //fonction d'appel de la dernière requête (PUT). Les utilisateurs sont toujours invités en temps que membres
     var addUserToOrganisation = function(token){
-      HTTP.put(URLPut, {
+			console.log('hello');
+			HTTP.put(URLPut, {
         "data": {
           "role": "member"
         },
@@ -60,6 +61,6 @@ Meteor.methods({
  				}
  			}
  		);
- 		
+
 	}
 });
