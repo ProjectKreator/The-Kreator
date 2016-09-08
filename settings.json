@@ -4,20 +4,20 @@
 			"clientId" : "47667aa9c4e9527b2de0",
 			"organization" : "ProjectKreator"
 		},
-        "google" :{
-            "clientId" : "572692534294-s6igbp9ksea835kmtt4gvv03pofn5qu7.apps.googleusercontent.com",
-            "redirectUrl" : "http://kreator.theo.do/google",
-            "acceptedDomainName" : "theodo.fr",
-            "groups" : {
-                "biz" : [
-                    "biz",
-                    "joinus"
-                ],
-                "dev" : [
-                    "dev"
-                ]
-            }
-        },
+    "google" :{
+        "clientId" : "453428311549-qopscmecd5gaufbov1chl1ok8jb611ln.apps.googleusercontent.com",
+        "redirectUrl" : "http://kreator.theo.do/google",
+        "acceptedDomainName" : "gmail.com",
+        "groups" : {
+            "biz" : [
+                "biz",
+                "joinus"
+            ],
+            "dev" : [
+                "dev"
+            ]
+        }
+    },
 		"trello" : {
             "apiKey" : "cdfe125685dbd8ca533cb67ee42f1c98",
             "organization" : "kreatortest",
@@ -40,7 +40,7 @@
 		"clientSecret" : "3027b708ee6f75d410ff268e97e496687a56d598"
 	},
 	"google" : {
-		"secret" : "a4fky8w5DS1Op3oRZv1gmUqC",
+		"secret" : "I-XSweLXdS876WwwraWcd7zr",
         "passwordForNewUser" : "jedoischangermonmotdepasse"
 	}
 }
