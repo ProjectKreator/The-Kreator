@@ -1,46 +1,46 @@
 {
-	"public" :{
+	"public":{
 		"gitHub" :{
-			"clientId" : "dd53c748f830817dab1c",
+			"clientId" : "47667aa9c4e9527b2de0",
 			"organization" : "ProjectKreator"
 		},
-        "google" :{
-            "clientId" : "604282370571-g5l35uah7keg16ipv0culhtfcj08risj.apps.googleusercontent.com",
-            "redirectUrl" : "http://kreator.meteor.com/google",
-            "acceptedDomainName" : "kreatorteam.in",
-            "groups" : {
-	    		"biz" : [
-	    			"biz",
-	    			"joinus"
-	    		],
-	    		"dev" : [
-	    			"dev"
-	    		]
-	    	}
-        },
+    "google" :{
+        "clientId" : "453428311549-qopscmecd5gaufbov1chl1ok8jb611ln.apps.googleusercontent.com",
+        "redirectUrl" : "http://kreator.theo.do/google",
+        "acceptedDomainName" : "gmail.com",
+        "groups" : {
+            "biz" : [
+                "biz",
+                "joinus"
+            ],
+            "dev" : [
+                "dev"
+            ]
+        }
+    },
 		"trello" : {
-            "apiKey" : "0bb9b0e3d13f1dc7f312c05a4f6885f4",
-			"organization" : "kreatortest",
-			"boards" : [
+            "apiKey" : "cdfe125685dbd8ca533cb67ee42f1c98",
+            "organization" : "kreatortest",
+            "boards" : [
                 "mfhpmSbM",
                 "c0kYVeB2",
                 "pxZWU77O"
             ],
             "templateBoardFormation" :{
-                "biz" : "7VeQpQrr",
-                "dev" : "7VeQpQrr"
+                "biz" : "0EZlJLCj",
+                "dev" : "0EZlJLCj"
             }
 		},
         "OpenStack" : {
             "apiKey" : "blabla",
             "projectID" : "blabla"
         }
-	},
+    },
 	"gitHub" : {
-		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"
+		"clientSecret" : "3027b708ee6f75d410ff268e97e496687a56d598"
 	},
 	"google" : {
-		"secret" : "SZyzR4872NTIrsF-K8Eacmb7",
-		"passwordForNewUser" : "jedoischangermonmotdepasse"
+		"secret" : "I-XSweLXdS876WwwraWcd7zr",
+        "passwordForNewUser" : "jedoischangermonmotdepasse"
 	}
 }
