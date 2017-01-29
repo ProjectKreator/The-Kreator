@@ -7,7 +7,7 @@ Template.UpdateForm.onRendered(function(){
 
 
 Template.UpdateForm.events({
-	//Permet de modifier automatiquement les données du Theodoer courant. Le nom du champ modifié est passé dynamiquement à 
+	//Permet de modifier automatiquement les données du Theodoer courant. Le nom du champ modifié est passé dynamiquement à
 	//la fonction d'actualisation.
 	'keyup .form-group' : function(event){
 		if(event.which == 13 || event.which==27){
@@ -25,5 +25,13 @@ Template.UpdateForm.events({
 Template.UpdateForm.helpers({
 	isDev : function(){
 		return (Theodoer.findOne({_id : Session.get("currentTheodoer")}).job=="Dev");
+	},
+
+	shouldBeDisplayedApi : function(apiName){
+		if (apiName === 'OpenStack') {
+			return Meteor.settings.public.featureToggling[apiName] && isDev();
+		}
+
+		return Meteor.settings.public.featureToggling[apiName];
 	}
 });

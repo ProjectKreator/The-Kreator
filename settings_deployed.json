@@ -1,6 +1,13 @@
 {
 	"public":{
-		"gitHub" :{
+		"featureToggling" : {
+            "googleApi": false,
+            "githubApi": false,
+            "trelloApi": false,
+            "mailingApi": false,
+            "OpenStackApi": false
+        },
+        "gitHub" :{
 			"clientId" : "47667aa9c4e9527b2de0",
 			"organization" : "ProjectKreator"
 		},
