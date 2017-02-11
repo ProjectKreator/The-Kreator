@@ -1,6 +1,6 @@
 Template.createForm.events({
 
-		// handle the form submission 
+		// handle the form submission
 		'submit form': function(event) {
 
 			// stop the form from submitting
@@ -11,12 +11,12 @@ Template.createForm.events({
 			var name = event.target.nom.value;
 			var job = event.target.job.value;
 			var email = event.target.email.value;
-            var phone = event.target.phone.value;
+			var phone = event.target.phone.value;
 			var githubaccount = event.target.comptegithub.value;
 			// create the new Theodoer
 			if(firstname != "" && name != "" && email != ""){
 				Meteor.call("createTheodoer", firstname, name, job, email, phone, githubaccount);
-			}			
+			}
 			// permet de rerouter vers la page index sans utiliser la fonction href de HTML5
 			Router.go('/index');
 		},
@@ -26,4 +26,4 @@ Template.createForm.events({
 			Router.go('/index');
 
 		}
-	}); 
+	});
