@@ -7,6 +7,20 @@
 
 	{{#if shouldBeDisplayedApi "googleApi"}}
 		{{> googleApi}}
+	{{else}}
+
+		<h2>Adresse google</h2>
+		<form>
+			<label>Email Entreprise</label>
+			<div class="form-group">
+				<div class="input-group">
+					<input type="text" name="companyMail" class="form-control" value={{companyMail}}>
+					<span class="input-group-btn">
+						<button class="btn btn-default" name="registerCompanyEmail" type="button">Enregistrer l'adresse</button>
+					</span>
+				</div>
+			</div>
+		</form>
 	{{/if}}
 
 	{{#if shouldBeDisplayedApi "trelloApi"}}

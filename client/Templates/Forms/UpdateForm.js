@@ -3,13 +3,14 @@ avec la session qui a été ouverte lors du routage*/
 
 Template.UpdateForm.onRendered(function(){
 	Meteor.call("setCurrentTheodoer", Session.get("currentTheodoer"), Meteor.user()._id);
+	var companyMail = Theodoer.findOne({_id : Session.get("currentTheodoer")}).companyMail;
 });
 
 
 Template.UpdateForm.events({
 	//Permet de modifier automatiquement les données du Theodoer courant. Le nom du champ modifié est passé dynamiquement à
 	//la fonction d'actualisation.
-	'keyup .form-group' : function(event){
+	'keyup .form-group' : function(event) {
 		if(event.which == 13 || event.which==27){
 			event.target.blur();
 		} else {
@@ -19,8 +20,16 @@ Template.UpdateForm.events({
 			setModifier.$set[target] = value;
 			Theodoer.update(Session.get('currentTheodoer'), setModifier);
 		}
-	}
+	},
+
+	'companyMail': function(event) {
+			var setModifier = { $set: {} };
+			setModifier.$setcompanyMail = event.target.companyMail.value;
+			Theodoer.update(Session.get('currentTheodoer'), setModifier);
+	},
 });
+
+
 
 Template.UpdateForm.helpers({
 	isDev : function(){
