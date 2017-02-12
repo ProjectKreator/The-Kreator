@@ -3,7 +3,7 @@
 		"featureToggling" : {
             "googleApi": false,
             "githubApi": false,
-            "trelloApi": false,
+            "trelloApi": true,
             "mailingApi": false,
             "OpenStackApi": false
         },
