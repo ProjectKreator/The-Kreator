@@ -3,7 +3,7 @@
         "featureToggling" : {
             "googleApi": false,
             "githubApi": false,
-            "trelloApi": false,
+            "trelloApi": true,
             "mailingApi": false,
             "OpenStackApi": false
         },
@@ -34,8 +34,8 @@
                 "pxZWU77O"
             ],
             "templateBoardFormation" :{
-                "biz" : "0EZlJLCj",
-                "dev" : "0EZlJLCj"
+                "biz" : "7VeQpQrr",
+                "dev" : "7VeQpQrr"
             }
 		},
         "OpenStack" : {

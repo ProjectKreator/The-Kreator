@@ -5,6 +5,8 @@ Meteor.methods({
 		var adresse = "https://api.trello.com/1/organizations/"+organization+"/members?key=" + apiKeyTrello + "&token=" + token;
 		var name = prenom + " " + nom;
 		Theodoer.update({_id : idMongoTheodoer},{$set:{"requestTrello.joinOrganizationAttempted" : true}});
+		console.log(email, name);
+
 		HTTP.put(adresse,{
 			data:{
 				email: email,
@@ -23,7 +25,7 @@ Meteor.methods({
 			}
 		);
 	},
-    
+
     inviteToBoardTrello : function(token, email, prenom, nom, board, isPersonalBoard, idMongoTheodoer){
     	var apiKeyTrello = Meteor.settings.public.trello.apiKey ;
 		var adresse = "https://api.trello.com/1/boards/"+board+"/members?key=" + apiKeyTrello + "&token=" + token;
@@ -50,7 +52,7 @@ Meteor.methods({
             }
 		);
 	},
-    
+
     getIdAndCopyBoardTrello : function(token, boardId, boardName, email, prenom, nom, idMongoTheodoer){
     	var apiKeyTrello = Meteor.settings.public.trello.apiKey ;
 		var adresseGet = "https://api.trello.com/1/boards/"+ boardId +"?key=" + apiKeyTrello + "&token=" + token;
@@ -74,7 +76,7 @@ Meteor.methods({
                                     var newBoardId = response.data.shortUrl.split(".com/b/")[1];
                                     console.log(newBoardId);
                                     Meteor.call("inviteToBoardTrello", token, email, prenom, nom, newBoardId, true, idMongoTheodoer);
-                                    
+
                                 }
                             }
                         );
@@ -82,5 +84,5 @@ Meteor.methods({
             }
 		);
 	}
-    
+
 });
