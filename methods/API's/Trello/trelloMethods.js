@@ -5,7 +5,6 @@ Meteor.methods({
 		var adresse = "https://api.trello.com/1/organizations/"+organization+"/members?key=" + apiKeyTrello + "&token=" + token;
 		var name = prenom + " " + nom;
 		Theodoer.update({_id : idMongoTheodoer},{$set:{"requestTrello.joinOrganizationAttempted" : true}});
-		console.log(email, name);
 
 		HTTP.put(adresse,{
 			data:{
