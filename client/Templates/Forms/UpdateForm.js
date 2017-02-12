@@ -42,5 +42,13 @@ Template.UpdateForm.helpers({
 		}
 
 		return Meteor.settings.public.featureToggling[apiName];
-	}
+	},
+
+	companyMailSet : function(){
+		if (Theodoer.findOne({_id : Session.get("currentTheodoer")}).companyMail) {
+			return "Adresse email entreprise enregistrée";
+		} else {
+			return null;
+		}
+	},
 });
