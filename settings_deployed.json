@@ -2,7 +2,7 @@
 	"public":{
 		"featureToggling" : {
             "googleApi": false,
-            "githubApi": true,
+            "githubApi": false,
             "trelloApi": true,
             "mailingApi": false,
             "OpenStackApi": false
