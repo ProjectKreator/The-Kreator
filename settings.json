@@ -2,7 +2,7 @@
 	"public":{
         "featureToggling" : {
             "googleApi": false,
-            "githubApi": false,
+            "githubApi": true,
             "trelloApi": true,
             "mailingApi": false,
             "OpenStackApi": false
@@ -13,7 +13,7 @@
 		},
         "google" :{
             "clientId" : "572692534294-s6igbp9ksea835kmtt4gvv03pofn5qu7.apps.googleusercontent.com",
-            "redirectUrl" : "http://localhost:80/google",
+            "redirectUrl" : "http://localhost:8080/google",
             "acceptedDomainName" : "theodo.fr",
             "groups" : {
                 "biz" : [

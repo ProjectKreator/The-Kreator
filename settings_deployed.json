@@ -2,7 +2,7 @@
 	"public":{
 		"featureToggling" : {
             "googleApi": false,
-            "githubApi": false,
+            "githubApi": true,
             "trelloApi": true,
             "mailingApi": false,
             "OpenStackApi": false
@@ -14,7 +14,7 @@
         "google" :{
             "clientId" : "453428311549-qopscmecd5gaufbov1chl1ok8jb611ln.apps.googleusercontent.com",
             "redirectUrl" : "http://kreator.theo.do/google",
-            "acceptedDomainName" : "gmail.com",
+            "acceptedDomainName" : "theodo.fr",
             "groups" : {
                 "biz" : [
                     "biz",

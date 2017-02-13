@@ -29,6 +29,7 @@ Template.gitHubInformations.events({
 	'click [name=windowGitHubForm]': function(event){
 		event.preventDefault();
 		var state = Theodoer.findOne({_id : Session.get("currentTheodoer")})._id;
+
 		var adresse = 'https://github.com/login/oauth/authorize?client_id=' + Meteor.settings.public.gitHub.clientId +'&scope=admin:org' + '&state=' + state;
 		window.open(adresse,'_blank','newwindow', 'width=100', 'height=50');
 	},
