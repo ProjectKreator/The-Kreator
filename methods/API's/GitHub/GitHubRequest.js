@@ -3,14 +3,10 @@
 Meteor.methods({
 	GitHubRequest : function(adresse, idMongoTheodoer){
 
-
     var loginGitHub = Theodoer.findOne({_id : idMongoTheodoer}).comptegithub;
     var organisation = Meteor.settings.public.gitHub.organization;
     var clientId = Meteor.settings.public.gitHub.clientId;
     var clientSecret = Meteor.settings.gitHub.clientSecret;
-
-
-
 
     //URL de la dernière requête (PUT)
     var URLPut = "https://api.github.com/orgs/" + organisation + "/memberships/" + loginGitHub ;
@@ -27,9 +23,10 @@ Meteor.methods({
         }
       }, function(error, response){
         if(error){
-
+          console.log(error);
         }
         else {
+          console.log(response);
           var res = response.headers.status;
           res = res.toString();
           Theodoer.update({_id : idMongoTheodoer},
@@ -51,15 +48,16 @@ Meteor.methods({
   			}
   		}, function(error, response){
   			if(error){
+          console.log(error);
   			} else {
+          console.log(error);
   				var access_token = response.content.toString();
 					access_token = access_token.split("=")[1];
  					access_token = access_token.split("&")[0];
           addUserToOrganisation('token ' + access_token);
-
  				}
  			}
  		);
- 		
+
 	}
 });
