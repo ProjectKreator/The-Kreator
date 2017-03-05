@@ -1,7 +1,19 @@
 <template name="Formulaire">
-	
+
 	<h1><strong>Formulaire de création du nouveau Theodoer</strong></h1>
-	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<span><i><strong>**Attention** :</strong> En validant ce formulaire aucune requête ne sera lancée vers
+					les différentes APIs gérées par Kreator. La validation écrit seulement une entrée dans la base de données de
+					de l'application.<br>
+					<br>
+					Pour créer les différents comptes, rendez-vous sur la page d'accueil et cliquez sur le nom du nouvel arrivantet ainsi arriver sur la page de création des comptes.<br><br>
+				</i></span>
+				</div>
+			</div>
+		</div>
+
 	{{#if currentUser}}
 		<div class="container">
 			<div class="row">
@@ -9,7 +21,7 @@
 					{{> createForm }}
 				</div>
 			</div>
-		</div>  
-	
-	{{/if}}	 
+		</div>
+
+	{{/if}}
 </template>

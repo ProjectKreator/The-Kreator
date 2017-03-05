@@ -6,14 +6,12 @@
 
 	Doc : https://developer.github.com/v3/oauth/#web-application-flow
 
-
-
 */
 
 Template.GitHub.onRendered(function(){
 	var adresse = document.location.toString().split("=");
 	var code = adresse[1].split('&')[0];
-	var idMongoTheodoer = adresse[2]
+	var idMongoTheodoer = adresse[2];
 	Meteor.call("GitHubRequest", code, idMongoTheodoer);
 	window.close();
 });
