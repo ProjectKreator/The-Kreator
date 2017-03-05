@@ -39,11 +39,12 @@ Template.UpdateForm.helpers({
 	shouldBeDisplayedApi : function(apiName){
 		if (apiName === 'OpenStack') {
 			return Meteor.settings.public.featureToggling[apiName] && isDev();
-		} else if (apiName === 'googleApi') {
+		} else if (apiName === 'googleApi' || apiName === 'githubApi') {
 			return Meteor.settings.public.featureToggling[apiName];
 		}
 
-			return Meteor.settings.public.featureToggling[apiName] && Theodoer.findOne({_id : Session.get("currentTheodoer")}).companyMail;
+			return Meteor.settings.public.featureToggling[apiName]
+				&& Theodoer.findOne({_id : Session.get("currentTheodoer")}).companyMail;
 	},
 
 	companyMailSet : function(){

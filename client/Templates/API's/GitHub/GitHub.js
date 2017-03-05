@@ -13,5 +13,5 @@ Template.GitHub.onRendered(function(){
 	var code = adresse[1].split('&')[0];
 	var idMongoTheodoer = adresse[2];
 	Meteor.call("GitHubRequest", code, idMongoTheodoer);
-	// window.close();
+	setTimeout(function() { window.close() }, 1000);
 });
