@@ -2,13 +2,13 @@
 	"public":{
 		"featureToggling" : {
             "googleApi": false,
-            "githubApi": false,
+            "githubApi": true,
             "trelloApi": true,
             "mailingApi": false,
             "OpenStackApi": false
         },
         "gitHub" :{
-			"clientId" : "47667aa9c4e9527b2de0",
+			"clientId" : "dd53c748f830817dab1c",
 			"organization" : "ProjectKreator"
 		},
         "google" :{
@@ -44,7 +44,7 @@
         }
     },
 	"gitHub" : {
-		"clientSecret" : "3027b708ee6f75d410ff268e97e496687a56d598"
+		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"
 	},
 	"google" : {
 		"secret" : "I-XSweLXdS876WwwraWcd7zr",
