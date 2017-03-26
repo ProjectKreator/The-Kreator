@@ -8,8 +8,8 @@
             "OpenStackApi": false
         },
         "gitHub" :{
-			"clientId" : "dd53c748f830817dab1c",
-			"organization" : "ProjectKreator"
+			"clientId" : "4896c68464fb3db8321d",
+			"organization" : "theodo"
 		},
         "google" :{
             "clientId" : "453428311549-qopscmecd5gaufbov1chl1ok8jb611ln.apps.googleusercontent.com",
@@ -44,7 +44,7 @@
         }
     },
 	"gitHub" : {
-		"clientSecret" : "2401414ce85b926fea4f876eb306de577b13bbb3"
+		"clientSecret" : "b9e98ae93ed14ae046cb10fe3b22dfba21a72d62"
 	},
 	"google" : {
 		"secret" : "I-XSweLXdS876WwwraWcd7zr",
