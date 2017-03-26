@@ -27,15 +27,15 @@
         },
 		"trello" : {
             "apiKey" : "0bb9b0e3d13f1dc7f312c05a4f6885f4",
-            "organization" : "kreatortest",
+            "organization" : "theodo",
             "boards" : [
-                "mfhpmSbM",
-                "c0kYVeB2",
-                "pxZWU77O"
+                "vGx6ES6i",
+                "U6cOd4aX",
+                "7ws4xmhr"
             ],
             "templateBoardFormation" :{
-                "biz" : "7VeQpQrr",
-                "dev" : "7VeQpQrr"
+                "biz" : "pISgSXsU",
+                "dev" : "pISgSXsU"
             }
 		},
         "OpenStack" : {
