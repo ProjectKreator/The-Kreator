@@ -1,5 +1,4 @@
 Template.createForm.events({
-
 		// handle the form submission
 		'submit form': function(event) {
 
@@ -15,15 +14,14 @@ Template.createForm.events({
 			var githubaccount = event.target.comptegithub.value;
 			// create the new Theodoer
 			if(firstname != "" && name != "" && email != ""){
-				Meteor.call("createTheodoer", firstname, name, job, email, phone, githubaccount);
+				Meteor.call("createTheodoer", firstname, name, job, email, phone, githubaccount, function(error, idNewTheodoer) {
+					Session.set('theodoerJustCreated', true);
+					Router.go(`/Theodoer/${idNewTheodoer}`);
+				});
 			}
-			// permet de rerouter vers la page index sans utiliser la fonction href de HTML5
-			Router.go('/index');
 		},
 
 		'click [name=cancel]' : function() {
-
-			Router.go('/index');
-
+			Router.go('/index/');
 		}
 	});

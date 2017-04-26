@@ -1,5 +1,7 @@
 <template name="UpdateForm">
-	{{> mainInformations}}
+	{{#if theodoerNotJustCreated }}
+		{{> mainInformations}}
+	{{/if}}
 
 	{{#if shouldBeDisplayedApi "githubApi"}}
 		{{> gitHubInformations}}
@@ -12,9 +14,19 @@
 		<h2>Adresse google</h2>
 		<form>
 			<label>Email Entreprise</label>
+			<br>
+			<span><i>
+				Entrez ici l'email google que vous avez créé pour le nouveau Theodoer<br>
+				Une fois sauvegardée vous pourrez relier le theodo à l'organisation theodo sur trello
+				et l'inviter à certains boards
+				<br><br>
+			</i></span>
 			<div class="form-group">
 				<div class="input-group">
 					<input type="text" name="companyMail" class="form-control" value={{companyMail}}>
+					<span class="input-group-btn">
+						<button class="btn btn-default" name="saveCompanyMail" type="button">Sauvegarder l'adresse mail google du Theodoer</button>
+					</span>
 				</div>
 			</div>
 		</form>

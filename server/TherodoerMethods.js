@@ -1,13 +1,13 @@
 Meteor.methods({
-	
+
 	createTheodoer: function (firstname, name, job, email, phone, githubaccount) {
 		// Make sure the user is logged in before creating a theodoer
 		if (! Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
 		}
 		var currentUser = Meteor.userId();
-		
-		Theodoer.insert({
+
+		return Theodoer.insert({
 			"createdBy" : currentUser,
 			"prenom": firstname,
 			"nom": name,
@@ -38,6 +38,13 @@ Meteor.methods({
 			"mailsSent" : {
 				"mailPerso" : false,
 				"mailPro" : false
+			}
+		}, function (err, idNewTheodoer){
+			if (err) {
+				return err;
+			}
+			if (idNewTheodoer) {
+				return idNewTheodoer;
 			}
 		});
 	},

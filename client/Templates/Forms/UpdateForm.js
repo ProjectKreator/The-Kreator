@@ -1,9 +1,21 @@
 /*Au moment du rendu du template, on passe à true l'attribut current du Theodoer courant, dont l'ID est obtenue
 avec la session qui a été ouverte lors du routage*/
+Template.UpdateForm.onCreated(function () {
+	if (Session.get('theodoerJustCreated')) {
+		this.theodoerJustCreated = true;
+	} else {
+		this.theodoerJustCreated = false;
+	}
+});
 
 Template.UpdateForm.onRendered(function(){
 	Meteor.call("setCurrentTheodoer", Session.get("currentTheodoer"), Meteor.user()._id);
 	var companyMail = Theodoer.findOne({_id : Session.get("currentTheodoer")}).companyMail;
+});
+
+Template.UpdateForm.onDestroyed(function(){
+	Session.set('theodoerJustCreated', false);
+	this.theodoerJustCreated = false;
 });
 
 
@@ -22,14 +34,12 @@ Template.UpdateForm.events({
 		}
 	},
 
-	'companyMail': function(event) {
+	'click [name=saveCompanyMail]': function (event) {
 			var setModifier = { $set: {} };
 			setModifier.$setcompanyMail = event.target.companyMail.value;
 			Theodoer.update(Session.get('currentTheodoer'), setModifier);
 	},
 });
-
-
 
 Template.UpdateForm.helpers({
 	isDev : function(){
@@ -45,6 +55,10 @@ Template.UpdateForm.helpers({
 
 			return Meteor.settings.public.featureToggling[apiName]
 				&& Theodoer.findOne({_id : Session.get("currentTheodoer")}).companyMail;
+	},
+
+	theodoerNotJustCreated : function() {
+		return !Template.instance().theodoerJustCreated;
 	},
 
 	companyMailSet : function(){
