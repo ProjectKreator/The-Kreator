@@ -203,7 +203,6 @@ Template.TrelloInviteToBoards.events({
             }
         }
 
-        console.log("stamp1");
 		for(i = 0; i<boards.length; ++i){
             // on vérifie que le Theodoer n'a pas déjà été invité au board
             if (!isAlreadyInvited(boards[i], currentTheodoer)) {
